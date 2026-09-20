@@ -33,6 +33,16 @@ For the design reasoning distilled to principles, see
 
 ---
 
+## Release records
+
+Not phase reports — records of the release step itself.
+
+| Record | What it covers |
+| --- | --- |
+| [v1.0-publication-report.md](v1.0-publication-report.md) | GitHub publication & job-portfolio finalization: repository audit, safety audit, git initialisation, first commit, tag, validation matrix, and the manual GitHub actions that remain. |
+
+---
+
 ## How to read these reports
 
 Two conventions run through all of them, and they are deliberate:

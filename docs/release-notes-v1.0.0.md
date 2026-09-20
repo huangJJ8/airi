@@ -10,7 +10,7 @@ experiments, evidence-driven reflection, and governed metric versions.
 
 This is the first public release. AIRI v1.0.0 is **feature-complete by design** —
 the platform is frozen, and future capability work lives in the
-[Roadmap](../../README.md#roadmap) rather than in the release.
+[Roadmap](../README.md#roadmap) rather than in the release.
 
 ---
 
