@@ -1,0 +1,3 @@
+SELECT {{ entity_key }}, bad_flag, dt
+FROM {{ database }}.{{ table }}
+WHERE dt = '{{ partition_value }}'

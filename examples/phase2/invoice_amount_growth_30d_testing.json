@@ -1,0 +1,204 @@
+{
+  "execution": {
+    "artifact_id": "e218114d-4db1-4fa4-8f7b-e0c6d027aec7",
+    "approval_id": "ac129f1e-d87d-42c2-b03e-8ee06b2c0b14",
+    "execution_profile": "spark_test",
+    "max_rows": 100,
+    "timeout_seconds": 60,
+    "execution_run_id": "20461d38-95d8-4ef1-84cf-7ad0612981b2",
+    "workflow_run_id": "8318df2e-c630-4cda-a07e-f2a53146d2d4",
+    "request_id": "b9bb9a51625c4248aca9393c8f605a4d",
+    "profile_version": "1.0.0",
+    "engine": "spark_sql",
+    "execution_context": {
+      "anchor_time": "2026-09-09T00:00:00+08:00",
+      "timezone": "Asia/Shanghai"
+    },
+    "sql_hash": "e1aa86c72607b2ce4d39651eb45d56a84248bbbc252899f169101dc833ab19d2",
+    "status": "success",
+    "started_at": "2026-09-10T08:06:18.929532Z",
+    "finished_at": "2026-09-10T08:06:18.938105Z",
+    "duration_ms": 1.1972000029345509,
+    "failure_category": null,
+    "error_message": null,
+    "columns": [
+      {
+        "name": "entity_id",
+        "type": "string"
+      },
+      {
+        "name": "current_amount",
+        "type": "double"
+      },
+      {
+        "name": "previous_amount",
+        "type": "double"
+      },
+      {
+        "name": "invoice_amount_growth_30d",
+        "type": "double"
+      }
+    ],
+    "rows": [
+      {
+        "entity_id": null,
+        "current_amount": 20,
+        "previous_amount": 10,
+        "invoice_amount_growth_30d": 1.0
+      },
+      {
+        "entity_id": "A",
+        "current_amount": 300,
+        "previous_amount": 100,
+        "invoice_amount_growth_30d": 2.0
+      },
+      {
+        "entity_id": "B",
+        "current_amount": 50,
+        "previous_amount": 100,
+        "invoice_amount_growth_30d": -0.5
+      },
+      {
+        "entity_id": "C",
+        "current_amount": 100,
+        "previous_amount": 100,
+        "invoice_amount_growth_30d": 0.0
+      },
+      {
+        "entity_id": "CURRENT_ONLY",
+        "current_amount": 25,
+        "previous_amount": 0,
+        "invoice_amount_growth_30d": null
+      },
+      {
+        "entity_id": "ZERO",
+        "current_amount": -10,
+        "previous_amount": 0,
+        "invoice_amount_growth_30d": null
+      },
+      {
+        "entity_id": "PREVIOUS_ONLY",
+        "current_amount": 0,
+        "previous_amount": 20,
+        "invoice_amount_growth_30d": -1.0
+      }
+    ],
+    "row_count": 7,
+    "truncated": false,
+    "warnings": []
+  },
+  "report": {
+    "test_run_id": "48e54bf8-192a-4098-a4e9-e92bca46506c",
+    "execution_run_id": "20461d38-95d8-4ef1-84cf-7ad0612981b2",
+    "artifact_id": "e218114d-4db1-4fa4-8f7b-e0c6d027aec7",
+    "status": "passed_with_warnings",
+    "total": 6,
+    "passed": 5,
+    "warnings": 1,
+    "failed": 0,
+    "skipped": 0,
+    "created_at": "2026-09-10T08:06:18.946161Z",
+    "finished_at": "2026-09-10T08:06:18.946161Z",
+    "plan": {
+      "test_plan_id": "bc0f3470-8595-45d2-990c-3f2d5e47e1b3",
+      "artifact_id": "e218114d-4db1-4fa4-8f7b-e0c6d027aec7",
+      "execution_run_id": "20461d38-95d8-4ef1-84cf-7ad0612981b2",
+      "tests": [
+        {
+          "test_case_id": "3bf111fe-164d-48ff-8da9-a6b8f8d205bc",
+          "type": "schema",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "d9dbade3-8e9f-4883-8682-074252bb642d",
+          "type": "null",
+          "severity": "warning"
+        },
+        {
+          "test_case_id": "20f3f2f9-6d3a-47e9-a295-ae98c33cf177",
+          "type": "duplicate",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "0ca7a9a4-c11e-416b-bf28-2f5a26181e4f",
+          "type": "window",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "b25a0db0-f766-47fd-a3aa-b4466a239b5e",
+          "type": "boundary",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "1bb6039d-8204-4f42-8947-9a39524c3d03",
+          "type": "reconciliation",
+          "severity": "error"
+        }
+      ]
+    },
+    "results": [
+      {
+        "test_case_id": "3bf111fe-164d-48ff-8da9-a6b8f8d205bc",
+        "type": "schema",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "d9dbade3-8e9f-4883-8682-074252bb642d",
+        "type": "null",
+        "severity": "warning",
+        "status": "warning",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Observed 1 null entity rows",
+        "details": {}
+      },
+      {
+        "test_case_id": "20f3f2f9-6d3a-47e9-a295-ae98c33cf177",
+        "type": "duplicate",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "0ca7a9a4-c11e-416b-bf28-2f5a26181e4f",
+        "type": "window",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "b25a0db0-f766-47fd-a3aa-b4466a239b5e",
+        "type": "boundary",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "SQLite boundary probes passed; not live Spark evidence",
+        "details": {}
+      },
+      {
+        "test_case_id": "1bb6039d-8204-4f42-8947-9a39524c3d03",
+        "type": "reconciliation",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      }
+    ],
+    "classifications": [],
+    "requires_human_review": true
+  }
+}

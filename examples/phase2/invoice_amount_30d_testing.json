@@ -1,0 +1,178 @@
+{
+  "execution": {
+    "artifact_id": "b0f99dcd-ec5c-40d1-81c8-09ed0be32cd6",
+    "approval_id": "3742a449-975b-40cd-b736-e86fbf28bae3",
+    "execution_profile": "spark_test",
+    "max_rows": 100,
+    "timeout_seconds": 60,
+    "execution_run_id": "855b0ced-e926-47d2-a6c8-8da9927d3ab6",
+    "workflow_run_id": "b5c5d241-5cef-4371-bd8b-f0c19776e1ff",
+    "request_id": "124c39c335ca484883c6e05e8a7da16d",
+    "profile_version": "1.0.0",
+    "engine": "spark_sql",
+    "execution_context": {
+      "anchor_time": "2026-09-09T00:00:00+08:00",
+      "timezone": "Asia/Shanghai"
+    },
+    "sql_hash": "96d8e189f4ee157c1e7d0ec061990ec40fa7d76e397b3f53a5c5e20dbe5e8141",
+    "status": "success",
+    "started_at": "2026-09-10T08:06:18.549497Z",
+    "finished_at": "2026-09-10T08:06:18.557508Z",
+    "duration_ms": 0.6443000020226464,
+    "failure_category": null,
+    "error_message": null,
+    "columns": [
+      {
+        "name": "entity_id",
+        "type": "string"
+      },
+      {
+        "name": "invoice_amount_30d",
+        "type": "double"
+      }
+    ],
+    "rows": [
+      {
+        "entity_id": null,
+        "invoice_amount_30d": 20
+      },
+      {
+        "entity_id": "A",
+        "invoice_amount_30d": 300
+      },
+      {
+        "entity_id": "B",
+        "invoice_amount_30d": 50
+      },
+      {
+        "entity_id": "C",
+        "invoice_amount_30d": 100
+      },
+      {
+        "entity_id": "CURRENT_ONLY",
+        "invoice_amount_30d": 25
+      },
+      {
+        "entity_id": "ZERO",
+        "invoice_amount_30d": -10
+      }
+    ],
+    "row_count": 6,
+    "truncated": false,
+    "warnings": []
+  },
+  "report": {
+    "test_run_id": "9162f762-e041-456c-9b56-78fd22c05c76",
+    "execution_run_id": "855b0ced-e926-47d2-a6c8-8da9927d3ab6",
+    "artifact_id": "b0f99dcd-ec5c-40d1-81c8-09ed0be32cd6",
+    "status": "passed_with_warnings",
+    "total": 6,
+    "passed": 5,
+    "warnings": 1,
+    "failed": 0,
+    "skipped": 0,
+    "created_at": "2026-09-10T08:06:18.565543Z",
+    "finished_at": "2026-09-10T08:06:18.565543Z",
+    "plan": {
+      "test_plan_id": "47e2a24a-c5f8-4f66-9439-1d03120d534d",
+      "artifact_id": "b0f99dcd-ec5c-40d1-81c8-09ed0be32cd6",
+      "execution_run_id": "855b0ced-e926-47d2-a6c8-8da9927d3ab6",
+      "tests": [
+        {
+          "test_case_id": "0864cd23-ca50-474c-af42-c8d2aacab862",
+          "type": "schema",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "1a074c62-e35e-456a-9872-c0647586c610",
+          "type": "null",
+          "severity": "warning"
+        },
+        {
+          "test_case_id": "9cf9720c-ff0c-43d7-ab3c-86e1f423943d",
+          "type": "duplicate",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "fd2bfb6e-bb7f-4047-89f7-c31adbf6be21",
+          "type": "window",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "2d5aa9f8-fc53-457f-b45d-fd84cb9aff29",
+          "type": "boundary",
+          "severity": "error"
+        },
+        {
+          "test_case_id": "29023f63-dc66-47b1-ab86-b162f167193e",
+          "type": "reconciliation",
+          "severity": "error"
+        }
+      ]
+    },
+    "results": [
+      {
+        "test_case_id": "0864cd23-ca50-474c-af42-c8d2aacab862",
+        "type": "schema",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "1a074c62-e35e-456a-9872-c0647586c610",
+        "type": "null",
+        "severity": "warning",
+        "status": "warning",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Observed 1 null entity rows",
+        "details": {}
+      },
+      {
+        "test_case_id": "9cf9720c-ff0c-43d7-ab3c-86e1f423943d",
+        "type": "duplicate",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "fd2bfb6e-bb7f-4047-89f7-c31adbf6be21",
+        "type": "window",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      },
+      {
+        "test_case_id": "2d5aa9f8-fc53-457f-b45d-fd84cb9aff29",
+        "type": "boundary",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "SQLite boundary probes passed; not live Spark evidence",
+        "details": {}
+      },
+      {
+        "test_case_id": "29023f63-dc66-47b1-ab86-b162f167193e",
+        "type": "reconciliation",
+        "severity": "error",
+        "status": "passed",
+        "failure_category": null,
+        "expected_summary": "Conform to approved metric semantics",
+        "actual_summary": "Check passed",
+        "details": {}
+      }
+    ],
+    "classifications": [],
+    "requires_human_review": true
+  }
+}

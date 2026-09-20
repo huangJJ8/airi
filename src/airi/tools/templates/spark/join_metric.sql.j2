@@ -1,0 +1,9 @@
+SELECT
+    {{ base_alias }}.`{{ entity_field }}` AS entity_id,
+    COUNT(DISTINCT {{ value_alias }}.`{{ value_field }}`) AS `{{ metric_code }}`
+FROM {% if source_catalog %}`{{ source_catalog }}`.{% endif %}`{{ source_database }}`.`{{ source_table }}` AS {{ base_alias }}
+{% for join in joins %}{{ join.join_type | upper }} JOIN {% if join.source_catalog %}`{{ join.source_catalog }}`.{% endif %}`{{ join.source_database }}`.`{{ join.source_table }}` AS {{ join.alias }}
+    ON {% for condition in join.conditions %}{{ condition.left_alias }}.`{{ condition.left_field }}` = {{ condition.right_alias }}.`{{ condition.right_field }}`{% if not loop.last %} AND {% endif %}{% endfor %}
+{% endfor %}WHERE {% for exclusion in exclusions %}{{ exclusion.left_alias }}.`{{ exclusion.left_field }}` <> {{ exclusion.right_alias }}.`{{ exclusion.right_field }}`{% if not loop.last %} AND {% endif %}{% endfor %}
+
+GROUP BY {{ base_alias }}.`{{ entity_field }}`;

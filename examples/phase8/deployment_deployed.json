@@ -1,0 +1,413 @@
+{
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+  "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+  "metric_key": "invoice_amount",
+  "version": "2.0.0",
+  "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+  "environment_id": "prod_synth",
+  "status": "deployed",
+  "package": {
+    "deployment_package_id": "261053a5-822d-4912-88f5-2ebb626474cd",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "metric_key": "invoice_amount",
+    "version": "2.0.0",
+    "metric_version_content_hash": "d1ea7e775ee3423eea383491db2ad34b7213283e5024f8008d9839f010af6d28",
+    "metric_ir": {
+      "schema_version": "1.0.0",
+      "name": "invoice_amount_90d",
+      "display_name": "近90天企业开票金额",
+      "description": "统计企业近90天开票金额之和",
+      "entity_type": "enterprise",
+      "entity_key": "seller_tax_no",
+      "partition_field": "dt",
+      "source": {
+        "catalog": null,
+        "database": "c_db",
+        "table": "source_fp_jdc_view"
+      },
+      "aggregation": {
+        "function": "sum",
+        "field": "invoice_amt"
+      },
+      "dimensions": [],
+      "filters": [],
+      "window": {
+        "size": 90,
+        "unit": "day",
+        "time_field": "invoice_date",
+        "timezone": "Asia/Shanghai"
+      }
+    },
+    "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+    "artifact_id": "0820b649-8eec-441c-a3cd-4c7708c9cb13",
+    "artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+    "sql": "SELECT\n    `seller_tax_no` AS entity_id,\n    SUM(`invoice_amt`) AS `invoice_amount_90d`\nFROM `c_db`.`source_fp_jdc_view`\nWHERE\n    `invoice_date` >= DATE '2026-06-11'\n    AND `invoice_date` < DATE '2026-09-09'\nGROUP BY `seller_tax_no`;\n",
+    "sql_hash": "3909c32cbe4df113a5212bc289eb372707be66d3c61e02929d04c086d5efe75b",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "release_review_id": "c7ef0135-efde-44c0-aac7-47b6935ee7aa",
+    "release_validation_report_hash": "1321ad7b3dc4c32d8c45f6859e2df99fe04dc824e09489dfb994b849a30ce9c1",
+    "environment_id": "prod_synth",
+    "environment_profile_hash": "cbcc31da20692e37a30e1432127cc979916d64dd55ebd4f1ea144515ec7244a4",
+    "environment_fingerprint_hash": null,
+    "synthetic_data": true,
+    "content_hash": "7679d5f5141eab102e85d5001dcf20cf4a813ae0e6d4ba72b68cea6db24c89e5",
+    "created_at": "2026-09-17T06:21:22.764588Z"
+  },
+  "plan": {
+    "deployment_plan_id": "859bf81d-39ef-447a-8dcd-827d41f8d388",
+    "package_id": "261053a5-822d-4912-88f5-2ebb626474cd",
+    "target_environment": "prod_synth",
+    "expected_active_version": "2.0.0",
+    "deployment_strategy": "shadow",
+    "cutover_mode": "manual",
+    "preflight_checks": [
+      "environment_verified",
+      "environment_validation",
+      "release_approved",
+      "release_evidence",
+      "package_integrity",
+      "adapter_read_only",
+      "shadow_passed"
+    ],
+    "synthetic_data": true,
+    "created_at": "2026-09-17T06:21:22.768588Z"
+  },
+  "deployment_policy": {
+    "version": "1.0.0",
+    "require_environment_verification": true,
+    "require_release_approval": true,
+    "require_preflight": true,
+    "require_production_shadow": true,
+    "require_human_deployment_review": true,
+    "require_authenticated_deployer": true,
+    "shadow_write_business_output": false,
+    "automatic_rollback": false,
+    "cutover_mode": "manual"
+  },
+  "monitoring_policy": {
+    "version": "1.1.0",
+    "provenance": "airi-default-monitoring-policy",
+    "window_hours": 24,
+    "max_execution_failure_rate": 0.2,
+    "latency_review_above_ms": 600000,
+    "coverage_drop_review": 0.05,
+    "null_rate_increase_review": 0.05,
+    "duplicate_rate_review": 0.02,
+    "psi_review_above": 0.2,
+    "psi_critical_above": 0.35,
+    "missing_snapshot_hours": 48,
+    "psi_epsilon": 0.0001,
+    "telemetry_fresh_hours": 1,
+    "telemetry_stale_hours": 24
+  },
+  "preflight": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "status": "passed",
+    "checks": [
+      {
+        "name": "environment_verified",
+        "status": "passed",
+        "detail": "kind=production; verified=True; deployment_enabled=True"
+      },
+      {
+        "name": "environment_validation",
+        "status": "passed",
+        "detail": "verification_source=synthetic_profile; run=None"
+      },
+      {
+        "name": "environment_fingerprint",
+        "status": "passed",
+        "detail": "no runtime fingerprint is required for a synthetic environment"
+      },
+      {
+        "name": "adapter_authoritative",
+        "status": "passed",
+        "detail": "adapter=mock; authoritative=False"
+      },
+      {
+        "name": "release_approved",
+        "status": "passed",
+        "detail": "release_status=active"
+      },
+      {
+        "name": "release_evidence",
+        "status": "passed",
+        "detail": "status=passed_with_warnings; eligibility=eligible_for_release_review"
+      },
+      {
+        "name": "package_integrity",
+        "status": "passed",
+        "detail": "verified"
+      },
+      {
+        "name": "metric_version_immutable",
+        "status": "passed",
+        "detail": "content hash matches the registry lineage"
+      },
+      {
+        "name": "read_only_preflight",
+        "status": "passed",
+        "detail": "preflight performs reads only"
+      },
+      {
+        "name": "release_target_environment",
+        "status": "not_verified",
+        "detail": "release_target_environment=staging"
+      },
+      {
+        "name": "read_only_session",
+        "status": "passed",
+        "detail": "Mock adapter performs no writes and no business output"
+      },
+      {
+        "name": "governed_artifact_approval",
+        "status": "passed",
+        "detail": "Approved artifact is available to the provider"
+      },
+      {
+        "name": "runtime_identity",
+        "status": "not_verified",
+        "detail": "Mock provider exposes no job identity"
+      },
+      {
+        "name": "live_runtime_fingerprint",
+        "status": "passed",
+        "detail": "runtime=None; package=None"
+      }
+    ],
+    "missing_evidence": [
+      "adapter:runtime_identity",
+      "production release environment not exercised"
+    ],
+    "read_only_preflight": true,
+    "production_deployed": false,
+    "created_at": "2026-09-17T06:21:22.867920Z"
+  },
+  "shadow": {
+    "status": "passed",
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "metric_key": "invoice_amount",
+    "environment_id": "prod_synth",
+    "runtime_mode": "mock",
+    "provider_query_id": null,
+    "provider_job_id": null,
+    "provider_application_id": null,
+    "runtime_identity": null,
+    "environment_fingerprint_hash": null,
+    "columns": [
+      "entity_id",
+      "invoice_amount_90d"
+    ],
+    "read_only_basis": "synthetic_provider",
+    "execution_success": true,
+    "row_count": 401,
+    "entity_count": 401,
+    "coverage": 1.0,
+    "null_rate": 0.0,
+    "duplicate_rate": 0.0,
+    "latency_ms": 18,
+    "distribution": {
+      "bins": [
+        {
+          "lower": null,
+          "upper": 1129.1,
+          "count": 107,
+          "is_null": false
+        },
+        {
+          "lower": 1129.1,
+          "upper": 2248.2,
+          "count": 121,
+          "is_null": false
+        },
+        {
+          "lower": 2248.2,
+          "upper": 3367.3,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 3367.3,
+          "upper": 4486.4,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": 4486.4,
+          "upper": 5605.5,
+          "count": 17,
+          "is_null": false
+        },
+        {
+          "lower": 5605.5,
+          "upper": 6724.6,
+          "count": 23,
+          "is_null": false
+        },
+        {
+          "lower": 6724.6,
+          "upper": 7843.7,
+          "count": 30,
+          "is_null": false
+        },
+        {
+          "lower": 7843.7,
+          "upper": 8962.8,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 8962.8,
+          "upper": 10081.9,
+          "count": 27,
+          "is_null": false
+        },
+        {
+          "lower": 10081.9,
+          "upper": null,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": null,
+          "upper": null,
+          "count": 0,
+          "is_null": true
+        }
+      ],
+      "total": 401
+    },
+    "baseline": null,
+    "write_business_output": false,
+    "production_deployed": false,
+    "findings": [],
+    "warnings": [
+      "duplicate_rate_recorded"
+    ],
+    "synthetic_data": true,
+    "observation_time": "2026-09-17T06:21:23.233345Z",
+    "created_at": "2026-09-17T06:21:23.233345Z"
+  },
+  "review_id": "23d4a0cd-e6d7-46d9-ae90-976f6bc4a722",
+  "rollback_review_id": null,
+  "runtime_mode": "mock",
+  "runtime_binding": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "environment_id": "prod_synth",
+    "provider_job_id": null,
+    "provider_query_id": null,
+    "provider_application_id": null,
+    "schedule_id": null,
+    "runtime_identity": null,
+    "runtime_identity_verified": false,
+    "environment_fingerprint_hash": null,
+    "activated_at": "2026-09-17T06:21:23.505806Z"
+  },
+  "runtime_identity": null,
+  "runtime_identity_verified": false,
+  "environment_fingerprint_hash": null,
+  "production_deployed": false,
+  "real_environment_verified": false,
+  "deployment_evidence_id": "a2ea8902-f8ee-4d27-afe0-71998ea817ed",
+  "verification_run_id": null,
+  "synthetic_data": true,
+  "requested_by": "demo-deployer",
+  "monitoring_baseline": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "source": "production_shadow",
+    "distribution": {
+      "bins": [
+        {
+          "lower": null,
+          "upper": 1129.1,
+          "count": 107,
+          "is_null": false
+        },
+        {
+          "lower": 1129.1,
+          "upper": 2248.2,
+          "count": 121,
+          "is_null": false
+        },
+        {
+          "lower": 2248.2,
+          "upper": 3367.3,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 3367.3,
+          "upper": 4486.4,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": 4486.4,
+          "upper": 5605.5,
+          "count": 17,
+          "is_null": false
+        },
+        {
+          "lower": 5605.5,
+          "upper": 6724.6,
+          "count": 23,
+          "is_null": false
+        },
+        {
+          "lower": 6724.6,
+          "upper": 7843.7,
+          "count": 30,
+          "is_null": false
+        },
+        {
+          "lower": 7843.7,
+          "upper": 8962.8,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 8962.8,
+          "upper": 10081.9,
+          "count": 27,
+          "is_null": false
+        },
+        {
+          "lower": 10081.9,
+          "upper": null,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": null,
+          "upper": null,
+          "count": 0,
+          "is_null": true
+        }
+      ],
+      "total": 401
+    },
+    "row_count": 401,
+    "coverage": 1.0,
+    "null_rate": 0.0,
+    "duplicate_rate": 0.0,
+    "latency_ms": 18,
+    "synthetic_data": true,
+    "observation_time": "2026-09-17T06:21:23.233345Z",
+    "created_at": "2026-09-17T06:21:23.237366Z"
+  },
+  "reconciliation": null,
+  "missing_evidence": [
+    "no verified production environment fingerprint",
+    "real production runtime identity not verified",
+    "synthetic mock provider; no real production runtime"
+  ],
+  "created_at": "2026-09-17T06:21:22.768588Z",
+  "updated_at": "2026-09-17T06:21:23.505806Z",
+  "deployed_at": "2026-09-17T06:21:23.505806Z",
+  "rolled_back_at": null
+}

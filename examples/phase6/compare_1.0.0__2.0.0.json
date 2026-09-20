@@ -1,0 +1,45 @@
+{
+  "metric_key": "invoice_amount",
+  "from_version": "1.0.0",
+  "to_version": "2.0.0",
+  "changed_fields": [
+    {
+      "field": "name",
+      "before": "invoice_amount_60d",
+      "after": "invoice_amount_90d"
+    },
+    {
+      "field": "display_name",
+      "before": "近60天企业开票金额",
+      "after": "近90天企业开票金额"
+    },
+    {
+      "field": "description",
+      "before": "统计企业近60天开票金额之和",
+      "after": "统计企业近90天开票金额之和"
+    },
+    {
+      "field": "window.size",
+      "before": 60,
+      "after": 90
+    }
+  ],
+  "unchanged": [
+    "schema_version",
+    "entity_type",
+    "entity_key",
+    "partition_field",
+    "source.catalog",
+    "source.database",
+    "source.table",
+    "aggregation.function",
+    "aggregation.field",
+    "dimensions",
+    "filters",
+    "window",
+    "window.unit",
+    "window.time_field",
+    "window.timezone"
+  ],
+  "classification": "major"
+}

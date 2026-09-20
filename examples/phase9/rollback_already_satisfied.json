@@ -1,0 +1,83 @@
+{
+  "rollback_review_id": "f723c15d-8a73-4b7c-a4b4-8e365bfdcb9e",
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+  "metric_key": "invoice_amount",
+  "from_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "from_version": "2.0.0",
+  "to_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+  "to_version": "1.0.0",
+  "reason": "Synthetic convergence drill",
+  "alert_ids": [],
+  "preflight": {
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "target_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+    "target_version": "1.0.0",
+    "status": "passed",
+    "checks": [
+      {
+        "name": "target_version_exists",
+        "status": "passed",
+        "detail": "target_version=1.0.0"
+      },
+      {
+        "name": "target_version_released",
+        "status": "passed",
+        "detail": "release_status=active"
+      },
+      {
+        "name": "target_targets_production",
+        "status": "not_verified",
+        "detail": "target_environment=staging"
+      },
+      {
+        "name": "environment_unchanged",
+        "status": "passed",
+        "detail": "no runtime fingerprint is recorded for this environment"
+      },
+      {
+        "name": "runtime_supports_rollback",
+        "status": "passed",
+        "detail": "adapter=mock; supports_rollback=True"
+      },
+      {
+        "name": "human_approval_required",
+        "status": "passed",
+        "detail": "a rollback is only executed after a rollback_approver decision"
+      }
+    ],
+    "missing_evidence": [
+      "rollback:target_targets_production"
+    ],
+    "created_at": "2026-09-17T10:12:12.878097Z"
+  },
+  "decision": "approved",
+  "reviewer": "Demo Rollback",
+  "reviewer_actor_id": "demo-rollback",
+  "reviewer_roles": [
+    "rollback_approver"
+  ],
+  "reviewer_auth_source": "mock",
+  "reviewer_issuer": null,
+  "comment": "Execute the rollback drill",
+  "production_rollback_status": "succeeded",
+  "registry_reconciliation_status": "already_satisfied",
+  "runtime_verified": true,
+  "provider_job_id": null,
+  "provider_application_id": null,
+  "runtime_identity": null,
+  "environment_fingerprint_hash": null,
+  "automatic": false,
+  "created_at": "2026-09-17T10:12:12.878097Z",
+  "reviewed_at": "2026-09-17T10:12:13.077794Z",
+  "no_action_required": true,
+  "conflict_diagnosis": {
+    "expected": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+    "actual": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+    "desired": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+    "category": "target_already_satisfied",
+    "safe_to_retry": false,
+    "requires_manual_review": false,
+    "detail": "the registry already points at the desired version; the failed expectation was stale, not the state. No recovery is required."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "name": "invoice_count_30d",
+  "display_name": "近30天企业开票次数",
+  "description": "企业近30日开票原始记录行数",
+  "entity_type": "enterprise",
+  "entity_key": "seller_tax_no",
+  "partition_field": "dt",
+  "source": {
+    "catalog": null,
+    "database": "c_db",
+    "table": "source_fp_jdc_view"
+  },
+  "aggregation": {
+    "function": "count",
+    "field": null
+  },
+  "dimensions": [],
+  "filters": [],
+  "window": {
+    "size": 30,
+    "unit": "day",
+    "time_field": "invoice_date",
+    "timezone": "Asia/Shanghai"
+  }
+}

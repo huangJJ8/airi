@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_for_investigation",
+  "reviewer": "synthetic-demo",
+  "comment": "Fixture research, not production",
+  "previous_decisions": [],
+  "decision_id": "1ac08630-2b26-450d-9d7c-b132cc8b6861",
+  "reflection_run_id": "b9459583-cf91-4ef5-9a43-6de450f9693b",
+  "proposal_id": "74e6467ab0cf63a684d89d8fa48c111f86e591f25cb58da1d46fdb4daaceaf6e",
+  "proposal_hash": "dc9b07e614133f7d758b8aab48a03f7824a4a713891e1144083ee20778958397",
+  "created_at": "2026-09-16T03:02:44.062795Z"
+}

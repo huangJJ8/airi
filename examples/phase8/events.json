@@ -1,0 +1,771 @@
+[
+  {
+    "event_id": "1b43385a-02d3-4d57-ad72-1a1f21e7c6ff",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": null,
+    "event_type": "version_registered",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "1.0.0",
+      "version_change": "initial",
+      "synthetic_data": true
+    },
+    "created_at": "2026-09-17T06:21:08.947116Z"
+  },
+  {
+    "event_id": "ba7fc3aa-0f9d-44cb-a3a6-16475d78ff3b",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": "02b4b4d0-e3c6-46c0-a2bb-48a20f96e398",
+    "event_type": "release_created",
+    "actor": "registry-service",
+    "metadata": {
+      "target_environment": "staging",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-17T06:21:09.057202Z"
+  },
+  {
+    "event_id": "8bec6862-e854-451d-a69c-f6505ca0e067",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": "02b4b4d0-e3c6-46c0-a2bb-48a20f96e398",
+    "event_type": "staging_validated",
+    "actor": "registry-service",
+    "metadata": {
+      "status": "passed_with_warnings",
+      "release_eligibility": "eligible_for_release_review",
+      "execution_mode": "mock"
+    },
+    "created_at": "2026-09-17T06:21:09.777935Z"
+  },
+  {
+    "event_id": "7acdd370-d748-4f6c-b5f8-88446f6f56ed",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": "02b4b4d0-e3c6-46c0-a2bb-48a20f96e398",
+    "event_type": "release_approved",
+    "actor": "synthetic-demo",
+    "metadata": {
+      "decision": "approved"
+    },
+    "created_at": "2026-09-17T06:21:10.078494Z"
+  },
+  {
+    "event_id": "55fef3d2-5aca-4369-a032-28d6c961e2ef",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": "02b4b4d0-e3c6-46c0-a2bb-48a20f96e398",
+    "event_type": "activated",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "1.0.0",
+      "previous_active_version_id": null,
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-17T06:21:10.176775Z"
+  },
+  {
+    "event_id": "4adb5c74-9a3a-495e-9dbe-c32ea0ac9899",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": null,
+    "event_type": "version_registered",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "2.0.0",
+      "version_change": "major",
+      "synthetic_data": true
+    },
+    "created_at": "2026-09-17T06:21:20.655505Z"
+  },
+  {
+    "event_id": "662a89a1-4e27-4091-8181-f85fa639d849",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "release_created",
+    "actor": "registry-service",
+    "metadata": {
+      "target_environment": "staging",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-17T06:21:20.749030Z"
+  },
+  {
+    "event_id": "b0c22e04-31e1-4660-bc18-c41ffec6b3d0",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "staging_validated",
+    "actor": "registry-service",
+    "metadata": {
+      "status": "passed_with_warnings",
+      "release_eligibility": "eligible_for_release_review",
+      "execution_mode": "mock"
+    },
+    "created_at": "2026-09-17T06:21:21.557239Z"
+  },
+  {
+    "event_id": "73286a87-e98c-40e9-8f7b-daf958d72136",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "release_approved",
+    "actor": "synthetic-demo",
+    "metadata": {
+      "decision": "approved"
+    },
+    "created_at": "2026-09-17T06:21:21.862540Z"
+  },
+  {
+    "event_id": "9e955647-5cee-492b-950d-557e76184183",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "activated",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "2.0.0",
+      "previous_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-17T06:21:21.953358Z"
+  },
+  {
+    "event_id": "43d14bd9-fa79-408d-bc44-ded9d8dc6009",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_preflight_validated",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "passed",
+      "missing_evidence": [
+        "adapter:runtime_identity",
+        "production release environment not exercised"
+      ]
+    },
+    "created_at": "2026-09-17T06:21:22.875924Z"
+  },
+  {
+    "event_id": "a736be60-0915-43a1-84bf-76d447b68f99",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_shadow_started",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "write_business_output": false
+    },
+    "created_at": "2026-09-17T06:21:22.962054Z"
+  },
+  {
+    "event_id": "9c8f0455-3d83-400c-b135-f36216686e4b",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_shadow_validated",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "passed",
+      "runtime_mode": "mock",
+      "write_business_output": false
+    },
+    "created_at": "2026-09-17T06:21:23.241363Z"
+  },
+  {
+    "event_id": "98c0cbed-0cc4-47f6-9551-991badd89ead",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_deployment_approved",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "deployment_review_id": "23d4a0cd-e6d7-46d9-ae90-976f6bc4a722",
+      "reviewer_roles": [
+        "production_deployer"
+      ]
+    },
+    "created_at": "2026-09-17T06:21:23.416166Z"
+  },
+  {
+    "event_id": "af044496-cc9f-41bd-bab8-721d6de3f64f",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_deployment_evidence_recorded",
+    "actor": "production-service",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "deployment_evidence_id": "a2ea8902-f8ee-4d27-afe0-71998ea817ed",
+      "deploy_status": "deployed",
+      "status_confirmed": true,
+      "authoritative": false
+    },
+    "created_at": "2026-09-17T06:21:23.518103Z"
+  },
+  {
+    "event_id": "5a80c0d1-1a14-419f-8685-08c3c7adb48b",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_deployed",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "runtime_mode": "mock",
+      "production_deployed": false,
+      "provider_job_id": null,
+      "provider_application_id": null,
+      "runtime_identity_verified": false,
+      "status_confirmed": true
+    },
+    "created_at": "2026-09-17T06:21:23.522599Z"
+  },
+  {
+    "event_id": "29aabdfa-e3ea-4060-a749-a38f14713efb",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_snapshot_ingested",
+    "actor": "demo-reviewer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "monitoring_snapshot_id": "7d71b810-dc38-415e-9dfc-921b31214a54",
+      "telemetry_source_id": "synthetic_monitor",
+      "telemetry_trust": "unverified",
+      "telemetry_freshness": "fresh",
+      "observation_lag_hours": 3.0694444444444446e-06,
+      "monitoring_policy_version": "1.1.0",
+      "psi": 0.0,
+      "psi_status": "available",
+      "execution_status": "success"
+    },
+    "created_at": "2026-09-17T06:21:23.644346Z"
+  },
+  {
+    "event_id": "30cc8292-725b-41ca-8cee-93ffa364ee0e",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_snapshot_ingested",
+    "actor": "demo-reviewer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "monitoring_snapshot_id": "6e1a67e7-dcae-4cd9-a60c-75233aa39786",
+      "telemetry_source_id": "synthetic_monitor",
+      "telemetry_trust": "unverified",
+      "telemetry_freshness": "late",
+      "observation_lag_hours": 72.0000344625,
+      "monitoring_policy_version": "1.1.0",
+      "psi": 0.0,
+      "psi_status": "available",
+      "execution_status": "success"
+    },
+    "created_at": "2026-09-17T06:21:23.745562Z"
+  },
+  {
+    "event_id": "b1c299d1-db6b-407e-b0ad-f8d3d14cda69",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_alert_created",
+    "actor": "monitoring-service",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "alert_id": "b2643eec-868a-4ef4-9f25-c6762c7bace9",
+      "type": "missing_monitoring_data",
+      "severity": "warning",
+      "recommended_action": "investigate"
+    },
+    "created_at": "2026-09-17T06:21:23.756592Z"
+  },
+  {
+    "event_id": "d547e139-0826-4c5d-8b8f-d4b4dd865279",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_snapshot_ingested",
+    "actor": "demo-reviewer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "monitoring_snapshot_id": "fc509094-c983-4323-a743-2ba68d945133",
+      "telemetry_source_id": "synthetic_monitor",
+      "telemetry_trust": "trusted_source",
+      "telemetry_freshness": "fresh",
+      "observation_lag_hours": 8.512138888888889e-05,
+      "monitoring_policy_version": "1.1.0",
+      "psi": 0.0,
+      "psi_status": "available",
+      "execution_status": "success"
+    },
+    "created_at": "2026-09-17T06:21:23.925663Z"
+  },
+  {
+    "event_id": "eab88531-41cb-4c05-aa19-54105c48a07e",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_expectation_registered",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "monitoring_expectation_id": "c69144d1-cf2c-4ddf-bdc3-bf6deeff37ee",
+      "expected_interval_hours": 24,
+      "grace_hours": 6
+    },
+    "created_at": "2026-09-17T06:21:24.058404Z"
+  },
+  {
+    "event_id": "a236f5dd-1a47-49b9-8fa5-a8d4d71d4ff4",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_verification_recorded",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "production_verification_run_id": "0383ff9b-7562-4bdf-a417-3042355eb20d",
+      "overall": "partially_verified",
+      "blocking": [
+        "adapter",
+        "deployment",
+        "environment",
+        "identity",
+        "runtime_identity"
+      ],
+      "not_verified": [
+        "adapter",
+        "deployment",
+        "environment",
+        "identity",
+        "reconciliation",
+        "rollback",
+        "runtime_identity"
+      ]
+    },
+    "created_at": "2026-09-17T06:21:24.206506Z"
+  },
+  {
+    "event_id": "d9616f6f-0331-4195-b61a-87c9d22aa34a",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_rollback_preflight_validated",
+    "actor": "demo-deployer",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "rollback_review_id": "b2207b11-f2d7-4336-b3c2-c83ca6a6bf90",
+      "status": "passed",
+      "missing_evidence": [
+        "rollback:target_targets_production"
+      ]
+    },
+    "created_at": "2026-09-17T06:21:24.333451Z"
+  },
+  {
+    "event_id": "3fe86aed-8708-49b6-bcfb-e02c8ed0677d",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "rollback_started",
+    "actor": "demo-rollback",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "rollback_review_id": "b2207b11-f2d7-4336-b3c2-c83ca6a6bf90",
+      "from_version": "2.0.0",
+      "to_version": "1.0.0"
+    },
+    "created_at": "2026-09-17T06:21:24.499334Z"
+  },
+  {
+    "event_id": "5614980a-74e2-4276-a020-3f1bfe6127a7",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_rolled_back",
+    "actor": "demo-rollback",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "rollback_review_id": "b2207b11-f2d7-4336-b3c2-c83ca6a6bf90",
+      "from_version": "2.0.0",
+      "to_version": "1.0.0"
+    },
+    "created_at": "2026-09-17T06:21:24.582254Z"
+  },
+  {
+    "event_id": "5f2d292a-5103-40f2-a38c-9c224d89a649",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": null,
+    "event_type": "rollback_approved",
+    "actor": "demo-rollback",
+    "metadata": {
+      "from_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+      "to_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "reason": "Synthetic regression drill after cutover"
+    },
+    "created_at": "2026-09-17T06:21:24.596563Z"
+  },
+  {
+    "event_id": "4cb9bf43-8b63-4cef-88dd-12dcdefa281f",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": null,
+    "event_type": "rolled_back",
+    "actor": "registry-service",
+    "metadata": {
+      "from_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+      "to_version_id": "69257399-925d-4238-8072-6c80a3f81e33"
+    },
+    "created_at": "2026-09-17T06:21:24.596563Z"
+  },
+  {
+    "event_id": "5b3d11eb-e441-4cf9-be34-59bb1e1c0586",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "release_id": null,
+    "event_type": "deployment_reconciled",
+    "actor": "production-service",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa"
+    },
+    "created_at": "2026-09-17T06:21:24.598077Z"
+  },
+  {
+    "event_id": "52efbe86-f959-45a1-bddd-bc40373993e1",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "mismatch",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:24.688737Z"
+  },
+  {
+    "event_id": "0cf9f2ad-fdbe-4a91-b9c2-43102153c162",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciliation_required",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:24.688737Z"
+  },
+  {
+    "event_id": "7073a59b-2094-479f-ae3f-9da099a35eae",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "monitoring_alert_created",
+    "actor": "production-service",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "alert_id": "7ff69036-c216-4f88-a70f-e9709163086a",
+      "type": "deployment_state_mismatch",
+      "severity": "critical",
+      "recommended_action": "investigate"
+    },
+    "created_at": "2026-09-17T06:21:24.688737Z"
+  },
+  {
+    "event_id": "5f02a1f6-7132-4937-997c-e0f986015364",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "mismatch",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:24.783370Z"
+  },
+  {
+    "event_id": "fb15ccaa-8f4b-4988-ac91-5768d8eaee95",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciliation_required",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:24.783370Z"
+  },
+  {
+    "event_id": "15af9dbf-ed8d-43dc-8fa1-e68f292f1a68",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_planned",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "0a3f9634-9e86-457d-a0ae-b5f7e29b21bf",
+      "verdict": "mismatch",
+      "possible_actions": [
+        "manual_investigation"
+      ],
+      "recommended_action": "manual_investigation"
+    },
+    "created_at": "2026-09-17T06:21:24.854762Z"
+  },
+  {
+    "event_id": "2949e8f8-570a-4246-b2ba-b8e16edef671",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_approved",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "0a3f9634-9e86-457d-a0ae-b5f7e29b21bf",
+      "reconciliation_review_id": "f7127c28-f537-4841-be2c-135e93e566b3",
+      "decision": "keep_mismatch_for_investigation",
+      "action": "manual_investigation"
+    },
+    "created_at": "2026-09-17T06:21:25.107752Z"
+  },
+  {
+    "event_id": "b2ffa149-71a7-4343-b4fe-402a0d43fca4",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "mismatch",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:25.182323Z"
+  },
+  {
+    "event_id": "106f7077-2556-42ee-94f3-16d2262f5276",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciliation_required",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "ghost_version"
+    },
+    "created_at": "2026-09-17T06:21:25.182323Z"
+  },
+  {
+    "event_id": "100ed8d2-e441-4a5b-9fb8-ef9cf8bab1d1",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "mismatch",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.347672Z"
+  },
+  {
+    "event_id": "77a59e4a-1b7c-4774-837d-521be8dc03e2",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciliation_required",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.347672Z"
+  },
+  {
+    "event_id": "cbf7803e-8782-476e-aa67-f3a9d8df3664",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_planned",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "67f13dd0-2a11-4e07-bce9-a0aab5a91a8d",
+      "verdict": "mismatch",
+      "possible_actions": [
+        "runtime_to_registry",
+        "manual_investigation"
+      ],
+      "recommended_action": "runtime_to_registry"
+    },
+    "created_at": "2026-09-17T06:21:25.432475Z"
+  },
+  {
+    "event_id": "a787b068-42a8-4ec3-b534-853d19be9c48",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_approved",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "67f13dd0-2a11-4e07-bce9-a0aab5a91a8d",
+      "reconciliation_review_id": "06628f76-4e19-4b20-ae05-299c20e31725",
+      "decision": "align_registry_to_runtime",
+      "action": "runtime_to_registry"
+    },
+    "created_at": "2026-09-17T06:21:25.649149Z"
+  },
+  {
+    "event_id": "1993b059-6ccc-4480-89be-bfaa999332c4",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "mismatch",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.735749Z"
+  },
+  {
+    "event_id": "896d7145-e08f-44ab-adc4-f69180025761",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciliation_required",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.737143Z"
+  },
+  {
+    "event_id": "2a51ba42-85a1-455f-b142-0457c67f6bbf",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": null,
+    "event_type": "rollback_approved",
+    "actor": "demo-admin",
+    "metadata": {
+      "from_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "to_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+      "reason": "production reconciliation aligned the registry to the runtime"
+    },
+    "created_at": "2026-09-17T06:21:25.846117Z"
+  },
+  {
+    "event_id": "bcced3dd-a5dc-4f96-b62b-c0e6b7891625",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": null,
+    "event_type": "rolled_back",
+    "actor": "registry-service",
+    "metadata": {
+      "from_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+      "to_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.846117Z"
+  },
+  {
+    "event_id": "0bac84a6-38a7-4279-8039-a4b6193f9548",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "deployment_reconciled",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "status": "consistent",
+      "registry_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+      "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a"
+    },
+    "created_at": "2026-09-17T06:21:25.855125Z"
+  },
+  {
+    "event_id": "04c27572-136d-46b5-a603-447d18c2547e",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_executed",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "67f13dd0-2a11-4e07-bce9-a0aab5a91a8d",
+      "action": "align_registry_to_runtime",
+      "execution_status": "executed",
+      "convergence_status": "verified"
+    },
+    "created_at": "2026-09-17T06:21:25.939749Z"
+  },
+  {
+    "event_id": "bad4df8c-3962-4818-bcee-0fb9a13f4968",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "reconciliation_verified",
+    "actor": "production-service",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "reconciliation_plan_id": "67f13dd0-2a11-4e07-bce9-a0aab5a91a8d",
+      "reconciliation_result_id": "77f0676e-e27d-41da-baa6-508a5fc4cea2"
+    },
+    "created_at": "2026-09-17T06:21:25.946109Z"
+  },
+  {
+    "event_id": "bdc6ca68-8c5d-41f7-a7c0-1e89ca9f4126",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "release_id": "220f1f38-c676-4bc6-bfd4-76800e601e0a",
+    "event_type": "production_verification_recorded",
+    "actor": "demo-admin",
+    "metadata": {
+      "production_deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+      "production_verification_run_id": "062ff6b8-14a5-4016-90a5-14f989978098",
+      "overall": "partially_verified",
+      "blocking": [
+        "adapter",
+        "deployment",
+        "environment",
+        "identity",
+        "runtime_identity"
+      ],
+      "not_verified": [
+        "adapter",
+        "deployment",
+        "environment",
+        "identity",
+        "runtime_identity"
+      ]
+    },
+    "created_at": "2026-09-17T06:21:26.192214Z"
+  }
+]

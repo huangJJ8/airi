@@ -1,0 +1,34 @@
+{
+  "reconciliation_plan_id": "0a3f9634-9e86-457d-a0ae-b5f7e29b21bf",
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+  "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+  "metric_key": "invoice_amount",
+  "verdict": "mismatch",
+  "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+  "registry_active_version": "1.0.0",
+  "production_runtime_state": "active",
+  "production_active_version_id": "ghost_version",
+  "production_active_version": null,
+  "environment_id": "prod_synth",
+  "environment_fingerprint_hash": null,
+  "runtime_identity": null,
+  "provider_application_id": null,
+  "deployment_evidence_id": "a2ea8902-f8ee-4d27-afe0-71998ea817ed",
+  "latest_deployment_review_id": "23d4a0cd-e6d7-46d9-ae90-976f6bc4a722",
+  "rollback_review_ids": [
+    "b2207b11-f2d7-4336-b3c2-c83ca6a6bf90"
+  ],
+  "alert_ids": [
+    "b2643eec-868a-4ef4-9f25-c6762c7bace9",
+    "7ff69036-c216-4f88-a70f-e9709163086a"
+  ],
+  "possible_actions": [
+    "manual_investigation"
+  ],
+  "recommended_action": "manual_investigation",
+  "rationale": "Neither side can be aligned safely: the runtime reports a version the registry has never produced, or no recovery channel is available.",
+  "automatic_correction": false,
+  "created_by": "demo-admin",
+  "created_at": "2026-09-17T06:21:24.854762Z"
+}

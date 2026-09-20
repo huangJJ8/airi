@@ -1,0 +1,19 @@
+{
+  "telemetry_source_id": "synthetic_monitor",
+  "environment_id": "prod_synth",
+  "source_system": "synthetic_monitor",
+  "verified": true,
+  "synthetic": false,
+  "status": "degraded",
+  "latest_observation_time": "2026-09-17T08:12:12.621056Z",
+  "latest_received_at": "2026-09-17T10:12:12.628055Z",
+  "latest_freshness": "stale",
+  "snapshot_count": 1,
+  "overdue_deployment_ids": [
+    "30dc850f-dd96-46cc-a825-d35079ac1ed5"
+  ],
+  "silent_deployment_ids": [],
+  "detail": "the pipeline is delivering late or has missed a declared window; the metric may still be correct",
+  "metric_health_implied": false,
+  "observed_at": "2026-09-17T10:12:12.736828Z"
+}

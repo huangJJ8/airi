@@ -1,0 +1,113 @@
+{
+  "snapshot": {
+    "monitoring_snapshot_id": "7d71b810-dc38-415e-9dfc-921b31214a54",
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "metric_key": "invoice_amount",
+    "version": "2.0.0",
+    "observation_time": "2026-09-17T06:21:23.612484Z",
+    "execution": {
+      "status": "success",
+      "duration_ms": 150,
+      "row_count": 401
+    },
+    "quality": {
+      "coverage": 1.0,
+      "null_rate": 0.0,
+      "duplicate_rate": 0.0
+    },
+    "distribution": {
+      "bins": [
+        {
+          "lower": null,
+          "upper": 1129.1,
+          "count": 107,
+          "is_null": false
+        },
+        {
+          "lower": 1129.1,
+          "upper": 2248.2,
+          "count": 121,
+          "is_null": false
+        },
+        {
+          "lower": 2248.2,
+          "upper": 3367.3,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 3367.3,
+          "upper": 4486.4,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": 4486.4,
+          "upper": 5605.5,
+          "count": 17,
+          "is_null": false
+        },
+        {
+          "lower": 5605.5,
+          "upper": 6724.6,
+          "count": 23,
+          "is_null": false
+        },
+        {
+          "lower": 6724.6,
+          "upper": 7843.7,
+          "count": 30,
+          "is_null": false
+        },
+        {
+          "lower": 7843.7,
+          "upper": 8962.8,
+          "count": 22,
+          "is_null": false
+        },
+        {
+          "lower": 8962.8,
+          "upper": 10081.9,
+          "count": 27,
+          "is_null": false
+        },
+        {
+          "lower": 10081.9,
+          "upper": null,
+          "count": 16,
+          "is_null": false
+        },
+        {
+          "lower": null,
+          "upper": null,
+          "count": 0,
+          "is_null": true
+        }
+      ],
+      "total": 401
+    },
+    "source_system": "synthetic_monitor",
+    "source_event_id": "phase8-1",
+    "publisher_actor_id": "demo-reviewer",
+    "telemetry_source_id": "synthetic_monitor",
+    "telemetry_trust": "unverified",
+    "telemetry_freshness": "fresh",
+    "received_at": "2026-09-17T06:21:23.623534Z",
+    "observation_lag_hours": 3.0694444444444446e-06,
+    "monitoring_policy_version": "1.1.0",
+    "monitoring_policy_hash": "ff714860bd0538394eb8fb475ac9bad3eeb7538c2efa40209380737715f44436",
+    "baseline_hash": "1d887e5a4e08c81ff9ba90410c34ca07b4bf52eef4f88ce4d97419f56562ad46",
+    "psi": 0.0,
+    "psi_status": "available",
+    "findings": [],
+    "content_hash": "1030854167d00a496f8919b3d803ad636d59103aa7533178e958c08e37d2edc6",
+    "created_at": "2026-09-17T06:21:23.632003Z"
+  },
+  "alerts": [],
+  "created_alert_ids": [],
+  "warnings": [
+    "telemetry_source_not_trusted"
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "spec": {
+    "source_refinement_run_id": "ee2a2664-d170-40a7-9c94-f8480603e11c",
+    "series_id": "5208f68a-0d1c-4557-b743-808abd2dc4a8",
+    "temporal_validation_run_id": "07c66de3-3832-4a2a-aad8-6c7746f7fe4a",
+    "baseline_artifact_id": "a6b036ed-9c7f-4e28-b54d-0b4de73da90e",
+    "candidate_artifact_id": "e0210a4d-c2f3-4262-a091-7123e121e37a",
+    "historical_slice_ids": [
+      "slice-0",
+      "slice-1",
+      "slice-2"
+    ],
+    "oot_slice_id": "slice-3",
+    "reference_slice_id": "slice-0",
+    "evaluation_policy": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "stability_policy": {
+      "version": "1.0.0",
+      "psi_review_above": 0.2,
+      "ks_material_drop": 0.05,
+      "coverage_material_drop": 0.05,
+      "iv_material_change": 1.0,
+      "threshold_precision_drop": 0.1,
+      "threshold_recall_drop": 0.1,
+      "threshold_lift_drop": 0.5,
+      "direction_flip_allowed": false,
+      "oot_required": true,
+      "min_historical_slices": 3,
+      "psi_epsilon": 1e-06,
+      "advisory_only": true
+    },
+    "promotion_policy": {
+      "version": "1.0.0",
+      "min_not_materially_worse_fraction": 0.75,
+      "synthetic_review_only": true,
+      "research_governance_only": true
+    },
+    "slice_artifacts": [
+      {
+        "time_slice_id": "slice-0",
+        "role": "baseline",
+        "artifact_id": "6525d5cb-2b26-4153-80c1-8abdefa26b6e",
+        "content_hash": "421571d756acc6cdd8fb550386537136cd8543a515af54fbe38598a7b6df6d29",
+        "metric_ir_hash": "d128a0b8e26ef05df403758b6740deecc9e4a6bb3653de8ffa6a5e48d87c5846"
+      },
+      {
+        "time_slice_id": "slice-0",
+        "role": "candidate",
+        "artifact_id": "64e34ea3-88e6-4dbe-b516-f39c842e48f3",
+        "content_hash": "1cb19188e3d770f41fbf5a1461896c70bda37f2332282874a6e47463cf6cf910",
+        "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff"
+      },
+      {
+        "time_slice_id": "slice-1",
+        "role": "baseline",
+        "artifact_id": "2658ff6b-73f1-4263-a1d2-5c7dd941b36b",
+        "content_hash": "9b9cc321bbe9cd6f9270fc46eeafb66f53a739d2200cd91eacec10c076244182",
+        "metric_ir_hash": "d128a0b8e26ef05df403758b6740deecc9e4a6bb3653de8ffa6a5e48d87c5846"
+      },
+      {
+        "time_slice_id": "slice-1",
+        "role": "candidate",
+        "artifact_id": "e477e2e9-e7f2-4470-a9a8-1ab6ec0e15f6",
+        "content_hash": "caa17c1ab92e6eb8437bc1d538079f2fbd2763ff310f76c57d067f928fee4efa",
+        "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff"
+      },
+      {
+        "time_slice_id": "slice-2",
+        "role": "baseline",
+        "artifact_id": "e5d3beee-668a-4ef2-855b-17eca86f1a04",
+        "content_hash": "59fc588db6c952886595a3d7b981a4f00f7c4c5f4388da55238d48366a1de186",
+        "metric_ir_hash": "d128a0b8e26ef05df403758b6740deecc9e4a6bb3653de8ffa6a5e48d87c5846"
+      },
+      {
+        "time_slice_id": "slice-2",
+        "role": "candidate",
+        "artifact_id": "8dd7bfac-3cf6-4861-bf35-3cd31bc348d6",
+        "content_hash": "a80f8fbdb1f360e18f19256282f158c63a4f284e8bc23830de50a1023149eb9a",
+        "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff"
+      },
+      {
+        "time_slice_id": "slice-3",
+        "role": "baseline",
+        "artifact_id": "7b6eeb42-17d3-4196-82bc-94c8dee9fbb9",
+        "content_hash": "b5f374c76915a06da58722442064719a5c553847f15bbebbd34178ea231aad1f",
+        "metric_ir_hash": "d128a0b8e26ef05df403758b6740deecc9e4a6bb3653de8ffa6a5e48d87c5846"
+      },
+      {
+        "time_slice_id": "slice-3",
+        "role": "candidate",
+        "artifact_id": "35e50abb-1318-47db-8915-adc8db85618f",
+        "content_hash": "ee2e73f2cf8c84cecb4c1d10f48c6a4ac3472d525e70f950fa40d6ce80c3774f",
+        "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff"
+      }
+    ],
+    "input_hash": "9de64f38a253a66a722e4c06d78420b516ca01d83f9abb680361446350fe0e7c",
+    "provenance": {
+      "refinement_report_hash": "173f42eb2a950023d94c0ce90328a7a5a3413b9cc3a4568131a053a19dcccd5c",
+      "series_hash": "367da19c69e0c555c683617df4c822960d049268370a99cb022c1ab4202be617",
+      "baseline_artifact_hash": "c342958daedcb1ecab265d780f007611168e1a669a71dad67712d9751aa99646",
+      "candidate_artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+      "proposal_id": "5ac17e220e9d022378acb4bbd55a32531968b45fdb7ec13c61e67dc765a714f6",
+      "semantic_diff": {
+        "changed_fields": [
+          {
+            "field": "name",
+            "before": "invoice_amount_30d",
+            "after": "invoice_amount_60d"
+          },
+          {
+            "field": "display_name",
+            "before": "近30天企业开票金额",
+            "after": "近60天企业开票金额"
+          },
+          {
+            "field": "description",
+            "before": "统计企业近30天开票金额之和",
+            "after": "统计企业近60天开票金额之和"
+          },
+          {
+            "field": "window.size",
+            "before": 30,
+            "after": 60
+          }
+        ],
+        "unchanged": [
+          "source",
+          "entity_key",
+          "entity_type",
+          "aggregation",
+          "filters",
+          "dimensions",
+          "partition_field",
+          "window.time_field",
+          "window.unit",
+          "window.timezone"
+        ]
+      },
+      "snapshot_hashes": {
+        "dfb793ea-9284-496d-b016-fd11a3b14e62": "9c3e440502f4eec3ecf4ab896b60ac9483db078bda28a593da44055c4a72a458",
+        "39bf1a49-5d52-42d5-8e35-3cac450850a2": "6b3a7b75688f4e7033eed45b686f12b76c46e5dc747518a4e0eed277e3cbd1ce",
+        "9575bd05-bfdf-43b4-9889-eef816f47e51": "7ab9f6bb190ed22e98ab2dd2817a9334395c60c75a948e6d77b63b741c38df2c",
+        "fd646383-c14a-40b8-9fbf-b1093561f14f": "af59f0cef42da03c61fa62bed54fa2e8cb0715894c7906416f38e07a236db2f0"
+      },
+      "label_definition_id": "85635d79-6e53-428f-91e2-4d714edec6c8",
+      "label_hash": "59ca5afc2380cc5687fc3f23d3b8510a1fc45733a90bbc8b5039e9df345675c8",
+      "environment_validation_run_id": null,
+      "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+      "execution_mode": "mock",
+      "baseline_experiment_report_hash": "e9ed2ab72ec9fddfab355957be7a0c891df9927d4f9ced89aae186d123a8c49a",
+      "candidate_experiment_report_hash": "40594e8ab2e40925be5b9a4462e6e3e9db2d95a2c2577d52e7ce26abe20ed442"
+    }
+  },
+  "status": "pending_sql_review",
+  "historical": [],
+  "oot": null,
+  "stability": {},
+  "threshold_transferability": {},
+  "diagnostics": [],
+  "improvement_pattern": {},
+  "promotion_eligibility": "need_more_evidence",
+  "synthetic_data": true,
+  "warnings": [
+    "Each anchor-specific SQL draft requires separate human SQL approval"
+  ],
+  "missing_evidence": [
+    "no production traffic",
+    "no authenticated reviewer"
+  ],
+  "failure_category": null,
+  "created_at": "2026-09-15T08:34:18.491404Z",
+  "finished_at": null,
+  "requires_human_review": true
+}

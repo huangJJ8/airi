@@ -1,0 +1,21 @@
+-- Operator setup ONLY; never submitted by AIRI. Use an isolated test cluster.
+CREATE DATABASE IF NOT EXISTS tmp_db;
+CREATE TABLE tmp_db.airi_invoice_fixture (seller_tax_no STRING, invoice_date DATE, invoice_amt DECIMAL(18,2), dt STRING) USING PARQUET PARTITIONED BY (dt);
+INSERT INTO tmp_db.airi_invoice_fixture VALUES
+('A', DATE '2026-07-10', 999, '20260710'),
+('A', DATE '2026-07-11', 100, '20260711'),
+('A', DATE '2026-08-10', 100, '20260810'),
+('A', DATE '2026-09-08', 100, '20260908'),
+('A', DATE '2026-09-08', 100, '20260908'),
+('A', DATE '2026-09-09', 999, '20260909'),
+('B', DATE '2026-08-09', 100, '20260809'),
+('B', DATE '2026-08-10', 50, '20260810'),
+('C', DATE '2026-07-11', 100, '20260711'),
+('C', DATE '2026-08-10', 100, '20260810'),
+('CURRENT_ONLY', DATE '2026-08-10', 25, '20260810'),
+('PREVIOUS_ONLY', DATE '2026-08-09', 20, '20260809'),
+('ZERO', DATE '2026-08-09', 0, '20260809'),
+('ZERO', DATE '2026-08-10', -10, '20260810'),
+(NULL, DATE '2026-08-09', 10, '20260809'),
+(NULL, DATE '2026-08-10', 20, '20260810'),
+('A', DATE '2026-08-10', NULL, '20260810');

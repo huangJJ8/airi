@@ -1,0 +1,17 @@
+{
+  "deployment_review_id": "75e59aee-53c9-4f3d-ae9f-2bd643bb7b77",
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "decision": "approved",
+  "reviewer": "Demo Deployer",
+  "reviewer_actor_id": "demo-deployer",
+  "reviewer_roles": [
+    "production_deployer"
+  ],
+  "comment": "Simulated human deployment approval on synthetic evidence",
+  "package_hash": "a6c67cb71b2bf47e7a2a81589b92b8f7ca9346b735b632f174d53b87ee150215",
+  "previous_decisions": [],
+  "created_at": "2026-09-17T02:10:22.080755Z",
+  "reviewed_at": "2026-09-17T02:10:22.160705Z",
+  "production_deployed": false
+}

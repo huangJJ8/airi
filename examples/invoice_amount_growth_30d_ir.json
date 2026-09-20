@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "metric_type": "derived",
+  "name": "invoice_amount_growth_30d",
+  "display_name": "近30天企业开票金额增长率",
+  "description": "本30日开票金额相对前30日的增长率",
+  "dependencies": [
+    {
+      "role": "current",
+      "metric": {
+        "schema_version": "1.0.0",
+        "name": "invoice_amount_30d",
+        "display_name": "近30天企业开票金额",
+        "description": "统计企业近30天开票金额之和",
+        "entity_type": "enterprise",
+        "entity_key": "seller_tax_no",
+        "partition_field": "dt",
+        "source": {
+          "catalog": null,
+          "database": "c_db",
+          "table": "source_fp_jdc_view"
+        },
+        "aggregation": {
+          "function": "sum",
+          "field": "invoice_amt"
+        },
+        "dimensions": [],
+        "filters": [],
+        "window": {
+          "size": 30,
+          "unit": "day",
+          "time_field": "invoice_date",
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      "anchor_offset_days": 0
+    },
+    {
+      "role": "previous",
+      "metric": {
+        "schema_version": "1.0.0",
+        "name": "invoice_amount_30d",
+        "display_name": "近30天企业开票金额",
+        "description": "统计企业近30天开票金额之和",
+        "entity_type": "enterprise",
+        "entity_key": "seller_tax_no",
+        "partition_field": "dt",
+        "source": {
+          "catalog": null,
+          "database": "c_db",
+          "table": "source_fp_jdc_view"
+        },
+        "aggregation": {
+          "function": "sum",
+          "field": "invoice_amt"
+        },
+        "dimensions": [],
+        "filters": [],
+        "window": {
+          "size": 30,
+          "unit": "day",
+          "time_field": "invoice_date",
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      "anchor_offset_days": 30
+    }
+  ],
+  "expression": {
+    "operator": "growth_rate"
+  },
+  "zero_division": {
+    "strategy": "null"
+  }
+}

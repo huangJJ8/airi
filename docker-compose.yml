@@ -1,0 +1,61 @@
+# AIRI local demo, containerised.
+#
+#   docker compose up --build
+#   → Web UI      http://localhost:5173
+#   → API docs    http://localhost:8000/docs
+#
+# Deliberately small: two services, SQLite, synthetic data, no API key. No
+# MySQL, no Spark, no external network. The demo database lives in a named
+# volume so it survives a restart; `docker compose down -v` resets it.
+#
+# NOTE: Docker was NOT available in the development environment, so this
+# configuration has been statically reviewed but its runtime behaviour is
+# NOT VERIFIED. See docs/guides/release-checklist.md.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: airi-api:1.0.0
+    container_name: airi-api
+    environment:
+      AIRI_APP_NAME: AIRI
+      AIRI_ENVIRONMENT: local
+      AIRI_LOG_LEVEL: INFO
+      AIRI_DATABASE_URL: sqlite+pysqlite:///.demo/airi_web_demo.db
+      AIRI_LLM_MODE: demo_mock
+      AIRI_EXECUTION_MODE: mock
+      AIRI_DEMO_FIXTURES: "true"
+      # The browser talks to nginx on the same origin, so CORS is only needed
+      # if you hit the API directly from another origin.
+      AIRI_CORS_ORIGINS: '["http://localhost:5173"]'
+    ports:
+      - "8000:8000"
+    volumes:
+      - airi-demo-db:/app/.demo
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+
+  web:
+    build:
+      context: ./airi-web
+      dockerfile: Dockerfile
+    image: airi-web:1.0.0
+    container_name: airi-web
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "5173:80"
+
+volumes:
+  airi-demo-db:

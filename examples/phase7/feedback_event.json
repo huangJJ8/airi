@@ -1,0 +1,21 @@
+{
+  "feedback_event_id": "8d69f43f-bbd8-498e-8591-91c587190f48",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "source": "monitoring_alert",
+  "type": "data_quality_degradation",
+  "severity": "critical",
+  "evidence_refs": [
+    {
+      "kind": "alert",
+      "ref_id": "71c40264-a07a-445c-a8bb-bd5da982644e"
+    }
+  ],
+  "note": null,
+  "recorded_by": "demo-reviewer",
+  "record_kind": "fact",
+  "interpretation": null,
+  "automatic_research_started": false,
+  "created_at": "2026-09-17T02:10:22.745982Z"
+}

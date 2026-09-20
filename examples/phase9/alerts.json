@@ -1,0 +1,32 @@
+[
+  {
+    "alert_id": "44a8d11b-1292-4472-af4b-0e0f9b199e81",
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+    "metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+    "metric_key": "invoice_amount",
+    "type": "missing_monitoring_data",
+    "severity": "critical",
+    "status": "open",
+    "evidence": {
+      "finding": "telemetry_missing",
+      "window_key": "b0689a450ee99b31bba2d67bc5718538ca7a63de089c7b29224a06640ab92a92",
+      "status": "overdue",
+      "last_observation_time": "2026-09-17T08:12:12.621056+00:00",
+      "due_at": "2026-09-17T09:12:12.621056+00:00",
+      "telemetry_source_id": "synthetic_monitor"
+    },
+    "dedup_key": "b1d651eda0c3bd2e12a87c5f471a773946f673897f3ce51dfd7b0818a7c493eb",
+    "occurrences": 1,
+    "recommended_action": "investigate",
+    "monitoring_policy_version": "1.1.0",
+    "decision": null,
+    "reviewer": null,
+    "comment": null,
+    "automatic_action_taken": false,
+    "first_seen_at": "2026-09-17T10:12:12.676282Z",
+    "last_seen_at": "2026-09-17T10:12:12.676282Z",
+    "resolved_at": null,
+    "created_at": "2026-09-17T10:12:12.677071Z"
+  }
+]

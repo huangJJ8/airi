@@ -1,0 +1,20 @@
+{
+  "scenario_skill": {
+    "name": "invoice_risk",
+    "version": "1.0.0"
+  },
+  "capabilities": [
+    {
+      "name": "metric_window",
+      "version": "1.0.0"
+    },
+    {
+      "name": "metric_sum",
+      "version": "1.0.0"
+    },
+    {
+      "name": "spark_sql_generator",
+      "version": "1.0.0"
+    }
+  ]
+}

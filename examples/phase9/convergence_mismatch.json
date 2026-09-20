@@ -1,0 +1,37 @@
+{
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+  "metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "metric_key": "invoice_amount",
+  "environment_id": "prod_synth",
+  "desired_state_id": "7b6eb31a-b33b-4ef7-8809-f35606ee6e26",
+  "desired_metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "desired_version": "2.0.0",
+  "desired_source": "deployment",
+  "registry_active_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "registry_active_version": "2.0.0",
+  "runtime_active_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+  "runtime_active_version": "1.0.0",
+  "runtime_state": "active",
+  "runtime_identity": null,
+  "environment_fingerprint_hash": null,
+  "convergence_state": "mismatch",
+  "target_already_satisfied": false,
+  "conflict": {
+    "expected": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+    "actual": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+    "desired": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+    "category": "unexpected_external_change",
+    "safe_to_retry": false,
+    "requires_manual_review": true,
+    "detail": "the active version changed to something that is neither the expected nor the desired version; an external actor moved it"
+  },
+  "possible_actions": [
+    "runtime_to_registry",
+    "manual_investigation"
+  ],
+  "recommended_action": "runtime_to_registry",
+  "rationale": "The registry holds no package for its own active version, so the runtime cannot be re-aligned to it. The runtime reports a version the registry knows about, so the registry pointer can be moved to match. A human must still decide.",
+  "automatic_correction": false,
+  "observed_at": "2026-09-17T10:12:12.853354Z"
+}

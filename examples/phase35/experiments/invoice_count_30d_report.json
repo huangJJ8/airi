@@ -1,0 +1,343 @@
+{
+  "run": {
+    "created_at": "2026-09-14T02:08:35.264127Z",
+    "experiment_run_id": "83629bf4-6098-431d-af1d-7e1e9c7e7bc7",
+    "experiment_spec_id": "02aee3db-0d38-40c7-bb41-01e48b98f981",
+    "artifact_id": "93db69e4-db6d-421c-b42f-d4450a659e04",
+    "dataset_snapshot_id": "9a7a048c-7a23-4db6-aa08-15fad9ebd616",
+    "label_definition_id": "af2c7dcd-de1b-45fa-aa09-50ef52bd3728",
+    "status": "completed",
+    "started_at": "2026-09-14T02:08:35.264127Z",
+    "finished_at": "2026-09-14T02:08:35.293552Z",
+    "metric_row_count": 185,
+    "labeled_row_count": 188,
+    "failure_category": null
+  },
+  "execution_mode": "mock",
+  "evaluation": {
+    "metric_name": "invoice_count_30d",
+    "total_sample": 200,
+    "labeled_sample": 188,
+    "good_count": 113,
+    "bad_count": 75,
+    "non_null_metric": 173,
+    "null_metric": 15,
+    "coverage": 0.9202127659574468,
+    "bad_rate": 0.39893617021276595,
+    "distribution": {
+      "count": 173,
+      "null_count": 15,
+      "min": "1",
+      "max": "5",
+      "mean": "3.0289017341040462427745664739884393063583815028902",
+      "p25": "2",
+      "p50": "3",
+      "p75": "4",
+      "p90": "5.0",
+      "p95": "5.0",
+      "p99": "5.00"
+    },
+    "requested_bins": 10,
+    "actual_bins": 5,
+    "bins": [
+      {
+        "bucket": 0,
+        "is_null": false,
+        "lower": "1",
+        "upper": "1",
+        "count": 34,
+        "good": 23,
+        "bad": 11,
+        "bad_rate": 0.3235294117647059,
+        "lift": 0.8109803921568628,
+        "good_pct": 0.20353982105098295,
+        "bad_pct": 0.14666666826666655,
+        "woe": 0.32769921742657526,
+        "iv_component": 0.018637287660002538
+      },
+      {
+        "bucket": 1,
+        "is_null": false,
+        "lower": "2",
+        "upper": "2",
+        "count": 35,
+        "good": 22,
+        "bad": 13,
+        "bad_rate": 0.37142857142857144,
+        "lift": 0.9310476190476191,
+        "good_pct": 0.19469026399874703,
+        "bad_pct": 0.17333333280000005,
+        "woe": 0.11619338615487253,
+        "iv_component": 0.002481534153859055
+      },
+      {
+        "bucket": 2,
+        "is_null": false,
+        "lower": "3",
+        "upper": "3",
+        "count": 32,
+        "good": 19,
+        "bad": 13,
+        "bad_rate": 0.40625,
+        "lift": 1.0183333333333333,
+        "good_pct": 0.1681415928420393,
+        "bad_pct": 0.17333333280000005,
+        "woe": -0.03041008085996973,
+        "iv_component": 0.00015788123192552147
+      },
+      {
+        "bucket": 3,
+        "is_null": false,
+        "lower": "4",
+        "upper": "4",
+        "count": 36,
+        "good": 19,
+        "bad": 17,
+        "bad_rate": 0.4722222222222222,
+        "lift": 1.1837037037037037,
+        "good_pct": 0.1681415928420393,
+        "bad_pct": 0.22666666186666706,
+        "woe": -0.2986740493551028,
+        "iv_component": 0.017479919354372462
+      },
+      {
+        "bucket": 4,
+        "is_null": false,
+        "lower": "5",
+        "upper": "5",
+        "count": 36,
+        "good": 22,
+        "bad": 14,
+        "bad_rate": 0.3888888888888889,
+        "lift": 0.9748148148148148,
+        "good_pct": 0.19469026399874703,
+        "bad_pct": 0.1866666650666668,
+        "woe": 0.04208541949565573,
+        "iv_component": 0.00033767652692149263
+      },
+      {
+        "bucket": 5,
+        "is_null": true,
+        "lower": null,
+        "upper": null,
+        "count": 15,
+        "good": 8,
+        "bad": 7,
+        "bad_rate": 0.4666666666666667,
+        "lift": 1.1697777777777778,
+        "good_pct": 0.07079646526744432,
+        "bad_pct": 0.09333333919999953,
+        "woe": -0.2763683035059949,
+        "iv_component": 0.006228477615068763
+      }
+    ],
+    "ks": {
+      "status": "available",
+      "value": 0.07563025210084033,
+      "ascending": 0.07563025210084033,
+      "descending": 0.07563025210084033,
+      "bucket": 1,
+      "direction": "higher_is_riskier",
+      "split": "3"
+    },
+    "iv": 0.04532277654214983,
+    "iv_status": "available",
+    "epsilon": 1e-06,
+    "threshold_candidates": [
+      {
+        "threshold": "3",
+        "operator": ">=",
+        "sources": [
+          "p50",
+          "ks_best_split"
+        ],
+        "hit_count": 104,
+        "hit_rate": 0.5531914893617021,
+        "bad_count": 44,
+        "good_count": 60,
+        "bad_rate": 0.4230769230769231,
+        "precision": 0.4230769230769231,
+        "recall": 0.5866666666666667,
+        "lift": 1.0605128205128205
+      },
+      {
+        "threshold": "4",
+        "operator": ">=",
+        "sources": [
+          "p75"
+        ],
+        "hit_count": 72,
+        "hit_rate": 0.3829787234042553,
+        "bad_count": 31,
+        "good_count": 41,
+        "bad_rate": 0.4305555555555556,
+        "precision": 0.4305555555555556,
+        "recall": 0.41333333333333333,
+        "lift": 1.0792592592592594
+      },
+      {
+        "threshold": "5.0",
+        "operator": ">=",
+        "sources": [
+          "p90",
+          "p95",
+          "p99"
+        ],
+        "hit_count": 36,
+        "hit_rate": 0.19148936170212766,
+        "bad_count": 14,
+        "good_count": 22,
+        "bad_rate": 0.3888888888888889,
+        "precision": 0.3888888888888889,
+        "recall": 0.18666666666666668,
+        "lift": 0.9748148148148148
+      }
+    ],
+    "warnings": []
+  },
+  "join_summary": {
+    "label_entity_count": 188,
+    "matched_count": 173,
+    "label_only": 15,
+    "metric_only": 12,
+    "unknown_label_excluded": 12,
+    "metric_non_null_count": 173
+  },
+  "reproducibility": {
+    "artifact_id": "93db69e4-db6d-421c-b42f-d4450a659e04",
+    "artifact_hash": "ffbcaa280d184db51e2d2fbcc29fbac203270c77462549266241fea56055950c",
+    "metric_ir_hash": "16d83c0b84c1a5ef3cde946578878f4e0e655ef263a8e1caaa6b29167101546c",
+    "skill_plan": {
+      "scenario_skill": {
+        "name": "invoice_risk",
+        "version": "1.0.0"
+      },
+      "capabilities": [
+        {
+          "name": "metric_window",
+          "version": "1.0.0"
+        },
+        {
+          "name": "metric_count",
+          "version": "1.0.0"
+        },
+        {
+          "name": "spark_sql_generator",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "tool_plan": {
+      "tools": [
+        {
+          "name": "generate_spark_sql_metric",
+          "version": "1.1.0"
+        }
+      ]
+    },
+    "template": {
+      "name": "aggregation_metric",
+      "version": "1.1.0"
+    },
+    "evaluation_dataset_template": {
+      "name": "evaluation_dataset",
+      "version": "1.0.0"
+    },
+    "dataset_snapshot": {
+      "dataset_snapshot_id": "9a7a048c-7a23-4db6-aa08-15fad9ebd616",
+      "name": "invoice_sample_20260909",
+      "source": {
+        "database": "tmp_db",
+        "table": "invoice_risk_sample"
+      },
+      "entity_key": "seller_tax_no",
+      "snapshot_time": "2026-09-09T00:00:00+08:00",
+      "partition": {
+        "field": "dt",
+        "value": "20260909"
+      },
+      "row_count": 200,
+      "checksum": "4def93506f0f4ed9391864afea0856b8b4427a88f7bba52427c194e2cc3201ea"
+    },
+    "label_definition": {
+      "label_definition_id": "af2c7dcd-de1b-45fa-aa09-50ef52bd3728",
+      "name": "synthetic_binary_label",
+      "entity_key": "seller_tax_no",
+      "label_field": "bad_flag",
+      "bad_value": 1,
+      "good_value": 0,
+      "unknown_strategy": "exclude"
+    },
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "evaluation_policy": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "environment_validation_run_id": null,
+    "environment_report_hash": null,
+    "test_run_id": "2166bdf0-9af8-455c-9990-ee46cea428ad",
+    "test_report_hash": "ac1310e04e30400d6316d6573cf42581debb4c839001be6acbf2a1efd9f64721",
+    "experiment_spec_hash": "d675f0c6c60a6ebd9faddb375159b0ffa4394a1f74e1280f85755e7014811313",
+    "execution_run_id": "39ee6a1a-7a3d-4edf-b5a7-ef7b14b90958",
+    "execution_metadata": {
+      "artifact_id": "93db69e4-db6d-421c-b42f-d4450a659e04",
+      "approval_id": "dd205db5-90a8-445b-bc38-25e029cfa862",
+      "execution_profile": "spark_test",
+      "max_rows": 1000,
+      "timeout_seconds": 60,
+      "execution_run_id": "39ee6a1a-7a3d-4edf-b5a7-ef7b14b90958",
+      "workflow_run_id": "ac09ecfa-bd36-4b21-aaef-ff4c8bce23a2",
+      "request_id": "97902db4304a436fab63284ea91072e8",
+      "profile_version": "1.0.0",
+      "engine": "spark_sql",
+      "execution_context": {
+        "anchor_time": "2026-09-09T00:00:00+08:00",
+        "timezone": "Asia/Shanghai"
+      },
+      "sql_hash": "d59b6654eb91ffcaeee42b1cb54993f51b2d1cd7cbda1adbb06df33f807fb8f7",
+      "status": "success",
+      "started_at": "2026-09-14T02:08:35.274074Z",
+      "finished_at": "2026-09-14T02:08:35.274074Z",
+      "duration_ms": 3.2307999999829917,
+      "failure_category": null,
+      "error_message": null,
+      "provider_query_id": null,
+      "cancel_requested": null,
+      "remote_cancel_status": "not_verified",
+      "executed_sql_hash": null,
+      "source_mapping": null,
+      "row_count": 185,
+      "truncated": false,
+      "warnings": []
+    },
+    "metric_result_checksum": "8b45a7f4d3d3ab3c1292e73e33f2e8b58424822a049d8e58520c560eb2f65ac3"
+  },
+  "leakage_check": {
+    "status": "passed",
+    "metric_anchor_time": "2026-09-09T00:00:00+08:00",
+    "label_window": {
+      "start": "2026-09-10T00:00:00+08:00",
+      "end": "2026-10-09T00:00:00+08:00"
+    }
+  },
+  "warnings": [
+    "SYNTHETIC MOCK EXPERIMENT; not real Spark or business effectiveness evidence"
+  ],
+  "requires_human_review": true
+}

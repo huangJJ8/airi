@@ -1,0 +1,104 @@
+{
+  "validation_run_id": "91ac0bda-7d5b-4f19-a47a-c43253e188a3",
+  "environment": "spark_test",
+  "profile_version": "1.0.0",
+  "started_at": "2026-09-11T08:02:08.594032Z",
+  "finished_at": "2026-09-11T08:02:08.594032Z",
+  "overall": "not_verified",
+  "engine_version": null,
+  "session_timezone": null,
+  "connectivity": "not_verified",
+  "capabilities": {
+    "connectivity": "not_verified",
+    "date_literal": "not_verified",
+    "case": "not_verified",
+    "coalesce": "not_verified",
+    "null_safe_equals": "not_verified",
+    "cte": "not_verified",
+    "full_outer_join": "not_verified",
+    "count": "not_verified",
+    "sum": "not_verified"
+  },
+  "source_schema": null,
+  "fixture_parity": [],
+  "evidence": [
+    {
+      "evidence_type": "connectivity",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No configuration",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "client_timeout",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "Client deadline is unit tested; no deliberately slow remote query was run",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "read_only_identity",
+      "source": "operator_attestation",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "Operator attestation; no destructive permission test",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "timezone",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "source_schema",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "decimal_semantics",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "max_rows",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "cancel_requested",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "remote_cancel",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "fixture_parity",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    },
+    {
+      "evidence_type": "source_partition_format",
+      "source": "spark_test",
+      "observed_at": "2026-09-11T08:02:08.594032Z",
+      "summary": "No direct observation; manual verification required",
+      "status": "not_verified"
+    }
+  ],
+  "requires_human_review": true
+}

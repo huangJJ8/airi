@@ -1,0 +1,14 @@
+{
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "monitoring_expectation_id": "c69144d1-cf2c-4ddf-bdc3-bf6deeff37ee",
+  "status": "satisfied",
+  "expected_interval_hours": 24,
+  "grace_hours": 6,
+  "last_observation_time": "2026-09-17T06:21:23.612484Z",
+  "last_freshness": "fresh",
+  "hours_since_last_observation": 0.00015261833333333333,
+  "due_at": "2026-09-18T12:21:23.612484Z",
+  "snapshot_count": 3,
+  "detail": "telemetry within declared expectation",
+  "evaluated_at": "2026-09-17T06:21:24.161910Z"
+}

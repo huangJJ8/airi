@@ -1,0 +1,31 @@
+[
+  {
+    "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+    "proposal": {
+      "proposal_type": "window_review",
+      "target": "invoice_amount_30d",
+      "action": "evaluate_alternative_window",
+      "parameters": {
+        "candidate_windows": [
+          60,
+          90
+        ],
+        "candidate_aggregations": [],
+        "candidate_refs": []
+      },
+      "reason": "Recent-window missingness motivates a controlled window investigation.",
+      "validation_question": "Does a longer window change coverage and separation here?",
+      "evidence_refs": [
+        "finding:b8d4b79b-62a9-47ae-bde8-77a89b2b13be:insufficient_evidence"
+      ],
+      "priority": "high",
+      "requires_human_review": true
+    },
+    "automation_capability": "supported",
+    "allowed_windows": [
+      60,
+      90
+    ],
+    "decision": null
+  }
+]

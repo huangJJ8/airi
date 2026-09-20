@@ -1,0 +1,62 @@
+{
+  "artifact_id": "1eab0d8e-c587-4397-8c4e-88da60fba6b7",
+  "approval_id": "f912257c-67ee-4cca-8329-7cbf3c48a577",
+  "execution_profile": "spark_test",
+  "max_rows": 100,
+  "timeout_seconds": 60,
+  "execution_run_id": "cbe387dc-6d84-4f89-9f56-de6e76d1b4c9",
+  "workflow_run_id": "b9b97d64-c1f2-44c6-b3f3-0ab4ef03626f",
+  "request_id": "2ea58a7d4521408db1e74d3af7927dd8",
+  "profile_version": "1.0.0",
+  "engine": "spark_sql",
+  "execution_context": {
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "sql_hash": "d59b6654eb91ffcaeee42b1cb54993f51b2d1cd7cbda1adbb06df33f807fb8f7",
+  "status": "success",
+  "started_at": "2026-09-10T08:06:18.675357Z",
+  "finished_at": "2026-09-10T08:06:18.683581Z",
+  "duration_ms": 0.6341999978758395,
+  "failure_category": null,
+  "error_message": null,
+  "columns": [
+    {
+      "name": "entity_id",
+      "type": "string"
+    },
+    {
+      "name": "invoice_count_30d",
+      "type": "bigint"
+    }
+  ],
+  "rows": [
+    {
+      "entity_id": null,
+      "invoice_count_30d": 1
+    },
+    {
+      "entity_id": "A",
+      "invoice_count_30d": 3
+    },
+    {
+      "entity_id": "B",
+      "invoice_count_30d": 1
+    },
+    {
+      "entity_id": "C",
+      "invoice_count_30d": 1
+    },
+    {
+      "entity_id": "CURRENT_ONLY",
+      "invoice_count_30d": 1
+    },
+    {
+      "entity_id": "ZERO",
+      "invoice_count_30d": 1
+    }
+  ],
+  "row_count": 6,
+  "truncated": false,
+  "warnings": []
+}

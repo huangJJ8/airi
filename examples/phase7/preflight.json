@@ -1,0 +1,68 @@
+{
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "environment_verified",
+      "status": "passed",
+      "detail": "kind=production; verified=True; deployment_enabled=True"
+    },
+    {
+      "name": "environment_validation",
+      "status": "passed",
+      "detail": "verification_source=synthetic_profile; run=None"
+    },
+    {
+      "name": "release_approved",
+      "status": "passed",
+      "detail": "release_status=active"
+    },
+    {
+      "name": "release_evidence",
+      "status": "passed",
+      "detail": "status=passed_with_warnings; eligibility=eligible_for_release_review"
+    },
+    {
+      "name": "package_integrity",
+      "status": "passed",
+      "detail": "verified"
+    },
+    {
+      "name": "metric_version_immutable",
+      "status": "passed",
+      "detail": "content hash matches the registry lineage"
+    },
+    {
+      "name": "read_only_preflight",
+      "status": "passed",
+      "detail": "preflight performs reads only"
+    },
+    {
+      "name": "release_target_environment",
+      "status": "not_verified",
+      "detail": "release_target_environment=staging"
+    },
+    {
+      "name": "read_only_session",
+      "status": "passed",
+      "detail": "Mock adapter performs no writes and no business output"
+    },
+    {
+      "name": "governed_artifact_approval",
+      "status": "passed",
+      "detail": "Approved artifact is available to the provider"
+    },
+    {
+      "name": "runtime_identity",
+      "status": "not_verified",
+      "detail": "Mock provider exposes no job identity"
+    }
+  ],
+  "missing_evidence": [
+    "adapter:runtime_identity",
+    "production release environment not exercised"
+  ],
+  "read_only_preflight": true,
+  "production_deployed": false,
+  "created_at": "2026-09-17T02:10:21.714173Z"
+}

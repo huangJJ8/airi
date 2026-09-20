@@ -1,0 +1,88 @@
+{
+  "artifact_id": "e218114d-4db1-4fa4-8f7b-e0c6d027aec7",
+  "approval_id": "ac129f1e-d87d-42c2-b03e-8ee06b2c0b14",
+  "execution_profile": "spark_test",
+  "max_rows": 100,
+  "timeout_seconds": 60,
+  "execution_run_id": "ec948e01-0a60-4fdc-952b-29affd454b0f",
+  "workflow_run_id": "8318df2e-c630-4cda-a07e-f2a53146d2d4",
+  "request_id": "b1322319c3e34fdcbb2ca85a939cfcf4",
+  "profile_version": "1.0.0",
+  "engine": "spark_sql",
+  "execution_context": {
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "sql_hash": "e1aa86c72607b2ce4d39651eb45d56a84248bbbc252899f169101dc833ab19d2",
+  "status": "success",
+  "started_at": "2026-09-10T08:06:18.892707Z",
+  "finished_at": "2026-09-10T08:06:18.902814Z",
+  "duration_ms": 1.0699000013119075,
+  "failure_category": null,
+  "error_message": null,
+  "columns": [
+    {
+      "name": "entity_id",
+      "type": "string"
+    },
+    {
+      "name": "current_amount",
+      "type": "double"
+    },
+    {
+      "name": "previous_amount",
+      "type": "double"
+    },
+    {
+      "name": "invoice_amount_growth_30d",
+      "type": "double"
+    }
+  ],
+  "rows": [
+    {
+      "entity_id": null,
+      "current_amount": 20,
+      "previous_amount": 10,
+      "invoice_amount_growth_30d": 1.0
+    },
+    {
+      "entity_id": "A",
+      "current_amount": 300,
+      "previous_amount": 100,
+      "invoice_amount_growth_30d": 2.0
+    },
+    {
+      "entity_id": "B",
+      "current_amount": 50,
+      "previous_amount": 100,
+      "invoice_amount_growth_30d": -0.5
+    },
+    {
+      "entity_id": "C",
+      "current_amount": 100,
+      "previous_amount": 100,
+      "invoice_amount_growth_30d": 0.0
+    },
+    {
+      "entity_id": "CURRENT_ONLY",
+      "current_amount": 25,
+      "previous_amount": 0,
+      "invoice_amount_growth_30d": null
+    },
+    {
+      "entity_id": "ZERO",
+      "current_amount": -10,
+      "previous_amount": 0,
+      "invoice_amount_growth_30d": null
+    },
+    {
+      "entity_id": "PREVIOUS_ONLY",
+      "current_amount": 0,
+      "previous_amount": 20,
+      "invoice_amount_growth_30d": -1.0
+    }
+  ],
+  "row_count": 7,
+  "truncated": false,
+  "warnings": []
+}

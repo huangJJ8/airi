@@ -1,0 +1,29 @@
+[
+  {
+    "requirement": "统计企业关联数量",
+    "scenario": "enterprise_relation",
+    "error": {
+      "code": "requirement_parse_failed",
+      "message": "Requirement is unsupported or ambiguous for enterprise_relation",
+      "request_id": "660436ca7e2047f48941b60f1d16e7d0"
+    }
+  },
+  {
+    "requirement": "统计企业近30天开票金额",
+    "scenario": "enterprise_relation",
+    "error": {
+      "code": "requirement_parse_failed",
+      "message": "Requirement is unsupported or ambiguous for enterprise_relation",
+      "request_id": "dd64e61367264246afeea6213dd772ba"
+    }
+  },
+  {
+    "requirement": "统计企业通过关联自然人间接关联的其他企业数量",
+    "scenario": "invoice_risk",
+    "error": {
+      "code": "requirement_parse_failed",
+      "message": "Requirement is unsupported or ambiguous for invoice_risk",
+      "request_id": "3dd73ffd235043e4b0a642db52053320"
+    }
+  }
+]

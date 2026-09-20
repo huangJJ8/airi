@@ -1,0 +1,103 @@
+{
+  "release_id": "9d4a630f-ed4f-46e0-b76f-63e5fbb17604",
+  "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+  "metric_key": "invoice_amount",
+  "version": "2.0.0",
+  "status": "passed_with_warnings",
+  "release_eligibility": "eligible_for_release_review",
+  "staging": {
+    "status": "passed",
+    "execution_mode": "mock",
+    "target_environment": "staging",
+    "artifact_id": "16cc3176-12d0-47d1-a46e-ffbb90321a3f",
+    "artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+    "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+    "execution_run_id": "63785592-1400-4289-9e7f-7c984f842fa8",
+    "failure_category": null,
+    "row_count": 401,
+    "truncated": false,
+    "schema_ok": true,
+    "coverage": 1.0,
+    "null_rate": 0.0,
+    "non_null_count": 401,
+    "warnings": []
+  },
+  "shadow": {
+    "status": "passed_with_warnings",
+    "baseline": {
+      "role": "active_metric_version",
+      "label": "1.0.0",
+      "artifact_id": "441923db-23ad-4813-9f37-ae0089a37790",
+      "artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+      "metric_name": "invoice_amount_60d",
+      "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+      "version": "1.0.0"
+    },
+    "candidate": {
+      "role": "candidate_metric_version",
+      "label": "2.0.0",
+      "artifact_id": "16cc3176-12d0-47d1-a46e-ffbb90321a3f",
+      "artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+      "metric_name": "invoice_amount_90d",
+      "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+      "version": "2.0.0"
+    },
+    "dataset_snapshot_id": "ce794763-2e3b-4937-8272-e312ac748e0e",
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "research_dataset_input": true,
+    "sample_count": 401,
+    "matched_entities": 385,
+    "baseline_only": 0,
+    "candidate_only": 16,
+    "value_equal": 201,
+    "value_changed": 184,
+    "new_null": 0,
+    "resolved_null": 0,
+    "difference_rate": 0.4779220779220779,
+    "entity_loss_fraction": 0.0,
+    "new_null_fraction": 0.0,
+    "distribution_delta": {
+      "entities": 16.0,
+      "non_null": 16.0,
+      "null_rate": 0.0,
+      "min": 0.0,
+      "max": 9321.0,
+      "mean": 2587.217475791042,
+      "p50": 863.0,
+      "p90": 7350.2,
+      "p95": 8163.6,
+      "p90_relative_shift": 4.27635559692809
+    },
+    "warnings": [
+      "distribution_shifted_as_expected_for_semantic_change"
+    ]
+  },
+  "evidence_checks": {
+    "promotion_review": "verified",
+    "promotion_evidence_hash": "e9dd7df2ec3446cb74f8666ac85391be1f92fae2d94ba9910029da18ed028dd1",
+    "temporal_validation_run_id": "e034fe0f-0ba5-4056-b09b-3e591ba29bce",
+    "temporal_report_hash": "c5bf21fcb3ae8426cbaf72d85c4617e0562b483aa6e5766fcee3201efdfa4e77",
+    "refinement_report_hash": "053ab4a8016a60f83c80f26cd5be5f18eb8a65363b56eb671637054911c244bd",
+    "candidate_artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+    "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+    "test_report_hash": "68e8191a5b9ce0edce7ddb288e18eaceacf7abbff087ef94ad08141d2f489152",
+    "experiment_report_hash": "edf59ef2640493c6a5547c83ba6049ce9323d05ef3d161829c4448bc1c497618",
+    "metric_version_content_hash": "a597f02ca00a39e516b644aef923bfecea0545810e5b4151eb7b6851016d6c91"
+  },
+  "findings": [],
+  "warnings": [
+    "distribution_shifted_as_expected_for_semantic_change",
+    "synthetic evidence only; research release demonstration, not a real release"
+  ],
+  "missing_evidence": [
+    "real Spark not verified",
+    "real production traffic not verified"
+  ],
+  "synthetic_data": true,
+  "execution_mode": "mock",
+  "release_policy_version": "1.0.0",
+  "logical_activation_only": true,
+  "production_deployed": false,
+  "requires_human_review": true,
+  "created_at": "2026-09-16T03:03:02.263780Z"
+}

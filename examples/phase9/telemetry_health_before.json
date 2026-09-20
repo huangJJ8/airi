@@ -1,0 +1,17 @@
+{
+  "telemetry_source_id": "synthetic_monitor",
+  "environment_id": "prod_synth",
+  "source_system": "synthetic_monitor",
+  "verified": true,
+  "synthetic": false,
+  "status": "silent",
+  "latest_observation_time": null,
+  "latest_received_at": null,
+  "latest_freshness": null,
+  "snapshot_count": 0,
+  "overdue_deployment_ids": [],
+  "silent_deployment_ids": [],
+  "detail": "the producer is attested but has never delivered a reading",
+  "metric_health_implied": false,
+  "observed_at": "2026-09-17T10:12:12.374691Z"
+}

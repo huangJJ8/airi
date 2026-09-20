@@ -1,0 +1,39 @@
+{
+  "experiment_spec_id": "eb3aacbc-73df-4248-acd9-2d2dbec4e2e2",
+  "experiment_name": "invoice_amount_30d_evaluation",
+  "metric": {
+    "artifact_id": "a6b036ed-9c7f-4e28-b54d-0b4de73da90e",
+    "artifact_version": "1.0.0"
+  },
+  "approval_id": "c0e266aa-954b-4d1a-82fb-f812521479cd",
+  "test_run_id": "a3fcd9ca-a1f4-4836-92b5-7b0e92a30361",
+  "dataset_snapshot_id": "ae7e9b24-cb75-4914-8c35-98454416f568",
+  "label_definition_id": "85635d79-6e53-428f-91e2-4d714edec6c8",
+  "environment_validation_run_id": null,
+  "anchor_time": "2026-09-09T00:00:00+08:00",
+  "observation_time": "2026-09-09T00:00:00+08:00",
+  "label_window": {
+    "start": "2026-09-10T00:00:00+08:00",
+    "end": "2026-10-09T00:00:00+08:00"
+  },
+  "evaluation": {
+    "metrics": [
+      "coverage",
+      "bad_rate",
+      "lift",
+      "ks",
+      "iv"
+    ],
+    "threshold_percentiles": [
+      50,
+      75,
+      90,
+      95,
+      99
+    ],
+    "version": "1.0.0",
+    "bins": 10,
+    "epsilon": 1e-06,
+    "min_labeled_samples": 100
+  }
+}

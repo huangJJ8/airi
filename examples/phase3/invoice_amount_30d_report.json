@@ -1,0 +1,446 @@
+{
+  "run": {
+    "created_at": "2026-09-13T12:10:30.874390Z",
+    "experiment_run_id": "d7aec4eb-c5ed-4f3f-969a-4a490f87c8ed",
+    "experiment_spec_id": "d16c8181-975e-4676-8733-9cc6758c1e2b",
+    "artifact_id": "0b51fd31-5780-4893-bf18-6aab9251938c",
+    "dataset_snapshot_id": "236f6642-8c90-4da6-9cfe-fdea60de4178",
+    "label_definition_id": "3a69924a-da6e-4440-a7c8-7fb35f90f7d1",
+    "status": "completed",
+    "started_at": "2026-09-13T12:10:30.874390Z",
+    "finished_at": "2026-09-13T12:10:30.906645Z",
+    "metric_row_count": 185,
+    "labeled_row_count": 188,
+    "failure_category": null
+  },
+  "execution_mode": "mock",
+  "evaluation": {
+    "metric_name": "invoice_amount_30d",
+    "total_sample": 200,
+    "labeled_sample": 188,
+    "good_count": 113,
+    "bad_count": 75,
+    "non_null_metric": 173,
+    "null_metric": 15,
+    "coverage": 0.9202127659574468,
+    "bad_rate": 0.39893617021276595,
+    "distribution": {
+      "count": 173,
+      "null_count": 15,
+      "min": "2",
+      "max": "984",
+      "mean": "473.31213872832369942196531791907514450867052023121",
+      "p25": "215",
+      "p50": "464",
+      "p75": "710",
+      "p90": "887.4",
+      "p95": "924.2",
+      "p99": "963.36"
+    },
+    "requested_bins": 10,
+    "actual_bins": 10,
+    "bins": [
+      {
+        "bucket": 0,
+        "is_null": false,
+        "lower": "2",
+        "upper": "105",
+        "count": 18,
+        "good": 18,
+        "bad": 0,
+        "bad_rate": 0.0,
+        "lift": 0.0,
+        "good_pct": 0.15929202874148393,
+        "bad_pct": 1.3333331377778065e-08,
+        "woe": 16.29598271556149,
+        "iv_component": 2.5958199298182087
+      },
+      {
+        "bucket": 1,
+        "is_null": false,
+        "lower": "106",
+        "upper": "172",
+        "count": 17,
+        "good": 17,
+        "bad": 0,
+        "bad_rate": 0.0,
+        "lift": 0.0,
+        "good_pct": 0.15044247208082132,
+        "bad_pct": 1.3333331377778065e-08,
+        "woe": 16.238824304989517,
+        "iv_component": 2.443008655611122
+      },
+      {
+        "bucket": 2,
+        "is_null": false,
+        "lower": "176",
+        "upper": "264",
+        "count": 17,
+        "good": 15,
+        "bad": 2,
+        "bad_rate": 0.11764705882352941,
+        "lift": 0.29490196078431374,
+        "good_pct": 0.13274335875949606,
+        "bad_pct": 0.026666676088887505,
+        "woe": 1.605002931354552,
+        "iv_component": 0.1702533866346933
+      },
+      {
+        "bucket": 3,
+        "is_null": false,
+        "lower": "275",
+        "upper": "344",
+        "count": 16,
+        "good": 12,
+        "bad": 4,
+        "bad_rate": 0.25,
+        "lift": 0.6266666666666667,
+        "good_pct": 0.10619468877750818,
+        "bad_pct": 0.053333338844443634,
+        "woe": 0.6887124661469686,
+        "iv_component": 0.03640627067625877
+      },
+      {
+        "bucket": 4,
+        "is_null": false,
+        "lower": "360",
+        "upper": "453",
+        "count": 18,
+        "good": 14,
+        "bad": 4,
+        "bad_rate": 0.2222222222222222,
+        "lift": 0.557037037037037,
+        "good_pct": 0.12389380209883342,
+        "bad_pct": 0.053333338844443634,
+        "woe": 0.8428631340694659,
+        "iv_component": 0.05947281319998836
+      },
+      {
+        "bucket": 5,
+        "is_null": false,
+        "lower": "464",
+        "upper": "567",
+        "count": 18,
+        "good": 9,
+        "bad": 9,
+        "bad_rate": 0.5,
+        "lift": 1.2533333333333334,
+        "good_pct": 0.07964601879552029,
+        "bad_pct": 0.11999999573333396,
+        "woe": -0.4098996558545022,
+        "iv_component": 0.01654108125917034
+      },
+      {
+        "bucket": 6,
+        "is_null": false,
+        "lower": "570",
+        "upper": "658",
+        "count": 17,
+        "good": 3,
+        "bad": 14,
+        "bad_rate": 0.8235294117647058,
+        "lift": 2.064313725490196,
+        "good_pct": 0.026548678831544537,
+        "bad_pct": 0.1866666526222243,
+        "woe": -1.9503444348969423,
+        "iv_component": 0.3122851991096267
+      },
+      {
+        "bucket": 7,
+        "is_null": false,
+        "lower": "664",
+        "upper": "756",
+        "count": 17,
+        "good": 4,
+        "bad": 13,
+        "bad_rate": 0.7647058823529411,
+        "lift": 1.9168627450980391,
+        "good_pct": 0.035398235492207164,
+        "bad_pct": 0.17333332124444623,
+        "woe": -1.5885544791192536,
+        "iv_component": 0.21911739829941768
+      },
+      {
+        "bucket": 8,
+        "is_null": false,
+        "lower": "757",
+        "upper": "885",
+        "count": 17,
+        "good": 7,
+        "bad": 10,
+        "bad_rate": 0.5882352941176471,
+        "lift": 1.4745098039215687,
+        "good_pct": 0.06194690547419504,
+        "bad_pct": 0.133333327111112,
+        "woe": -0.766574556936097,
+        "iv_component": 0.05472301453757304
+      },
+      {
+        "bucket": 9,
+        "is_null": false,
+        "lower": "888",
+        "upper": "984",
+        "count": 18,
+        "good": 6,
+        "bad": 12,
+        "bad_rate": 0.6666666666666666,
+        "lift": 1.671111111111111,
+        "good_pct": 0.05309734881353242,
+        "bad_pct": 0.15999998986666816,
+        "woe": -1.1030467530811245,
+        "iv_component": 0.11791861110945831
+      },
+      {
+        "bucket": 10,
+        "is_null": true,
+        "lower": null,
+        "upper": null,
+        "count": 15,
+        "good": 8,
+        "bad": 7,
+        "bad_rate": 0.4666666666666667,
+        "lift": 1.1697777777777778,
+        "good_pct": 0.07079646213485767,
+        "bad_pct": 0.09333333297777784,
+        "woe": -0.2763682810871201,
+        "iv_component": 0.0062284762559402795
+      }
+    ],
+    "ks": {
+      "status": "available",
+      "value": 0.576750700280112,
+      "ascending": 0.576750700280112,
+      "descending": 0.576750700280112,
+      "bucket": 4,
+      "direction": "higher_is_riskier",
+      "split": "464"
+    },
+    "iv": 6.031774836511457,
+    "iv_status": "available",
+    "epsilon": 1e-06,
+    "threshold_candidates": [
+      {
+        "threshold": "464",
+        "operator": ">=",
+        "sources": [
+          "p50",
+          "ks_best_split"
+        ],
+        "hit_count": 87,
+        "hit_rate": 0.4627659574468085,
+        "bad_count": 58,
+        "good_count": 29,
+        "bad_rate": 0.6666666666666666,
+        "precision": 0.6666666666666666,
+        "recall": 0.7733333333333333,
+        "lift": 1.671111111111111
+      },
+      {
+        "threshold": "710",
+        "operator": ">=",
+        "sources": [
+          "p75"
+        ],
+        "hit_count": 44,
+        "hit_rate": 0.23404255319148937,
+        "bad_count": 29,
+        "good_count": 15,
+        "bad_rate": 0.6590909090909091,
+        "precision": 0.6590909090909091,
+        "recall": 0.38666666666666666,
+        "lift": 1.652121212121212
+      },
+      {
+        "threshold": "887.4",
+        "operator": ">=",
+        "sources": [
+          "p90"
+        ],
+        "hit_count": 18,
+        "hit_rate": 0.09574468085106383,
+        "bad_count": 12,
+        "good_count": 6,
+        "bad_rate": 0.6666666666666666,
+        "precision": 0.6666666666666666,
+        "recall": 0.16,
+        "lift": 1.671111111111111
+      },
+      {
+        "threshold": "924.2",
+        "operator": ">=",
+        "sources": [
+          "p95"
+        ],
+        "hit_count": 9,
+        "hit_rate": 0.047872340425531915,
+        "bad_count": 7,
+        "good_count": 2,
+        "bad_rate": 0.7777777777777778,
+        "precision": 0.7777777777777778,
+        "recall": 0.09333333333333334,
+        "lift": 1.9496296296296296
+      },
+      {
+        "threshold": "963.36",
+        "operator": ">=",
+        "sources": [
+          "p99"
+        ],
+        "hit_count": 2,
+        "hit_rate": 0.010638297872340425,
+        "bad_count": 2,
+        "good_count": 0,
+        "bad_rate": 1.0,
+        "precision": 1.0,
+        "recall": 0.02666666666666667,
+        "lift": 2.506666666666667
+      }
+    ],
+    "warnings": []
+  },
+  "join_summary": {
+    "label_entity_count": 188,
+    "matched_count": 173,
+    "label_only": 15,
+    "metric_only": 12,
+    "unknown_label_excluded": 12,
+    "metric_non_null_count": 173
+  },
+  "reproducibility": {
+    "artifact_id": "0b51fd31-5780-4893-bf18-6aab9251938c",
+    "artifact_hash": "c342958daedcb1ecab265d780f007611168e1a669a71dad67712d9751aa99646",
+    "metric_ir_hash": "d128a0b8e26ef05df403758b6740deecc9e4a6bb3653de8ffa6a5e48d87c5846",
+    "skill_plan": {
+      "scenario_skill": {
+        "name": "invoice_risk",
+        "version": "1.0.0"
+      },
+      "capabilities": [
+        {
+          "name": "metric_window",
+          "version": "1.0.0"
+        },
+        {
+          "name": "metric_sum",
+          "version": "1.0.0"
+        },
+        {
+          "name": "spark_sql_generator",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "tool_plan": {
+      "tools": [
+        {
+          "name": "generate_spark_sql_metric",
+          "version": "1.1.0"
+        }
+      ]
+    },
+    "template": {
+      "name": "aggregation_metric",
+      "version": "1.1.0"
+    },
+    "evaluation_dataset_template": {
+      "name": "evaluation_dataset",
+      "version": "1.0.0"
+    },
+    "dataset_snapshot": {
+      "dataset_snapshot_id": "236f6642-8c90-4da6-9cfe-fdea60de4178",
+      "name": "invoice_sample_20260909",
+      "source": {
+        "database": "tmp_db",
+        "table": "invoice_risk_sample"
+      },
+      "entity_key": "seller_tax_no",
+      "snapshot_time": "2026-09-09T00:00:00+08:00",
+      "partition": {
+        "field": "dt",
+        "value": "20260909"
+      },
+      "row_count": 200,
+      "checksum": "4def93506f0f4ed9391864afea0856b8b4427a88f7bba52427c194e2cc3201ea"
+    },
+    "label_definition": {
+      "label_definition_id": "3a69924a-da6e-4440-a7c8-7fb35f90f7d1",
+      "name": "synthetic_binary_label",
+      "entity_key": "seller_tax_no",
+      "label_field": "bad_flag",
+      "bad_value": 1,
+      "good_value": 0,
+      "unknown_strategy": "exclude"
+    },
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "evaluation_policy": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "environment_validation_run_id": null,
+    "environment_report_hash": null,
+    "test_run_id": "35c53880-c369-4220-a48c-94849df9432a",
+    "test_report_hash": "145ee2ed67163c4f449a700b57f1075bb7ef89499d02287798f9afe53491e992",
+    "experiment_spec_hash": "c6c83de21521ad4e564d8d5aebec5f9d675746c7917fde33bf8c284e95814e25",
+    "execution_run_id": "fea7c458-abde-4042-98bf-4dedb493a70f",
+    "execution_metadata": {
+      "artifact_id": "0b51fd31-5780-4893-bf18-6aab9251938c",
+      "approval_id": "7632870f-8252-45c7-9c19-e0b89c917f94",
+      "execution_profile": "spark_test",
+      "max_rows": 1000,
+      "timeout_seconds": 60,
+      "execution_run_id": "fea7c458-abde-4042-98bf-4dedb493a70f",
+      "workflow_run_id": "4e0782cb-8433-4490-ae06-abfb71880152",
+      "request_id": "dfdb547f90644ba4bce0a354d2519292",
+      "profile_version": "1.0.0",
+      "engine": "spark_sql",
+      "execution_context": {
+        "anchor_time": "2026-09-09T00:00:00+08:00",
+        "timezone": "Asia/Shanghai"
+      },
+      "sql_hash": "96d8e189f4ee157c1e7d0ec061990ec40fa7d76e397b3f53a5c5e20dbe5e8141",
+      "status": "success",
+      "started_at": "2026-09-13T12:10:30.897166Z",
+      "finished_at": "2026-09-13T12:10:30.906130Z",
+      "duration_ms": 2.3686999920755625,
+      "failure_category": null,
+      "error_message": null,
+      "provider_query_id": null,
+      "cancel_requested": null,
+      "remote_cancel_status": "not_verified",
+      "executed_sql_hash": null,
+      "source_mapping": null,
+      "row_count": 185,
+      "truncated": false,
+      "warnings": []
+    },
+    "metric_result_checksum": "cddb2c35b0ad47495053f9814faa83f09c302a981732235df615e2fe0d601d30"
+  },
+  "leakage_check": {
+    "status": "passed",
+    "metric_anchor_time": "2026-09-09T00:00:00+08:00",
+    "label_window": {
+      "start": "2026-09-10T00:00:00+08:00",
+      "end": "2026-10-09T00:00:00+08:00"
+    }
+  },
+  "warnings": [
+    "SYNTHETIC MOCK EXPERIMENT; not real Spark or business effectiveness evidence"
+  ],
+  "requires_human_review": true
+}

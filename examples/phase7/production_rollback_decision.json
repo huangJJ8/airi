@@ -1,0 +1,25 @@
+{
+  "rollback_review_id": "f2d84d18-39ae-4e93-b8ab-f8cd740476ff",
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_key": "invoice_amount",
+  "from_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "from_version": "2.0.0",
+  "to_version_id": "8e28a9ad-2aa2-4d86-a4c4-d62940c2ce6a",
+  "to_version": "1.0.0",
+  "reason": "Synthetic coverage regression after cutover",
+  "alert_ids": [
+    "71c40264-a07a-445c-a8bb-bd5da982644e",
+    "c7b65162-39f7-4ccf-bd81-fc68d2c9a8c7"
+  ],
+  "decision": "approved",
+  "reviewer": "Demo Rollback",
+  "reviewer_actor_id": "demo-rollback",
+  "comment": "Simulated human rollback approval",
+  "production_rollback_status": "succeeded",
+  "registry_reconciliation_status": "reconciled",
+  "provider_job_id": null,
+  "automatic": false,
+  "created_at": "2026-09-17T02:10:23.124604Z",
+  "reviewed_at": "2026-09-17T02:10:23.226005Z"
+}

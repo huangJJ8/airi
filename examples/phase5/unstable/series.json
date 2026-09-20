@@ -1,0 +1,61 @@
+{
+  "name": "unstable synthetic series",
+  "label_definition_id": "85635d79-6e53-428f-91e2-4d714edec6c8",
+  "scenario": "invoice_risk",
+  "slices": [
+    {
+      "time_slice_id": "slice-0",
+      "name": "2026-10-01",
+      "dataset_snapshot_id": "dfb793ea-9284-496d-b016-fd11a3b14e62",
+      "observation_time": "2026-10-01T00:00:00+08:00",
+      "label_window": {
+        "start": "2026-10-02T00:00:00+08:00",
+        "end": "2026-10-31T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-1",
+      "name": "2027-01-09",
+      "dataset_snapshot_id": "39bf1a49-5d52-42d5-8e35-3cac450850a2",
+      "observation_time": "2027-01-09T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-01-10T00:00:00+08:00",
+        "end": "2027-02-08T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-2",
+      "name": "2027-04-19",
+      "dataset_snapshot_id": "9575bd05-bfdf-43b4-9889-eef816f47e51",
+      "observation_time": "2027-04-19T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-04-20T00:00:00+08:00",
+        "end": "2027-05-19T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-3",
+      "name": "2027-07-28",
+      "dataset_snapshot_id": "fd646383-c14a-40b8-9fbf-b1093561f14f",
+      "observation_time": "2027-07-28T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-07-29T00:00:00+08:00",
+        "end": "2027-08-27T00:00:00+08:00"
+      },
+      "role": "oot"
+    }
+  ],
+  "reference_slice_id": "slice-0",
+  "series_id": "5208f68a-0d1c-4557-b743-808abd2dc4a8",
+  "snapshot_hashes": {
+    "dfb793ea-9284-496d-b016-fd11a3b14e62": "9c3e440502f4eec3ecf4ab896b60ac9483db078bda28a593da44055c4a72a458",
+    "39bf1a49-5d52-42d5-8e35-3cac450850a2": "6b3a7b75688f4e7033eed45b686f12b76c46e5dc747518a4e0eed277e3cbd1ce",
+    "9575bd05-bfdf-43b4-9889-eef816f47e51": "7ab9f6bb190ed22e98ab2dd2817a9334395c60c75a948e6d77b63b741c38df2c",
+    "fd646383-c14a-40b8-9fbf-b1093561f14f": "af59f0cef42da03c61fa62bed54fa2e8cb0715894c7906416f38e07a236db2f0"
+  },
+  "label_hash": "59ca5afc2380cc5687fc3f23d3b8510a1fc45733a90bbc8b5039e9df345675c8",
+  "created_at": "2026-09-15T08:34:18.239919Z"
+}

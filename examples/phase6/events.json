@@ -1,0 +1,175 @@
+[
+  {
+    "event_id": "b3f36a4c-3a5f-4d97-973b-675f56809c86",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": null,
+    "event_type": "version_registered",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "1.0.0",
+      "version_change": "initial",
+      "synthetic_data": true
+    },
+    "created_at": "2026-09-16T03:02:51.637309Z"
+  },
+  {
+    "event_id": "7b215df9-d6ab-4f74-984c-fb6114b15b2b",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+    "release_id": null,
+    "event_type": "version_registered",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "2.0.0",
+      "version_change": "major",
+      "synthetic_data": true
+    },
+    "created_at": "2026-09-16T03:03:00.445488Z"
+  },
+  {
+    "event_id": "a1a56f2a-39bc-4f83-bb0d-d8d9058247d0",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+    "event_type": "release_created",
+    "actor": "registry-service",
+    "metadata": {
+      "target_environment": "staging",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-16T03:03:00.605315Z"
+  },
+  {
+    "event_id": "a2074592-c463-467f-ae75-5d90795f862a",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+    "event_type": "staging_validated",
+    "actor": "registry-service",
+    "metadata": {
+      "status": "passed_with_warnings",
+      "release_eligibility": "eligible_for_release_review",
+      "execution_mode": "mock"
+    },
+    "created_at": "2026-09-16T03:03:01.213234Z"
+  },
+  {
+    "event_id": "d585498d-d4c5-4d4b-a9b8-4767c76b858e",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+    "event_type": "release_approved",
+    "actor": "synthetic-demo",
+    "metadata": {
+      "decision": "approved"
+    },
+    "created_at": "2026-09-16T03:03:01.430743Z"
+  },
+  {
+    "event_id": "9cb097b7-5eb1-4a26-bf75-be452c4932b2",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+    "event_type": "activated",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "1.0.0",
+      "previous_active_version_id": null,
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-16T03:03:01.509882Z"
+  },
+  {
+    "event_id": "7cd1d451-37b3-4b41-8a44-9638144ab33e",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+    "release_id": "9d4a630f-ed4f-46e0-b76f-63e5fbb17604",
+    "event_type": "release_created",
+    "actor": "registry-service",
+    "metadata": {
+      "target_environment": "staging",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-16T03:03:01.592318Z"
+  },
+  {
+    "event_id": "c3c45e43-3b56-4fbb-995b-969143c27479",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+    "release_id": "9d4a630f-ed4f-46e0-b76f-63e5fbb17604",
+    "event_type": "staging_validated",
+    "actor": "registry-service",
+    "metadata": {
+      "status": "passed_with_warnings",
+      "release_eligibility": "eligible_for_release_review",
+      "execution_mode": "mock"
+    },
+    "created_at": "2026-09-16T03:03:02.264923Z"
+  },
+  {
+    "event_id": "c11af22d-d852-4b93-8a7d-3dfc6c14ed45",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+    "release_id": "9d4a630f-ed4f-46e0-b76f-63e5fbb17604",
+    "event_type": "release_approved",
+    "actor": "synthetic-demo",
+    "metadata": {
+      "decision": "approved"
+    },
+    "created_at": "2026-09-16T03:03:02.497480Z"
+  },
+  {
+    "event_id": "d352ab81-113f-401e-93d0-cb931da27227",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+    "release_id": "9d4a630f-ed4f-46e0-b76f-63e5fbb17604",
+    "event_type": "activated",
+    "actor": "registry-service",
+    "metadata": {
+      "version": "2.0.0",
+      "previous_active_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+      "logical_activation_only": true
+    },
+    "created_at": "2026-09-16T03:03:02.588272Z"
+  },
+  {
+    "event_id": "f4053d9c-dd6c-45bb-a29e-04a045aa57a4",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": null,
+    "event_type": "rollback_requested",
+    "actor": "registry-service",
+    "metadata": {
+      "from_version": "2.0.0",
+      "to_version": "1.0.0"
+    },
+    "created_at": "2026-09-16T03:03:02.660155Z"
+  },
+  {
+    "event_id": "79fdcc2b-2e46-451f-b182-40bf80d283e1",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": null,
+    "event_type": "rollback_approved",
+    "actor": "synthetic-demo",
+    "metadata": {
+      "from_version": "2.0.0",
+      "to_version": "1.0.0"
+    },
+    "created_at": "2026-09-16T03:03:02.753681Z"
+  },
+  {
+    "event_id": "714dddc4-c8bf-40e4-80e9-0db104d3a1fe",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "release_id": null,
+    "event_type": "rolled_back",
+    "actor": "registry-service",
+    "metadata": {
+      "from_version": "2.0.0",
+      "to_version": "1.0.0"
+    },
+    "created_at": "2026-09-16T03:03:02.753681Z"
+  }
+]

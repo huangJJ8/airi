@@ -1,0 +1,20 @@
+{
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "monitoring_expectation_id": "bdc1194b-efb0-430b-a56d-445d65b4f53f",
+  "status": "overdue",
+  "expected_interval_hours": 1,
+  "grace_hours": 0,
+  "last_observation_time": "2026-09-17T08:12:12.621056Z",
+  "last_freshness": "stale",
+  "hours_since_last_observation": 2.0000094436111113,
+  "due_at": "2026-09-17T09:12:12.621056Z",
+  "snapshot_count": 1,
+  "detail": "telemetry overdue against declared expectation",
+  "evaluated_at": "2026-09-17T10:12:12.655053Z",
+  "telemetry_source_id": "synthetic_monitor",
+  "findings": [
+    "telemetry_missing"
+  ],
+  "window_key": "b0689a450ee99b31bba2d67bc5718538ca7a63de089c7b29224a06640ab92a92",
+  "policy_version": "1.0.0"
+}

@@ -1,0 +1,90 @@
+{
+  "environment_id": "prod_synth",
+  "environment_kind": "production",
+  "entries": [
+    {
+      "name": "environment_profile",
+      "status": "verified",
+      "detail": "the environment validation report was accepted",
+      "evidence": {
+        "verification_source": "synthetic_profile"
+      }
+    },
+    {
+      "name": "environment_fingerprint",
+      "status": "not_verified",
+      "detail": "the runtime never answered for itself, so nothing about it is observed",
+      "evidence": {}
+    },
+    {
+      "name": "identity_trust_boundary",
+      "status": "not_verified",
+      "detail": "no trusted identity boundary is configured; production decisions must come from a local injection",
+      "evidence": {}
+    },
+    {
+      "name": "authoritative_adapter",
+      "status": "not_applicable",
+      "detail": "a synthetic environment cannot produce an authoritative runtime",
+      "evidence": {
+        "adapter": "mock"
+      }
+    },
+    {
+      "name": "rollback_capability",
+      "status": "verified",
+      "detail": "the adapter declares a rollback channel",
+      "evidence": {
+        "adapter": "mock"
+      }
+    },
+    {
+      "name": "real_production_deployment",
+      "status": "not_verified",
+      "detail": "no deployment has been confirmed live on a verified production runtime",
+      "evidence": {
+        "deployment_count": 1
+      }
+    },
+    {
+      "name": "trusted_telemetry_source",
+      "status": "verified",
+      "detail": "an attested, non-synthetic producer delivers this environment's telemetry",
+      "evidence": {
+        "telemetry_source_ids": [
+          "synthetic_monitor"
+        ]
+      }
+    },
+    {
+      "name": "monitoring_expectation",
+      "status": "verified",
+      "detail": "an expectation declares when telemetry should arrive",
+      "evidence": {
+        "deployment_ids": [
+          "30dc850f-dd96-46cc-a825-d35079ac1ed5"
+        ]
+      }
+    },
+    {
+      "name": "notification_sink",
+      "status": "verified",
+      "detail": "alert delivery is configured for the mock sink",
+      "evidence": {
+        "sink": "mock"
+      }
+    }
+  ],
+  "verified_count": 5,
+  "not_verified_count": 3,
+  "not_applicable_count": 1,
+  "blocked_count": 0,
+  "open_items": [
+    "environment_fingerprint",
+    "identity_trust_boundary",
+    "real_production_deployment"
+  ],
+  "production_closed": false,
+  "detail": "3 item(s) are not verified between AIRI and a closed production environment",
+  "observed_at": "2026-09-17T10:12:13.283416Z"
+}

@@ -1,0 +1,13 @@
+{
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "registry_active_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "registry_active_version": "2.0.0",
+  "production_runtime_state": "active",
+  "production_active_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "status": "consistent",
+  "automatic_correction": false,
+  "findings": [],
+  "observed_at": "2026-09-17T02:10:22.358231Z"
+}

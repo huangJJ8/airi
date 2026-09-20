@@ -1,0 +1,54 @@
+[
+  {
+    "notification_delivery_id": "06c00d7e-9936-4a65-ba27-3ba6ad8fc6c9",
+    "alert_id": "44a8d11b-1292-4472-af4b-0e0f9b199e81",
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "sink": "disabled",
+    "status": "disabled",
+    "attempted_at": "2026-09-17T10:12:12.677071Z",
+    "attempted_by": "demo-admin",
+    "provider_message_id": null,
+    "failure_category": null,
+    "detail": "no notification sink is configured; the alert remains the record",
+    "replayed": false
+  },
+  {
+    "notification_delivery_id": "6ccc02c2-f78a-44e8-b7f2-8f1d511bb968",
+    "alert_id": "44a8d11b-1292-4472-af4b-0e0f9b199e81",
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "sink": "mock",
+    "status": "delivered",
+    "attempted_at": "2026-09-17T10:12:12.755585Z",
+    "attempted_by": "demo-admin",
+    "provider_message_id": "mock-44a8d11b-129",
+    "failure_category": null,
+    "detail": "delivered to the mock sink",
+    "replayed": false
+  },
+  {
+    "notification_delivery_id": "37a51b07-c1bb-41e9-a242-17b83d42937c",
+    "alert_id": "44a8d11b-1292-4472-af4b-0e0f9b199e81",
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "sink": "mock",
+    "status": "delivered",
+    "attempted_at": "2026-09-17T10:12:12.778049Z",
+    "attempted_by": "demo-admin",
+    "provider_message_id": "mock-44a8d11b-129",
+    "failure_category": null,
+    "detail": "delivered to the mock sink",
+    "replayed": false
+  },
+  {
+    "notification_delivery_id": "9d3a19df-cc15-4de0-8bed-5b28d526f231",
+    "alert_id": "44a8d11b-1292-4472-af4b-0e0f9b199e81",
+    "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+    "sink": "mock",
+    "status": "failed",
+    "attempted_at": "2026-09-17T10:12:12.792698Z",
+    "attempted_by": "demo-admin",
+    "provider_message_id": null,
+    "failure_category": "provider_rejected",
+    "detail": "the mock sink was instructed to fail",
+    "replayed": false
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "name": "related_enterprise_count",
+  "display_name": "企业关联企业数量",
+  "description": "统计企业通过关联自然人间接关联的其他企业数量（按企业去重，排除本企业）",
+  "entity_type": "enterprise",
+  "entity_key": "enterprise_id",
+  "partition_field": null,
+  "source": {
+    "catalog": null,
+    "database": "demo",
+    "table": "enterprise_person_relation"
+  },
+  "aggregation": {
+    "function": "count_distinct",
+    "field": "related_enterprise_id"
+  },
+  "dimensions": [],
+  "filters": [],
+  "window": null,
+  "source_alias": "ep",
+  "aggregation_alias": "pe",
+  "joins": [
+    {
+      "alias": "pe",
+      "join_type": "inner",
+      "source": {
+        "catalog": null,
+        "database": "demo",
+        "table": "person_enterprise_relation"
+      },
+      "conditions": [
+        {
+          "left": {
+            "alias": "ep",
+            "field": "person_id"
+          },
+          "operator": "=",
+          "right": {
+            "alias": "pe",
+            "field": "person_id"
+          }
+        }
+      ]
+    }
+  ],
+  "column_filters": [
+    {
+      "left": {
+        "alias": "pe",
+        "field": "related_enterprise_id"
+      },
+      "operator": "<>",
+      "right": {
+        "alias": "ep",
+        "field": "enterprise_id"
+      }
+    }
+  ]
+}

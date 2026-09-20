@@ -1,0 +1,110 @@
+{
+  "production_verification_run_id": "0383ff9b-7562-4bdf-a417-3042355eb20d",
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+  "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+  "environment_id": "prod_synth",
+  "policy": {
+    "version": "1.0.0",
+    "require_environment_verified": true,
+    "require_identity_verified": true,
+    "require_authoritative_adapter": true,
+    "require_runtime_identity": true,
+    "require_shadow_verified": true,
+    "require_telemetry_verified": true,
+    "require_rollback_verified": false
+  },
+  "sections": [
+    {
+      "name": "environment",
+      "status": "not_verified",
+      "detail": "synthetic environment profile; no real cluster was verified",
+      "evidence": {
+        "verification_source": "synthetic_profile"
+      }
+    },
+    {
+      "name": "identity",
+      "status": "not_verified",
+      "detail": "no trusted identity boundary is configured",
+      "evidence": {}
+    },
+    {
+      "name": "adapter",
+      "status": "not_verified",
+      "detail": "runtime_mode=mock; no real production adapter is active",
+      "evidence": {
+        "adapter": "mock"
+      }
+    },
+    {
+      "name": "deployment",
+      "status": "not_verified",
+      "detail": "the deployment is confirmed by the provider but production was not claimed",
+      "evidence": {
+        "adapter": "mock"
+      }
+    },
+    {
+      "name": "runtime_identity",
+      "status": "not_verified",
+      "detail": "the production runtime identity is not verified",
+      "evidence": {}
+    },
+    {
+      "name": "shadow",
+      "status": "verified",
+      "detail": "the shadow ran read-only against the production runtime",
+      "evidence": {
+        "read_only_basis": "synthetic_provider",
+        "provider_query_id": null,
+        "row_count": 401
+      }
+    },
+    {
+      "name": "monitoring_source",
+      "status": "verified",
+      "detail": "telemetry is bound to a verified source in this environment",
+      "evidence": {
+        "telemetry_source_id": "synthetic_monitor",
+        "source_system": "synthetic_monitor",
+        "schema_version": "1.0.0"
+      }
+    },
+    {
+      "name": "rollback",
+      "status": "not_verified",
+      "detail": "no approved production rollback has been executed",
+      "evidence": {
+        "required": false
+      }
+    },
+    {
+      "name": "reconciliation",
+      "status": "not_verified",
+      "detail": "no reconciliation has been observed",
+      "evidence": {}
+    }
+  ],
+  "overall": "partially_verified",
+  "production_runtime_verified": false,
+  "production_deployed": false,
+  "not_verified": [
+    "adapter",
+    "deployment",
+    "environment",
+    "identity",
+    "reconciliation",
+    "rollback",
+    "runtime_identity"
+  ],
+  "blocking": [
+    "adapter",
+    "deployment",
+    "environment",
+    "identity",
+    "runtime_identity"
+  ],
+  "report_hash": "08ba4cb0e41596fa9302de11d38e9bb7f6e149782c3f5eac394c1456e597abd1",
+  "observed_at": "2026-09-17T06:21:24.191436Z"
+}

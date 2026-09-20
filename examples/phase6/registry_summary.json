@@ -1,0 +1,318 @@
+{
+  "definition": {
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_key": "invoice_amount",
+    "display_name": "invoice amount",
+    "scenario": "invoice_risk",
+    "entity_type": "enterprise",
+    "member_metric_names": [
+      "invoice_amount_60d",
+      "invoice_amount_90d"
+    ],
+    "active_version_id": null,
+    "created_at": "2026-09-16T03:02:51.633309Z",
+    "updated_at": "2026-09-16T03:03:00.445488"
+  },
+  "versions": [
+    {
+      "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+      "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+      "metric_key": "invoice_amount",
+      "version": "1.0.0",
+      "status": "active",
+      "metric_name": "invoice_amount_60d",
+      "display_name": "近60天企业开票金额",
+      "metric_ir": {
+        "schema_version": "1.0.0",
+        "name": "invoice_amount_60d",
+        "display_name": "近60天企业开票金额",
+        "description": "统计企业近60天开票金额之和",
+        "entity_type": "enterprise",
+        "entity_key": "seller_tax_no",
+        "partition_field": "dt",
+        "source": {
+          "catalog": null,
+          "database": "c_db",
+          "table": "source_fp_jdc_view"
+        },
+        "aggregation": {
+          "function": "sum",
+          "field": "invoice_amt"
+        },
+        "dimensions": [],
+        "filters": [],
+        "window": {
+          "size": 60,
+          "unit": "day",
+          "time_field": "invoice_date",
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+      "artifact_id": "441923db-23ad-4813-9f37-ae0089a37790",
+      "artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+      "source_refinement_run_id": "a9ea342c-78ad-4d9f-9f7c-3647fcc6373d",
+      "source_temporal_validation_run_id": "4c873080-4f5c-474c-b328-59c9eed84ef6",
+      "source_promotion_review_id": "ad6fd5b6-a5d9-404f-b020-6ebe4250aba1",
+      "version_change": {
+        "kind": "initial",
+        "previous_version": null,
+        "changed_fields": []
+      },
+      "provenance": {
+        "promotion_review_id": "ad6fd5b6-a5d9-404f-b020-6ebe4250aba1",
+        "promotion_evidence_hash": "def7bada6650e599c1c90449a8075f45e944caff3aecba9c0ec97b4abca7117a",
+        "promotion_decision": "approved_for_versioning",
+        "temporal_validation_run_id": "4c873080-4f5c-474c-b328-59c9eed84ef6",
+        "temporal_report_hash": "baf557d3374b219c14e6b297229cd0a60b046657264fa256800df7600e5541ff",
+        "temporal_status": "passed_with_warnings",
+        "temporal_promotion_eligibility": "eligible_for_review",
+        "refinement_run_id": "a9ea342c-78ad-4d9f-9f7c-3647fcc6373d",
+        "refinement_report_hash": "ca113902946caeba678f9413af9094e02c325c93e3b0e4fbd73d3e0409382640",
+        "candidate_artifact_id": "441923db-23ad-4813-9f37-ae0089a37790",
+        "candidate_artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+        "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+        "test_report_hash": "50db312b7f4c7d443288055c9a4f9756572c3b5bd6a3c43c726bcdb18b83e56b",
+        "experiment_report_hash": "1dcb1bdae6b273b11fa14f47c2587a8b9825a7d6c32cff32c2c89c41c0ef5aa2",
+        "evaluation_policy": {
+          "metrics": [
+            "coverage",
+            "bad_rate",
+            "lift",
+            "ks",
+            "iv"
+          ],
+          "threshold_percentiles": [
+            50,
+            75,
+            90,
+            95,
+            99
+          ],
+          "version": "1.0.0",
+          "bins": 10,
+          "epsilon": 1e-06,
+          "min_labeled_samples": 100
+        },
+        "label_definition_id": "bbc03789-ccaa-4397-adcd-2cd46de20f07",
+        "dataset_snapshot_id": "ce794763-2e3b-4937-8272-e312ac748e0e",
+        "baseline_artifact_id": "0b8c207d-7480-4d94-9546-da031f520b83",
+        "baseline_experiment_run_id": "c948694b-5b42-43fa-9c9e-0ab388656677",
+        "environment_validation_run_id": null,
+        "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+        "execution_mode": "mock",
+        "synthetic_data": true
+      },
+      "content_hash": "b358c4e93f3967d1deff1d564704dbaa9f67293634f3f3b1639b86e3f7d27fe4",
+      "synthetic_data": true,
+      "created_at": "2026-09-16T03:02:51.637309Z"
+    },
+    {
+      "metric_version_id": "42fe89a8-d54d-4c10-96ef-525546eb0a1a",
+      "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+      "metric_key": "invoice_amount",
+      "version": "2.0.0",
+      "status": "retired",
+      "metric_name": "invoice_amount_90d",
+      "display_name": "近90天企业开票金额",
+      "metric_ir": {
+        "schema_version": "1.0.0",
+        "name": "invoice_amount_90d",
+        "display_name": "近90天企业开票金额",
+        "description": "统计企业近90天开票金额之和",
+        "entity_type": "enterprise",
+        "entity_key": "seller_tax_no",
+        "partition_field": "dt",
+        "source": {
+          "catalog": null,
+          "database": "c_db",
+          "table": "source_fp_jdc_view"
+        },
+        "aggregation": {
+          "function": "sum",
+          "field": "invoice_amt"
+        },
+        "dimensions": [],
+        "filters": [],
+        "window": {
+          "size": 90,
+          "unit": "day",
+          "time_field": "invoice_date",
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+      "artifact_id": "16cc3176-12d0-47d1-a46e-ffbb90321a3f",
+      "artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+      "source_refinement_run_id": "5d1774f8-ac62-47b4-a968-20ddd481e3a5",
+      "source_temporal_validation_run_id": "e034fe0f-0ba5-4056-b09b-3e591ba29bce",
+      "source_promotion_review_id": "c773852c-74af-49dc-8a6c-f5f631b08996",
+      "version_change": {
+        "kind": "major",
+        "previous_version": "1.0.0",
+        "changed_fields": [
+          {
+            "field": "name",
+            "before": "invoice_amount_60d",
+            "after": "invoice_amount_90d"
+          },
+          {
+            "field": "display_name",
+            "before": "近60天企业开票金额",
+            "after": "近90天企业开票金额"
+          },
+          {
+            "field": "description",
+            "before": "统计企业近60天开票金额之和",
+            "after": "统计企业近90天开票金额之和"
+          },
+          {
+            "field": "window.size",
+            "before": 60,
+            "after": 90
+          }
+        ]
+      },
+      "provenance": {
+        "promotion_review_id": "c773852c-74af-49dc-8a6c-f5f631b08996",
+        "promotion_evidence_hash": "e9dd7df2ec3446cb74f8666ac85391be1f92fae2d94ba9910029da18ed028dd1",
+        "promotion_decision": "approved_for_versioning",
+        "temporal_validation_run_id": "e034fe0f-0ba5-4056-b09b-3e591ba29bce",
+        "temporal_report_hash": "c5bf21fcb3ae8426cbaf72d85c4617e0562b483aa6e5766fcee3201efdfa4e77",
+        "temporal_status": "passed_with_warnings",
+        "temporal_promotion_eligibility": "eligible_for_review",
+        "refinement_run_id": "5d1774f8-ac62-47b4-a968-20ddd481e3a5",
+        "refinement_report_hash": "053ab4a8016a60f83c80f26cd5be5f18eb8a65363b56eb671637054911c244bd",
+        "candidate_artifact_id": "16cc3176-12d0-47d1-a46e-ffbb90321a3f",
+        "candidate_artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+        "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+        "test_report_hash": "68e8191a5b9ce0edce7ddb288e18eaceacf7abbff087ef94ad08141d2f489152",
+        "experiment_report_hash": "edf59ef2640493c6a5547c83ba6049ce9323d05ef3d161829c4448bc1c497618",
+        "evaluation_policy": {
+          "metrics": [
+            "coverage",
+            "bad_rate",
+            "lift",
+            "ks",
+            "iv"
+          ],
+          "threshold_percentiles": [
+            50,
+            75,
+            90,
+            95,
+            99
+          ],
+          "version": "1.0.0",
+          "bins": 10,
+          "epsilon": 1e-06,
+          "min_labeled_samples": 100
+        },
+        "label_definition_id": "bbc03789-ccaa-4397-adcd-2cd46de20f07",
+        "dataset_snapshot_id": "ce794763-2e3b-4937-8272-e312ac748e0e",
+        "baseline_artifact_id": "0b8c207d-7480-4d94-9546-da031f520b83",
+        "baseline_experiment_run_id": "c948694b-5b42-43fa-9c9e-0ab388656677",
+        "environment_validation_run_id": null,
+        "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+        "execution_mode": "mock",
+        "synthetic_data": true
+      },
+      "content_hash": "a597f02ca00a39e516b644aef923bfecea0545810e5b4151eb7b6851016d6c91",
+      "synthetic_data": true,
+      "created_at": "2026-09-16T03:03:00.444935Z"
+    }
+  ],
+  "active": {
+    "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+    "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+    "metric_key": "invoice_amount",
+    "version": "1.0.0",
+    "status": "active",
+    "metric_name": "invoice_amount_60d",
+    "display_name": "近60天企业开票金额",
+    "metric_ir": {
+      "schema_version": "1.0.0",
+      "name": "invoice_amount_60d",
+      "display_name": "近60天企业开票金额",
+      "description": "统计企业近60天开票金额之和",
+      "entity_type": "enterprise",
+      "entity_key": "seller_tax_no",
+      "partition_field": "dt",
+      "source": {
+        "catalog": null,
+        "database": "c_db",
+        "table": "source_fp_jdc_view"
+      },
+      "aggregation": {
+        "function": "sum",
+        "field": "invoice_amt"
+      },
+      "dimensions": [],
+      "filters": [],
+      "window": {
+        "size": 60,
+        "unit": "day",
+        "time_field": "invoice_date",
+        "timezone": "Asia/Shanghai"
+      }
+    },
+    "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+    "artifact_id": "441923db-23ad-4813-9f37-ae0089a37790",
+    "artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+    "source_refinement_run_id": "a9ea342c-78ad-4d9f-9f7c-3647fcc6373d",
+    "source_temporal_validation_run_id": "4c873080-4f5c-474c-b328-59c9eed84ef6",
+    "source_promotion_review_id": "ad6fd5b6-a5d9-404f-b020-6ebe4250aba1",
+    "version_change": {
+      "kind": "initial",
+      "previous_version": null,
+      "changed_fields": []
+    },
+    "provenance": {
+      "promotion_review_id": "ad6fd5b6-a5d9-404f-b020-6ebe4250aba1",
+      "promotion_evidence_hash": "def7bada6650e599c1c90449a8075f45e944caff3aecba9c0ec97b4abca7117a",
+      "promotion_decision": "approved_for_versioning",
+      "temporal_validation_run_id": "4c873080-4f5c-474c-b328-59c9eed84ef6",
+      "temporal_report_hash": "baf557d3374b219c14e6b297229cd0a60b046657264fa256800df7600e5541ff",
+      "temporal_status": "passed_with_warnings",
+      "temporal_promotion_eligibility": "eligible_for_review",
+      "refinement_run_id": "a9ea342c-78ad-4d9f-9f7c-3647fcc6373d",
+      "refinement_report_hash": "ca113902946caeba678f9413af9094e02c325c93e3b0e4fbd73d3e0409382640",
+      "candidate_artifact_id": "441923db-23ad-4813-9f37-ae0089a37790",
+      "candidate_artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+      "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+      "test_report_hash": "50db312b7f4c7d443288055c9a4f9756572c3b5bd6a3c43c726bcdb18b83e56b",
+      "experiment_report_hash": "1dcb1bdae6b273b11fa14f47c2587a8b9825a7d6c32cff32c2c89c41c0ef5aa2",
+      "evaluation_policy": {
+        "metrics": [
+          "coverage",
+          "bad_rate",
+          "lift",
+          "ks",
+          "iv"
+        ],
+        "threshold_percentiles": [
+          50,
+          75,
+          90,
+          95,
+          99
+        ],
+        "version": "1.0.0",
+        "bins": 10,
+        "epsilon": 1e-06,
+        "min_labeled_samples": 100
+      },
+      "label_definition_id": "bbc03789-ccaa-4397-adcd-2cd46de20f07",
+      "dataset_snapshot_id": "ce794763-2e3b-4937-8272-e312ac748e0e",
+      "baseline_artifact_id": "0b8c207d-7480-4d94-9546-da031f520b83",
+      "baseline_experiment_run_id": "c948694b-5b42-43fa-9c9e-0ab388656677",
+      "environment_validation_run_id": null,
+      "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+      "execution_mode": "mock",
+      "synthetic_data": true
+    },
+    "content_hash": "b358c4e93f3967d1deff1d564704dbaa9f67293634f3f3b1639b86e3f7d27fe4",
+    "synthetic_data": true,
+    "created_at": "2026-09-16T03:02:51.637309Z"
+  }
+}

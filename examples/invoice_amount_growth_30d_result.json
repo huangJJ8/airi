@@ -1,0 +1,227 @@
+{
+  "workflow_run_id": "d84ab7a2-93f2-40a9-b5a5-41e13ce820b3",
+  "metric_ir": {
+    "schema_version": "1.0.0",
+    "metric_type": "derived",
+    "name": "invoice_amount_growth_30d",
+    "display_name": "近30天企业开票金额增长率",
+    "description": "本30日开票金额相对前30日的增长率",
+    "dependencies": [
+      {
+        "role": "current",
+        "metric": {
+          "schema_version": "1.0.0",
+          "name": "invoice_amount_30d",
+          "display_name": "近30天企业开票金额",
+          "description": "统计企业近30天开票金额之和",
+          "entity_type": "enterprise",
+          "entity_key": "seller_tax_no",
+          "partition_field": "dt",
+          "source": {
+            "catalog": null,
+            "database": "c_db",
+            "table": "source_fp_jdc_view"
+          },
+          "aggregation": {
+            "function": "sum",
+            "field": "invoice_amt"
+          },
+          "dimensions": [],
+          "filters": [],
+          "window": {
+            "size": 30,
+            "unit": "day",
+            "time_field": "invoice_date",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "anchor_offset_days": 0
+      },
+      {
+        "role": "previous",
+        "metric": {
+          "schema_version": "1.0.0",
+          "name": "invoice_amount_30d",
+          "display_name": "近30天企业开票金额",
+          "description": "统计企业近30天开票金额之和",
+          "entity_type": "enterprise",
+          "entity_key": "seller_tax_no",
+          "partition_field": "dt",
+          "source": {
+            "catalog": null,
+            "database": "c_db",
+            "table": "source_fp_jdc_view"
+          },
+          "aggregation": {
+            "function": "sum",
+            "field": "invoice_amt"
+          },
+          "dimensions": [],
+          "filters": [],
+          "window": {
+            "size": 30,
+            "unit": "day",
+            "time_field": "invoice_date",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "anchor_offset_days": 30
+      }
+    ],
+    "expression": {
+      "operator": "growth_rate"
+    },
+    "zero_division": {
+      "strategy": "null"
+    }
+  },
+  "skill_plan": {
+    "scenario_skill": {
+      "name": "invoice_risk",
+      "version": "1.0.0"
+    },
+    "capabilities": [
+      {
+        "name": "metric_window",
+        "version": "1.0.0"
+      },
+      {
+        "name": "metric_sum",
+        "version": "1.0.0"
+      },
+      {
+        "name": "spark_sql_generator",
+        "version": "1.0.0"
+      },
+      {
+        "name": "metric_growth_rate",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "tool_plan": {
+    "tools": [
+      {
+        "name": "generate_spark_sql_metric",
+        "version": "1.1.0"
+      },
+      {
+        "name": "generate_growth_rate_sql",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "artifact": {
+    "type": "sql",
+    "language": "spark_sql",
+    "status": "draft",
+    "code": "WITH current_period AS (\nSELECT\n    `seller_tax_no` AS entity_id,\n    SUM(`invoice_amt`) AS `invoice_amount_30d`\nFROM `c_db`.`source_fp_jdc_view`\nWHERE\n    `invoice_date` >= DATE '2026-08-10'\n    AND `invoice_date` < DATE '2026-09-09'\nGROUP BY `seller_tax_no`\n),\nprevious_period AS (\nSELECT\n    `seller_tax_no` AS entity_id,\n    SUM(`invoice_amt`) AS `invoice_amount_30d`\nFROM `c_db`.`source_fp_jdc_view`\nWHERE\n    `invoice_date` >= DATE '2026-07-11'\n    AND `invoice_date` < DATE '2026-08-10'\nGROUP BY `seller_tax_no`\n)\nSELECT\n    COALESCE(c.entity_id, p.entity_id) AS entity_id,\n    COALESCE(c.invoice_amount_30d, 0) AS current_amount,\n    COALESCE(p.invoice_amount_30d, 0) AS previous_amount,\n    CASE WHEN COALESCE(p.invoice_amount_30d, 0) = 0 THEN NULL\n         ELSE 1.0 * (COALESCE(c.invoice_amount_30d, 0) - COALESCE(p.invoice_amount_30d, 0))\n              / COALESCE(p.invoice_amount_30d, 0)\n    END AS `invoice_amount_growth_30d`\nFROM current_period c\nFULL OUTER JOIN previous_period p ON c.entity_id <=> p.entity_id;\n",
+    "warnings": [
+      "dt 的格式及与 invoice_date 的关系未确认；草稿未添加分区过滤，可能全表扫描。",
+      "需确认 invoice_amt 为数值类型、invoice_date 为 DATE；若为 TIMESTAMP，需确认 Spark 会话时区为 Asia/Shanghai；字符串日期需另行确认格式。",
+      "FULL OUTER JOIN 保留任一周期出现的企业；缺失周期金额及 NULL 聚合金额按 0 处理。",
+      "previous period amount = 0 时增长率定义为 NULL，不定义为 0 或 100%。",
+      "主体采用空值安全连接；两个周期的 NULL 主体归为同一未知企业组，需人工确认。",
+      "企业发票风险：常用主体字段 seller_tax_no",
+      "业务时间字段 invoice_date；分区字段 dt",
+      "红冲票处理属于待确认业务规则",
+      "发票重复属于潜在风险"
+    ],
+    "template": {
+      "name": "growth_rate",
+      "version": "1.0.0"
+    },
+    "artifact_id": "a17377e8-66be-4165-a05b-1db0c524d3b3",
+    "artifact_version": "1.0.0",
+    "metric_name": "invoice_amount_growth_30d",
+    "content_hash": "7f22c482555629f6cb8fb6c1d3b2c76dfdf7b842b592666aba3a6cf9a94135e7"
+  },
+  "derived_plan": {
+    "base_metrics": [
+      {
+        "role": "current",
+        "metric_ir": {
+          "schema_version": "1.0.0",
+          "name": "invoice_amount_30d",
+          "display_name": "近30天企业开票金额",
+          "description": "统计企业近30天开票金额之和",
+          "entity_type": "enterprise",
+          "entity_key": "seller_tax_no",
+          "partition_field": "dt",
+          "source": {
+            "catalog": null,
+            "database": "c_db",
+            "table": "source_fp_jdc_view"
+          },
+          "aggregation": {
+            "function": "sum",
+            "field": "invoice_amt"
+          },
+          "dimensions": [],
+          "filters": [],
+          "window": {
+            "size": 30,
+            "unit": "day",
+            "time_field": "invoice_date",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "execution_context": {
+          "anchor_time": "2026-09-09T00:00:00+08:00",
+          "timezone": "Asia/Shanghai"
+        }
+      },
+      {
+        "role": "previous",
+        "metric_ir": {
+          "schema_version": "1.0.0",
+          "name": "invoice_amount_30d",
+          "display_name": "近30天企业开票金额",
+          "description": "统计企业近30天开票金额之和",
+          "entity_type": "enterprise",
+          "entity_key": "seller_tax_no",
+          "partition_field": "dt",
+          "source": {
+            "catalog": null,
+            "database": "c_db",
+            "table": "source_fp_jdc_view"
+          },
+          "aggregation": {
+            "function": "sum",
+            "field": "invoice_amt"
+          },
+          "dimensions": [],
+          "filters": [],
+          "window": {
+            "size": 30,
+            "unit": "day",
+            "time_field": "invoice_date",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "execution_context": {
+          "anchor_time": "2026-08-10T00:00:00+08:00",
+          "timezone": "Asia/Shanghai"
+        }
+      }
+    ],
+    "operator": "growth_rate",
+    "tool": {
+      "name": "generate_growth_rate_sql",
+      "version": "1.0.0"
+    }
+  },
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [
+      "仅静态校验；未验证 Spark 类型、数据或执行结果。"
+    ]
+  },
+  "execution_context": {
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "prompt_version": "1.1.0",
+  "requires_human_review": true
+}

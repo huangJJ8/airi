@@ -1,0 +1,177 @@
+{
+  "experiment_context": {
+    "dataset_snapshot_id": "8d32a773-37ad-426c-a7c3-967cc5a5c4c2",
+    "label_definition_id": "637d5e08-9e55-44b4-a02b-ab8dd3ec2d0b",
+    "environment_validation_run_id": null,
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "observation_time": "2026-09-09T00:00:00+08:00",
+    "label_window": {
+      "start": "2026-09-10T00:00:00+08:00",
+      "end": "2026-10-09T00:00:00+08:00"
+    },
+    "evaluation": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "execution_mode": "mock"
+  },
+  "run": {
+    "refinement_run_id": "a3db3c87-54ff-4bbf-9bc9-0c0d6ed553c8",
+    "reflection_run_id": "7be8ea67-ad83-4170-8439-14830015d3c0",
+    "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+    "decision_id": "be7ded98-3bd3-422c-8c54-26f48034daee",
+    "baseline_artifact_id": "0ef496ba-cc7c-43b4-be45-c936bd4902ea",
+    "baseline_experiment_run_id": "b8d4b79b-62a9-47ae-bde8-77a89b2b13be",
+    "candidate_artifact_id": "25e56e54-0adf-4c1d-ae60-c374efa54bab",
+    "candidate_test_run_id": null,
+    "candidate_experiment_run_id": null,
+    "status": "pending_candidate_review",
+    "outcome": null,
+    "created_at": "2026-09-15T01:55:24.132399Z",
+    "finished_at": null,
+    "failure_category": null
+  },
+  "plan": {
+    "request": {
+      "reflection_run_id": "7be8ea67-ad83-4170-8439-14830015d3c0",
+      "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+      "parameter_selection": {
+        "window_days": 60
+      }
+    },
+    "decision": {
+      "decision": "accepted_for_investigation",
+      "reviewer": "synthetic-demo",
+      "comment": "Fixture research only",
+      "previous_decisions": [],
+      "decision_id": "be7ded98-3bd3-422c-8c54-26f48034daee",
+      "reflection_run_id": "7be8ea67-ad83-4170-8439-14830015d3c0",
+      "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+      "proposal_hash": "9b3300c0747954f09167784bb0bf434c9af459551fb131fcc4c29887b34d5fa5",
+      "created_at": "2026-09-15T01:55:24.099883Z"
+    },
+    "baseline_experiment_run_id": "b8d4b79b-62a9-47ae-bde8-77a89b2b13be",
+    "baseline_artifact_id": "0ef496ba-cc7c-43b4-be45-c936bd4902ea",
+    "reflection_report_hash": "fba4e24dfdfa028efaada951d2c87f9c01cd28795a69ef7d0c44f18da1bac16a",
+    "proposal_hash": "9b3300c0747954f09167784bb0bf434c9af459551fb131fcc4c29887b34d5fa5",
+    "comparison_policy": {
+      "version": "1.0.0",
+      "ks_material_delta": 0.02,
+      "coverage_material_delta": 0.02,
+      "min_labeled_samples": 100,
+      "max_experiment_warnings": 10
+    },
+    "refinement_input_hash": "e260c7a6cb6505474c828575506c2f52540d1440b5be948d70fd3b8184db0423"
+  },
+  "definition": {
+    "candidate_metric_id": "7d41695a-65ed-455a-97a5-b08db5b48f12",
+    "baseline_artifact_id": "0ef496ba-cc7c-43b4-be45-c936bd4902ea",
+    "baseline_experiment_run_id": "b8d4b79b-62a9-47ae-bde8-77a89b2b13be",
+    "reflection_run_id": "7be8ea67-ad83-4170-8439-14830015d3c0",
+    "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+    "metric_ir": {
+      "schema_version": "1.0.0",
+      "name": "invoice_amount_60d",
+      "display_name": "近60天企业开票金额",
+      "description": "统计企业近60天开票金额之和",
+      "entity_type": "enterprise",
+      "entity_key": "seller_tax_no",
+      "partition_field": "dt",
+      "source": {
+        "catalog": null,
+        "database": "c_db",
+        "table": "source_fp_jdc_view"
+      },
+      "aggregation": {
+        "function": "sum",
+        "field": "invoice_amt"
+      },
+      "dimensions": [],
+      "filters": [],
+      "window": {
+        "size": 60,
+        "unit": "day",
+        "time_field": "invoice_date",
+        "timezone": "Asia/Shanghai"
+      }
+    },
+    "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+    "semantic_diff": {
+      "changed_fields": [
+        {
+          "field": "name",
+          "before": "invoice_amount_30d",
+          "after": "invoice_amount_60d"
+        },
+        {
+          "field": "display_name",
+          "before": "近30天企业开票金额",
+          "after": "近60天企业开票金额"
+        },
+        {
+          "field": "description",
+          "before": "统计企业近30天开票金额之和",
+          "after": "统计企业近60天开票金额之和"
+        },
+        {
+          "field": "window.size",
+          "before": 30,
+          "after": 60
+        }
+      ],
+      "unchanged": [
+        "source",
+        "entity_key",
+        "entity_type",
+        "aggregation",
+        "filters",
+        "dimensions",
+        "partition_field",
+        "window.time_field",
+        "window.unit",
+        "window.timezone"
+      ]
+    }
+  },
+  "candidate": {
+    "artifact_id": "25e56e54-0adf-4c1d-ae60-c374efa54bab",
+    "artifact_version": "1.0.0",
+    "content_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+    "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+    "baseline_artifact_id": "0ef496ba-cc7c-43b4-be45-c936bd4902ea",
+    "refinement_run_id": "a3db3c87-54ff-4bbf-9bc9-0c0d6ed553c8",
+    "proposal_id": "a7aae3932df94987a1d7f68fc7c1454eaaa7eded976c1f32eb4a70a0ffd53473",
+    "role": "candidate_draft"
+  },
+  "candidate_experiment": null,
+  "comparison": null,
+  "synthetic_data": true,
+  "warnings": [
+    "Synthetic research cannot establish real financial effectiveness."
+  ],
+  "missing_evidence": [
+    "No independent out-of-time or cross-period stability evidence is supplied.",
+    "Business reversal and duplicate-invoice rules require human confirmation.",
+    "Synthetic experiments cannot establish real financial effectiveness.",
+    "Real Spark results and financial labels are not verified by this evidence.",
+    "Independent later snapshot evidence is needed."
+  ],
+  "final_decision": null,
+  "requires_human_review": true
+}

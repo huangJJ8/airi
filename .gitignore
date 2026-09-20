@@ -1,0 +1,49 @@
+# Python
+.venv/
+.uv-cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+
+# Environment / secrets (never commit real credentials)
+.env
+.env.*
+!.env.example
+airi-web/.env.local
+airi-web/.env.*.local
+
+# Local demo runtime state (rebuildable via scripts/start-demo)
+.demo/
+.test-data/
+*.db
+
+# Build output
+dist/
+build/
+
+# Node
+node_modules/
+
+# Local tools / agent state
+.tools/
+.airi_tmp/
+.workbuddy/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# NOTE: docs/screenshots/*.png are intentionally NOT ignored -
+# they are part of the repository's documentation.

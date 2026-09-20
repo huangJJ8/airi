@@ -1,0 +1,73 @@
+{
+  "rollback_review_id": "b2207b11-f2d7-4336-b3c2-c83ca6a6bf90",
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+  "metric_key": "invoice_amount",
+  "from_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+  "from_version": "2.0.0",
+  "to_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+  "to_version": "1.0.0",
+  "reason": "Synthetic regression drill after cutover",
+  "alert_ids": [],
+  "preflight": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "target_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "target_version": "1.0.0",
+    "status": "passed",
+    "checks": [
+      {
+        "name": "target_version_exists",
+        "status": "passed",
+        "detail": "target_version=1.0.0"
+      },
+      {
+        "name": "target_version_released",
+        "status": "passed",
+        "detail": "release_status=active"
+      },
+      {
+        "name": "target_targets_production",
+        "status": "not_verified",
+        "detail": "target_environment=staging"
+      },
+      {
+        "name": "environment_unchanged",
+        "status": "passed",
+        "detail": "no runtime fingerprint is recorded for this environment"
+      },
+      {
+        "name": "runtime_supports_rollback",
+        "status": "passed",
+        "detail": "adapter=mock; supports_rollback=True"
+      },
+      {
+        "name": "human_approval_required",
+        "status": "passed",
+        "detail": "a rollback is only executed after a rollback_approver decision"
+      }
+    ],
+    "missing_evidence": [
+      "rollback:target_targets_production"
+    ],
+    "created_at": "2026-09-17T06:21:24.318728Z"
+  },
+  "decision": "approved",
+  "reviewer": "Demo Rollback",
+  "reviewer_actor_id": "demo-rollback",
+  "reviewer_roles": [
+    "rollback_approver"
+  ],
+  "reviewer_auth_source": "mock",
+  "reviewer_issuer": null,
+  "comment": "Simulated human rollback approval",
+  "production_rollback_status": "succeeded",
+  "registry_reconciliation_status": "reconciled",
+  "runtime_verified": true,
+  "provider_job_id": null,
+  "provider_application_id": null,
+  "runtime_identity": null,
+  "environment_fingerprint_hash": null,
+  "automatic": false,
+  "created_at": "2026-09-17T06:21:24.318728Z",
+  "reviewed_at": "2026-09-17T06:21:24.422515Z"
+}

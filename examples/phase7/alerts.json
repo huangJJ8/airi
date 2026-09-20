@@ -1,0 +1,56 @@
+[
+  {
+    "alert_id": "71c40264-a07a-445c-a8bb-bd5da982644e",
+    "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+    "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+    "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+    "metric_key": "invoice_amount",
+    "type": "coverage_drop",
+    "severity": "critical",
+    "status": "open",
+    "evidence": {
+      "drop": 0.4,
+      "coverage": 0.6,
+      "baseline_coverage": 1.0,
+      "threshold": 0.05
+    },
+    "dedup_key": "ac340ae7bb8620c6d84a9363c4395dda26a28aeb77aba289e63b56cecfb074c0",
+    "occurrences": 2,
+    "recommended_action": "consider_rollback",
+    "decision": null,
+    "reviewer": null,
+    "comment": null,
+    "automatic_action_taken": false,
+    "first_seen_at": "2026-09-17T02:10:22.464804Z",
+    "last_seen_at": "2026-09-17T02:10:22.576549Z",
+    "resolved_at": null,
+    "created_at": "2026-09-17T02:10:22.471144Z"
+  },
+  {
+    "alert_id": "c7b65162-39f7-4ccf-bd81-fc68d2c9a8c7",
+    "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+    "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+    "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+    "metric_key": "invoice_amount",
+    "type": "population_shift",
+    "severity": "critical",
+    "status": "open",
+    "evidence": {
+      "psi": 6.104586911942403,
+      "review_threshold": 0.2,
+      "critical_threshold": 0.35,
+      "epsilon": 0.0001
+    },
+    "dedup_key": "2761c49b651546e008cb58e503cececff6ba7bbbab61a6b51aafd2d711f563a6",
+    "occurrences": 2,
+    "recommended_action": "consider_rollback",
+    "decision": null,
+    "reviewer": null,
+    "comment": null,
+    "automatic_action_taken": false,
+    "first_seen_at": "2026-09-17T02:10:22.473274Z",
+    "last_seen_at": "2026-09-17T02:10:22.578393Z",
+    "resolved_at": null,
+    "created_at": "2026-09-17T02:10:22.474777Z"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+  "environment_id": "prod_synth",
+  "workflow_status": "monitoring",
+  "runtime_state": "active",
+  "convergence_state": "mismatch",
+  "health": "degraded",
+  "reasons": [
+    "the registry and the runtime disagree with the desired state"
+  ],
+  "drives_execution": false,
+  "observed_at": "2026-09-17T10:12:12.834230Z"
+}

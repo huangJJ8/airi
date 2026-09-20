@@ -1,0 +1,13 @@
+{
+  "release_review_id": "299fa43d-976c-40c6-be61-9ae099b94c95",
+  "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+  "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+  "decision": "approved",
+  "reviewer": "synthetic-demo",
+  "comment": "Simulated release",
+  "validation_report_hash": "b1fb4c85d02356ffd12f1e52c4d7c50dd827f7174b0dd62ad308c373c5b3df32",
+  "previous_decisions": [],
+  "created_at": "2026-09-16T03:03:01.288635Z",
+  "reviewed_at": "2026-09-16T03:03:01.425073Z",
+  "production_deployed": false
+}

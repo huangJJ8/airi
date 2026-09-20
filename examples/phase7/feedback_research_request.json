@@ -1,0 +1,15 @@
+{
+  "research_request_id": "d39bbe06-5a28-40ad-a05b-8f73d4f0a3c0",
+  "feedback_event_id": "8d69f43f-bbd8-498e-8591-91c587190f48",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "request_type": "revalidation",
+  "rationale": "Coverage moved after cutover; revalidate before any rewrite",
+  "decision": "approved",
+  "reviewer": "demo-reviewer",
+  "reviewer_actor_id": "demo-reviewer",
+  "comment": "Open a revalidation, not a metric rewrite",
+  "automatic_reflection": false,
+  "created_at": "2026-09-17T02:10:22.850532Z",
+  "reviewed_at": "2026-09-17T02:10:22.912810Z"
+}

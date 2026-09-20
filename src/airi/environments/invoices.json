@@ -1,0 +1,104 @@
+[
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-07-10",
+    "invoice_amt": "999",
+    "dt": "20260710"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-07-11",
+    "invoice_amt": "100",
+    "dt": "20260711"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "100",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-09-08",
+    "invoice_amt": "100",
+    "dt": "20260908"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-09-08",
+    "invoice_amt": "100",
+    "dt": "20260908"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-09-09",
+    "invoice_amt": "999",
+    "dt": "20260909"
+  },
+  {
+    "seller_tax_no": "B",
+    "invoice_date": "2026-08-09",
+    "invoice_amt": "100",
+    "dt": "20260809"
+  },
+  {
+    "seller_tax_no": "B",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "50",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": "C",
+    "invoice_date": "2026-07-11",
+    "invoice_amt": "100",
+    "dt": "20260711"
+  },
+  {
+    "seller_tax_no": "C",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "100",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": "CURRENT_ONLY",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "25",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": "PREVIOUS_ONLY",
+    "invoice_date": "2026-08-09",
+    "invoice_amt": "20",
+    "dt": "20260809"
+  },
+  {
+    "seller_tax_no": "ZERO",
+    "invoice_date": "2026-08-09",
+    "invoice_amt": "0",
+    "dt": "20260809"
+  },
+  {
+    "seller_tax_no": "ZERO",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "-10",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": null,
+    "invoice_date": "2026-08-09",
+    "invoice_amt": "10",
+    "dt": "20260809"
+  },
+  {
+    "seller_tax_no": null,
+    "invoice_date": "2026-08-10",
+    "invoice_amt": "20",
+    "dt": "20260810"
+  },
+  {
+    "seller_tax_no": "A",
+    "invoice_date": "2026-08-10",
+    "invoice_amt": null,
+    "dt": "20260810"
+  }
+]

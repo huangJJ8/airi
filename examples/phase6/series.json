@@ -1,0 +1,61 @@
+{
+  "name": "phase6 synthetic series",
+  "label_definition_id": "bbc03789-ccaa-4397-adcd-2cd46de20f07",
+  "scenario": "invoice_risk",
+  "slices": [
+    {
+      "time_slice_id": "slice-0",
+      "name": "2026-10-01",
+      "dataset_snapshot_id": "fd6a4c64-618d-439d-956f-f13d68a01d76",
+      "observation_time": "2026-10-01T00:00:00+08:00",
+      "label_window": {
+        "start": "2026-10-02T00:00:00+08:00",
+        "end": "2026-10-31T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-1",
+      "name": "2027-01-09",
+      "dataset_snapshot_id": "2349f0f0-8851-4d55-ba3d-b74fb071d6a7",
+      "observation_time": "2027-01-09T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-01-10T00:00:00+08:00",
+        "end": "2027-02-08T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-2",
+      "name": "2027-04-19",
+      "dataset_snapshot_id": "ce0a3850-a9f0-46e9-9b0b-73d1f63af8a7",
+      "observation_time": "2027-04-19T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-04-20T00:00:00+08:00",
+        "end": "2027-05-19T00:00:00+08:00"
+      },
+      "role": "historical"
+    },
+    {
+      "time_slice_id": "slice-3",
+      "name": "2027-07-28",
+      "dataset_snapshot_id": "21d2088d-70bf-4f9a-a43d-97a232d78a89",
+      "observation_time": "2027-07-28T00:00:00+08:00",
+      "label_window": {
+        "start": "2027-07-29T00:00:00+08:00",
+        "end": "2027-08-27T00:00:00+08:00"
+      },
+      "role": "oot"
+    }
+  ],
+  "reference_slice_id": "slice-0",
+  "series_id": "a167c4d5-026a-473a-8f7c-9a63e0e5dc73",
+  "snapshot_hashes": {
+    "fd6a4c64-618d-439d-956f-f13d68a01d76": "e2f5a83b90158ba160b891fc3ab590cdda5b0f4ca52c5e8620d1b92a1a80b197",
+    "2349f0f0-8851-4d55-ba3d-b74fb071d6a7": "9b9313a632a0b0fdf0bb018929c069dc9055717e9c7e92ed93c152285d397b3d",
+    "ce0a3850-a9f0-46e9-9b0b-73d1f63af8a7": "be10d3594520f8f692b9a75da059a232034759a28005a6ac346fa42957f7188a",
+    "21d2088d-70bf-4f9a-a43d-97a232d78a89": "d701f519e3f9f89c8be3829aee0b687f84768762598e018e5f8f1d0ae7b9643c"
+  },
+  "label_hash": "5ad638c58ed404b0df1d991b209e2ef0246414ddd60896978a89a7a34b155f0d",
+  "created_at": "2026-09-16T03:02:44.327783Z"
+}

@@ -1,0 +1,723 @@
+{
+  "run": {
+    "reflection_run_id": "d1a6e3d8-efbb-420f-80d3-a7688765e263",
+    "mode": "single_metric",
+    "status": "completed",
+    "reflection_policy_version": "1.0.0",
+    "prompt_version": "reflection_prompt@1.0.0",
+    "model": "mock-reflection@1.0.0",
+    "input_evidence_hash": "33a6b3a59fb6124e93a1878c20f2d7729c9b8ff8a44eeef0fcf5c6313580d960",
+    "created_at": "2026-09-14T02:08:35.724882Z",
+    "finished_at": "2026-09-14T02:08:35.733881Z"
+  },
+  "experiment_run_ids": [
+    "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+  ],
+  "evidence": [
+    {
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "experiment_report_hash": "7d7809f834288d31952c3099b52d27543afb5d54854714f463abd2248fdd12da",
+      "artifact_id": "6c9e705f-75d7-4823-a35f-5cd9d068ccfc",
+      "artifact_version": "1.0.0",
+      "artifact_hash": "7f22c482555629f6cb8fb6c1d3b2c76dfdf7b842b592666aba3a6cf9a94135e7",
+      "metric_ir_hash": "3bf7c6599901c78760edfe88b8f9f1fa1b0ed9acd14279b6412db9ea667f5d00",
+      "dataset_snapshot_id": "9a7a048c-7a23-4db6-aa08-15fad9ebd616",
+      "label_definition_id": "af2c7dcd-de1b-45fa-aa09-50ef52bd3728",
+      "observation_time": "2026-09-09T00:00:00+08:00",
+      "label_window": {
+        "start": "2026-09-10T00:00:00+08:00",
+        "end": "2026-10-09T00:00:00+08:00"
+      },
+      "evaluation_policy": {
+        "metrics": [
+          "coverage",
+          "bad_rate",
+          "lift",
+          "ks",
+          "iv"
+        ],
+        "threshold_percentiles": [
+          50,
+          75,
+          90,
+          95,
+          99
+        ],
+        "version": "1.0.0",
+        "bins": 10,
+        "epsilon": 1e-06,
+        "min_labeled_samples": 100
+      },
+      "evaluation": {
+        "metric_name": "invoice_amount_growth_30d",
+        "total_sample": 200,
+        "labeled_sample": 188,
+        "good_count": 113,
+        "bad_count": 75,
+        "non_null_metric": 153,
+        "null_metric": 35,
+        "coverage": 0.8138297872340425,
+        "bad_rate": 0.39893617021276595,
+        "distribution": {
+          "count": 153,
+          "null_count": 35,
+          "min": "-0.9964539007092199",
+          "max": "61.5",
+          "mean": "1.4636999459918636141287581699346405228758169934641",
+          "p25": "-0.5880597014925373",
+          "p50": "-0.07865168539325842",
+          "p75": "0.6706586826347305",
+          "p90": "4.0296846011131720",
+          "p95": "8.4828834759710344",
+          "p99": "26.01333333333333136"
+        },
+        "requested_bins": 10,
+        "actual_bins": 10,
+        "bins": [
+          {
+            "bucket": 0,
+            "is_null": false,
+            "lower": "-0.9964539007092199",
+            "upper": "-0.8247978436657682",
+            "count": 16,
+            "good": 16,
+            "bad": 0,
+            "bad_rate": 0.0,
+            "lift": 0.0,
+            "good_pct": 0.14159291542015867,
+            "bad_pct": 1.3333331377778065e-08,
+            "woe": 16.178199686849553,
+            "iv_component": 2.2907182442012286
+          },
+          {
+            "bucket": 1,
+            "is_null": false,
+            "lower": "-0.8220502901353965",
+            "upper": "-0.6523297491039427",
+            "count": 15,
+            "good": 15,
+            "bad": 0,
+            "bad_rate": 0.0,
+            "lift": 0.0,
+            "good_pct": 0.13274335875949606,
+            "bad_pct": 1.3333331377778065e-08,
+            "woe": 16.113661169878647,
+            "iv_component": 2.138981290753378
+          },
+          {
+            "bucket": 2,
+            "is_null": false,
+            "lower": "-0.6374807987711214",
+            "upper": "-0.44727272727272727",
+            "count": 15,
+            "good": 14,
+            "bad": 1,
+            "bad_rate": 0.06666666666666667,
+            "lift": 0.1671111111111111,
+            "good_pct": 0.12389380209883342,
+            "bad_pct": 0.013333344711109443,
+            "woe": 2.229156745189825,
+            "iv_component": 0.24645658933711717
+          },
+          {
+            "bucket": 3,
+            "is_null": false,
+            "lower": "-0.4372093023255814",
+            "upper": "-0.24914675767918087",
+            "count": 15,
+            "good": 9,
+            "bad": 6,
+            "bad_rate": 0.4,
+            "lift": 1.0026666666666668,
+            "good_pct": 0.07964601879552029,
+            "bad_pct": 0.08000000159999976,
+            "woe": -0.00443460330188568,
+            "iv_component": 1.5697733135554154e-06
+          },
+          {
+            "bucket": 4,
+            "is_null": false,
+            "lower": "-0.24068767908309455",
+            "upper": "-0.08264462809917356",
+            "count": 15,
+            "good": 9,
+            "bad": 6,
+            "bad_rate": 0.4,
+            "lift": 1.0026666666666668,
+            "good_pct": 0.07964601879552029,
+            "bad_pct": 0.08000000159999976,
+            "woe": -0.00443460330188568,
+            "iv_component": 1.5697733135554154e-06
+          },
+          {
+            "bucket": 5,
+            "is_null": false,
+            "lower": "-0.07865168539325842",
+            "upper": "0.14025974025974025",
+            "count": 16,
+            "good": 3,
+            "bad": 13,
+            "bad_rate": 0.8125,
+            "lift": 2.0366666666666666,
+            "good_pct": 0.026548678831544537,
+            "bad_pct": 0.17333332124444623,
+            "woe": -1.8762364682377255,
+            "iv_component": 0.27540269907232007
+          },
+          {
+            "bucket": 6,
+            "is_null": false,
+            "lower": "0.1724137931034483",
+            "upper": "0.494199535962877",
+            "count": 15,
+            "good": 9,
+            "bad": 6,
+            "bad_rate": 0.4,
+            "lift": 1.0026666666666668,
+            "good_pct": 0.07964601879552029,
+            "bad_pct": 0.08000000159999976,
+            "woe": -0.00443460330188568,
+            "iv_component": 1.5697733135554154e-06
+          },
+          {
+            "bucket": 7,
+            "is_null": false,
+            "lower": "0.5019607843137255",
+            "upper": "1.263157894736842",
+            "count": 15,
+            "good": 6,
+            "bad": 9,
+            "bad_rate": 0.6,
+            "lift": 1.504,
+            "good_pct": 0.05309734881353242,
+            "bad_pct": 0.11999999573333396,
+            "woe": -0.8153647084071187,
+            "iv_component": 0.054550057197428406
+          },
+          {
+            "bucket": 8,
+            "is_null": false,
+            "lower": "1.3727272727272728",
+            "upper": "3.693877551020408",
+            "count": 15,
+            "good": 7,
+            "bad": 8,
+            "bad_rate": 0.5333333333333333,
+            "lift": 1.3368888888888888,
+            "good_pct": 0.06194690547419504,
+            "bad_pct": 0.1066666643555559,
+            "woe": -0.5434310306218844,
+            "iv_component": 0.024302104658060094
+          },
+          {
+            "bucket": 9,
+            "is_null": false,
+            "lower": "4.113636363636363",
+            "upper": "61.5",
+            "count": 16,
+            "good": 9,
+            "bad": 7,
+            "bad_rate": 0.4375,
+            "lift": 1.0966666666666667,
+            "good_pct": 0.07964601879552029,
+            "bad_pct": 0.09333333297777784,
+            "woe": -0.15858525931962386,
+            "iv_component": 0.0021706062689824768
+          },
+          {
+            "bucket": 10,
+            "is_null": true,
+            "lower": null,
+            "upper": null,
+            "count": 35,
+            "good": 16,
+            "bad": 19,
+            "bad_rate": 0.5428571428571428,
+            "lift": 1.3607619047619046,
+            "good_pct": 0.14159291542015867,
+            "bad_pct": 0.2533333095111146,
+            "woe": -0.581749902912741,
+            "iv_component": 0.06500496341384503
+          }
+        ],
+        "ks": {
+          "status": "available",
+          "value": 0.44606038291605304,
+          "ascending": 0.44606038291605304,
+          "descending": 0.44606038291605304,
+          "bucket": 2,
+          "direction": "higher_is_riskier",
+          "split": "-0.4372093023255814"
+        },
+        "iv": 5.0975912642223005,
+        "iv_status": "available",
+        "epsilon": 1e-06,
+        "threshold_candidates": [
+          {
+            "threshold": "-0.4372093023255814",
+            "operator": ">=",
+            "sources": [
+              "ks_best_split"
+            ],
+            "hit_count": 107,
+            "hit_rate": 0.5691489361702128,
+            "bad_count": 55,
+            "good_count": 52,
+            "bad_rate": 0.514018691588785,
+            "precision": 0.514018691588785,
+            "recall": 0.7333333333333333,
+            "lift": 1.288473520249221
+          },
+          {
+            "threshold": "-0.07865168539325842",
+            "operator": ">=",
+            "sources": [
+              "p50"
+            ],
+            "hit_count": 77,
+            "hit_rate": 0.4095744680851064,
+            "bad_count": 43,
+            "good_count": 34,
+            "bad_rate": 0.5584415584415584,
+            "precision": 0.5584415584415584,
+            "recall": 0.5733333333333334,
+            "lift": 1.3998268398268399
+          },
+          {
+            "threshold": "0.6706586826347305",
+            "operator": ">=",
+            "sources": [
+              "p75"
+            ],
+            "hit_count": 39,
+            "hit_rate": 0.2074468085106383,
+            "bad_count": 21,
+            "good_count": 18,
+            "bad_rate": 0.5384615384615384,
+            "precision": 0.5384615384615384,
+            "recall": 0.28,
+            "lift": 1.3497435897435897
+          },
+          {
+            "threshold": "4.0296846011131720",
+            "operator": ">=",
+            "sources": [
+              "p90"
+            ],
+            "hit_count": 16,
+            "hit_rate": 0.0851063829787234,
+            "bad_count": 7,
+            "good_count": 9,
+            "bad_rate": 0.4375,
+            "precision": 0.4375,
+            "recall": 0.09333333333333334,
+            "lift": 1.0966666666666667
+          },
+          {
+            "threshold": "8.4828834759710344",
+            "operator": ">=",
+            "sources": [
+              "p95"
+            ],
+            "hit_count": 8,
+            "hit_rate": 0.0425531914893617,
+            "bad_count": 3,
+            "good_count": 5,
+            "bad_rate": 0.375,
+            "precision": 0.375,
+            "recall": 0.04,
+            "lift": 0.9400000000000001
+          },
+          {
+            "threshold": "26.01333333333333136",
+            "operator": ">=",
+            "sources": [
+              "p99"
+            ],
+            "hit_count": 2,
+            "hit_rate": 0.010638297872340425,
+            "bad_count": 0,
+            "good_count": 2,
+            "bad_rate": 0.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "lift": 0.0
+          }
+        ],
+        "warnings": []
+      },
+      "join_summary": {
+        "label_entity_count": 188,
+        "matched_count": 173,
+        "label_only": 15,
+        "metric_only": 12,
+        "unknown_label_excluded": 12,
+        "metric_non_null_count": 153
+      },
+      "warnings": [
+        "SYNTHETIC MOCK EXPERIMENT; not real Spark or business effectiveness evidence"
+      ],
+      "synthetic_data": true,
+      "metric_ir": {
+        "schema_version": "1.0.0",
+        "metric_type": "derived",
+        "name": "invoice_amount_growth_30d",
+        "display_name": "近30天企业开票金额增长率",
+        "description": "本30日开票金额相对前30日的增长率",
+        "dependencies": [
+          {
+            "role": "current",
+            "metric": {
+              "schema_version": "1.0.0",
+              "name": "invoice_amount_30d",
+              "display_name": "近30天企业开票金额",
+              "description": "统计企业近30天开票金额之和",
+              "entity_type": "enterprise",
+              "entity_key": "seller_tax_no",
+              "partition_field": "dt",
+              "source": {
+                "catalog": null,
+                "database": "c_db",
+                "table": "source_fp_jdc_view"
+              },
+              "aggregation": {
+                "function": "sum",
+                "field": "invoice_amt"
+              },
+              "dimensions": [],
+              "filters": [],
+              "window": {
+                "size": 30,
+                "unit": "day",
+                "time_field": "invoice_date",
+                "timezone": "Asia/Shanghai"
+              }
+            },
+            "anchor_offset_days": 0
+          },
+          {
+            "role": "previous",
+            "metric": {
+              "schema_version": "1.0.0",
+              "name": "invoice_amount_30d",
+              "display_name": "近30天企业开票金额",
+              "description": "统计企业近30天开票金额之和",
+              "entity_type": "enterprise",
+              "entity_key": "seller_tax_no",
+              "partition_field": "dt",
+              "source": {
+                "catalog": null,
+                "database": "c_db",
+                "table": "source_fp_jdc_view"
+              },
+              "aggregation": {
+                "function": "sum",
+                "field": "invoice_amt"
+              },
+              "dimensions": [],
+              "filters": [],
+              "window": {
+                "size": 30,
+                "unit": "day",
+                "time_field": "invoice_date",
+                "timezone": "Asia/Shanghai"
+              }
+            },
+            "anchor_offset_days": 30
+          }
+        ],
+        "expression": {
+          "operator": "growth_rate"
+        },
+        "zero_division": {
+          "strategy": "null"
+        }
+      },
+      "scenario_skill": {
+        "name": "invoice_risk",
+        "version": "1.0.0",
+        "test_rules": {
+          "entity_null": {
+            "severity": "warning"
+          },
+          "result_duplicate": {
+            "severity": "error"
+          },
+          "empty_result": {
+            "severity": "warning"
+          }
+        },
+        "type": "scenario",
+        "description": "企业发票风险指标研发",
+        "intent": "研发企业开票金额、次数及相邻30日金额增长率",
+        "knowledge": [
+          "企业发票风险：常用主体字段 seller_tax_no",
+          "业务时间字段 invoice_date；分区字段 dt",
+          "红冲票处理属于待确认业务规则",
+          "发票重复属于潜在风险"
+        ],
+        "capabilities": [
+          {
+            "name": "metric_window",
+            "version": "1.0.0"
+          },
+          {
+            "name": "metric_sum",
+            "version": "1.0.0"
+          },
+          {
+            "name": "metric_count",
+            "version": "1.0.0"
+          },
+          {
+            "name": "spark_sql_generator",
+            "version": "1.0.0"
+          },
+          {
+            "name": "metric_growth_rate",
+            "version": "1.0.0"
+          }
+        ],
+        "requires_human_review": true
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:coverage_gap",
+      "finding_type": "coverage_gap",
+      "severity": "info",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation",
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:join_summary"
+      ],
+      "summary": "35/188 labeled entities lack a non-null metric (missing ratio 0.186170); investigate causes.",
+      "pattern": null
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:high_null_rate",
+      "finding_type": "high_null_rate",
+      "severity": "warning",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation"
+      ],
+      "summary": "Coverage is below the policy research advisory band.",
+      "pattern": null
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:strong_separation",
+      "finding_type": "strong_separation",
+      "severity": "info",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation"
+      ],
+      "summary": "KS=0.44606038291605304; above the policy research band. This does not establish business value or offset missing coverage.",
+      "pattern": "strong_separation_with_coverage_gap"
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:small_sample",
+      "finding_type": "small_sample",
+      "severity": "warning",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation"
+      ],
+      "summary": "Labeled sample=188; below the policy research sample band.",
+      "pattern": null
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:high_iv_sensitivity",
+      "finding_type": "high_iv_sensitivity",
+      "severity": "warning",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation"
+      ],
+      "summary": "IV=5.0975912642223005, pure bins=2, sample=188, epsilon=1e-06; potential smoothing sensitivity, not proof of overfitting.",
+      "pattern": null
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:threshold_tradeoff",
+      "finding_type": "threshold_tradeoff",
+      "severity": "info",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:0",
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:1",
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:2"
+      ],
+      "summary": "Existing candidates trade higher precision against lower recall. Review hit rate and lift; no candidate is selected.",
+      "pattern": null
+    },
+    {
+      "finding_id": "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:insufficient_evidence",
+      "finding_type": "insufficient_evidence",
+      "severity": "warning",
+      "experiment_run_ids": [
+        "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+      ],
+      "evidence_refs": [
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:warnings",
+        "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:synthetic_data"
+      ],
+      "summary": "This experiment alone does not prove temporal stability, out-of-time performance or confirmed business causality.",
+      "pattern": null
+    }
+  ],
+  "comparison": null,
+  "references": [
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:evaluation",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:join_summary",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "join_summary"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:warnings",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "warnings"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:synthetic_data",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "synthetic_data"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:0",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.0"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:1",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.1"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:2",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.2"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:3",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.3"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:4",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.4"
+    },
+    {
+      "ref": "experiment:9b92e410-f15b-4e47-aa30-f8db4ae56018:candidate:5",
+      "experiment_run_id": "9b92e410-f15b-4e47-aa30-f8db4ae56018",
+      "field": "evaluation.threshold_candidates.5"
+    }
+  ],
+  "summary": "Research diagnostics from persisted experiments; hypotheses are unverified. Human review is required; no refinement or threshold is applied.",
+  "llm_summary": "Mock interpretation only; independent evidence is needed.",
+  "llm_reflection_status": "completed",
+  "llm_output_kind": "mock",
+  "hypotheses": [
+    {
+      "hypothesis_id": "missingness_hypothesis",
+      "statement": "Missingness may reflect activity or matching gaps.",
+      "evidence_refs": [
+        "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:coverage_gap"
+      ],
+      "confidence": "low",
+      "status": "unverified"
+    }
+  ],
+  "refinement_proposals": [
+    {
+      "proposal_type": "additional_time_snapshot_validation",
+      "target": "invoice_amount_growth_30d",
+      "action": "validate_additional_snapshot",
+      "parameters": {
+        "candidate_windows": [],
+        "candidate_aggregations": [],
+        "candidate_refs": []
+      },
+      "reason": "Single snapshot evidence leaves temporal generalization unverified.",
+      "validation_question": "Does separation persist on a later labeled snapshot?",
+      "evidence_refs": [
+        "finding:9b92e410-f15b-4e47-aa30-f8db4ae56018:insufficient_evidence"
+      ],
+      "priority": "high",
+      "requires_human_review": true
+    }
+  ],
+  "missing_evidence": [
+    "No independent out-of-time or cross-period stability evidence is supplied.",
+    "Business reversal and duplicate-invoice rules require human confirmation.",
+    "Synthetic experiments cannot establish real financial effectiveness.",
+    "Real Spark results and financial labels are not verified by this evidence.",
+    "Independent later snapshot evidence is needed."
+  ],
+  "provenance": {
+    "experiment_run_ids": [
+      "9b92e410-f15b-4e47-aa30-f8db4ae56018"
+    ],
+    "experiment_report_hashes": {
+      "9b92e410-f15b-4e47-aa30-f8db4ae56018": "7d7809f834288d31952c3099b52d27543afb5d54854714f463abd2248fdd12da"
+    },
+    "artifact_ids": [
+      "6c9e705f-75d7-4823-a35f-5cd9d068ccfc"
+    ],
+    "artifact_versions": [
+      "1.0.0"
+    ],
+    "metric_ir_hashes": [
+      "3bf7c6599901c78760edfe88b8f9f1fa1b0ed9acd14279b6412db9ea667f5d00"
+    ],
+    "dataset_snapshot_ids": [
+      "9a7a048c-7a23-4db6-aa08-15fad9ebd616"
+    ],
+    "label_definition_ids": [
+      "af2c7dcd-de1b-45fa-aa09-50ef52bd3728"
+    ],
+    "evaluation_policy_versions": [
+      "1.0.0"
+    ],
+    "reflection_policy": {
+      "version": "1.0.0",
+      "diagnostic_bands": {
+        "coverage_warning_below": 0.85,
+        "ks_review_below": 0.1,
+        "ks_strong_at_least": 0.3,
+        "small_sample_below": 500,
+        "few_bins_below": 3,
+        "iv_sensitivity_above": 1.0
+      },
+      "max_proposals": 5
+    },
+    "reflection_policy_version": "1.0.0",
+    "reflection_prompt_version": "reflection_prompt@1.0.0",
+    "model": "mock-reflection@1.0.0",
+    "input_evidence_hash": "33a6b3a59fb6124e93a1878c20f2d7729c9b8ff8a44eeef0fcf5c6313580d960",
+    "scenario_knowledge_hashes": [
+      "709a73b7a17a21e22cb512c5991e526377f6fe25345a2fa4e1c62e43f19d216f"
+    ]
+  },
+  "warnings": [],
+  "requires_human_review": true
+}

@@ -1,0 +1,114 @@
+{
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_key": "invoice_amount",
+  "version": "2.0.0",
+  "status": "registered",
+  "metric_name": "invoice_amount_90d",
+  "display_name": "近90天企业开票金额",
+  "metric_ir": {
+    "schema_version": "1.0.0",
+    "name": "invoice_amount_90d",
+    "display_name": "近90天企业开票金额",
+    "description": "统计企业近90天开票金额之和",
+    "entity_type": "enterprise",
+    "entity_key": "seller_tax_no",
+    "partition_field": "dt",
+    "source": {
+      "catalog": null,
+      "database": "c_db",
+      "table": "source_fp_jdc_view"
+    },
+    "aggregation": {
+      "function": "sum",
+      "field": "invoice_amt"
+    },
+    "dimensions": [],
+    "filters": [],
+    "window": {
+      "size": 90,
+      "unit": "day",
+      "time_field": "invoice_date",
+      "timezone": "Asia/Shanghai"
+    }
+  },
+  "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+  "artifact_id": "1b2d7bb6-cecb-468b-aff0-0db9cd801a50",
+  "artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+  "source_refinement_run_id": "26eca625-79b9-4d8f-b39f-c1b9122a3bff",
+  "source_temporal_validation_run_id": "d345637e-7f30-4b4e-957f-c3ca24dc5032",
+  "source_promotion_review_id": "38ec0cb6-eed3-4079-b9d9-c89cbb5ab65b",
+  "version_change": {
+    "kind": "major",
+    "previous_version": "1.0.0",
+    "changed_fields": [
+      {
+        "field": "name",
+        "before": "invoice_amount_60d",
+        "after": "invoice_amount_90d"
+      },
+      {
+        "field": "display_name",
+        "before": "近60天企业开票金额",
+        "after": "近90天企业开票金额"
+      },
+      {
+        "field": "description",
+        "before": "统计企业近60天开票金额之和",
+        "after": "统计企业近90天开票金额之和"
+      },
+      {
+        "field": "window.size",
+        "before": 60,
+        "after": 90
+      }
+    ]
+  },
+  "provenance": {
+    "promotion_review_id": "38ec0cb6-eed3-4079-b9d9-c89cbb5ab65b",
+    "promotion_evidence_hash": "37acec2c61b6033aca795fe74cdc99a641cef7a05da619d8121f3cf18cb7f249",
+    "promotion_decision": "approved_for_versioning",
+    "temporal_validation_run_id": "d345637e-7f30-4b4e-957f-c3ca24dc5032",
+    "temporal_report_hash": "96d4fb433e49ec34ba2bb20ed337fa9fa2163645e49427bf4e37f04f302865ca",
+    "temporal_status": "passed_with_warnings",
+    "temporal_promotion_eligibility": "eligible_for_review",
+    "refinement_run_id": "26eca625-79b9-4d8f-b39f-c1b9122a3bff",
+    "refinement_report_hash": "b27887e5b3334bdd37dc5c2441254dc4a14c2df3c9baa7b3255e9ae2970d088e",
+    "candidate_artifact_id": "1b2d7bb6-cecb-468b-aff0-0db9cd801a50",
+    "candidate_artifact_hash": "0dac972c95a36aaf5786ffd2ad0c71c715d9297471801c3d66a420f7fdda9bcb",
+    "metric_ir_hash": "a79d08143945ef8f9e6fa37da582cc2056d2cacfc614dd7eeee22070c55048fb",
+    "test_report_hash": "664425bda9e549665793011ebee1dd09bc9ba8e621f15ea66f6406590fc1cce2",
+    "experiment_report_hash": "959526388a4f4903bc24e5fd80bd860e407e7f2d6675c0ea5d64f59fd06db334",
+    "evaluation_policy": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "label_definition_id": "1f411e58-2144-4646-aa16-842c9f3516e7",
+    "dataset_snapshot_id": "907c6f9c-3b8b-4228-86c5-afd72f5c30d9",
+    "baseline_artifact_id": "87288547-0e77-4120-85ab-c20664ce9b5e",
+    "baseline_experiment_run_id": "d11188e0-5457-4eac-8209-deff3d9cdadc",
+    "environment_validation_run_id": null,
+    "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+    "execution_mode": "mock",
+    "synthetic_data": true
+  },
+  "content_hash": "eae157858f0bcaecd111be864f03647860757828ece7eda1b3836953b10f7107",
+  "synthetic_data": true,
+  "created_at": "2026-09-17T02:10:20.331209Z"
+}

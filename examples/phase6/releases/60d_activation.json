@@ -1,0 +1,40 @@
+{
+  "release_id": "94974426-1147-4ae1-8721-f8c8500a98cd",
+  "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+  "metric_version_id": "e5947bea-e872-49ad-830d-730701e41b7b",
+  "metric_key": "invoice_amount",
+  "version": "1.0.0",
+  "target_environment": "staging",
+  "status": "active",
+  "expected_active_version_id": null,
+  "release_policy": {
+    "version": "1.0.0",
+    "require_temporal_validation": true,
+    "require_promotion_review": true,
+    "require_staging_validation": true,
+    "require_shadow_validation": true,
+    "require_human_release_review": true,
+    "max_entity_loss_fraction": 0.05,
+    "max_new_null_fraction": 0.05,
+    "max_distribution_shift": 1.0,
+    "logical_activation_only": true,
+    "synthetic_review_only": true,
+    "production_requires_verified_environment": true
+  },
+  "release_provenance": {
+    "metric_version_content_hash": "b358c4e93f3967d1deff1d564704dbaa9f67293634f3f3b1639b86e3f7d27fe4",
+    "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+    "candidate_artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+    "promotion_review_id": "ad6fd5b6-a5d9-404f-b020-6ebe4250aba1",
+    "temporal_validation_run_id": "4c873080-4f5c-474c-b328-59c9eed84ef6",
+    "refinement_run_id": "a9ea342c-78ad-4d9f-9f7c-3647fcc6373d",
+    "temporal_report_hash": "baf557d3374b219c14e6b297229cd0a60b046657264fa256800df7600e5541ff",
+    "promotion_evidence_hash": "def7bada6650e599c1c90449a8075f45e944caff3aecba9c0ec97b4abca7117a"
+  },
+  "validation_report_hash": "b1fb4c85d02356ffd12f1e52c4d7c50dd827f7174b0dd62ad308c373c5b3df32",
+  "logical_activation_only": true,
+  "production_deployed": false,
+  "created_at": "2026-09-16T03:03:00.605315Z",
+  "validated_at": "2026-09-16T03:03:01.209216Z",
+  "activated_at": "2026-09-16T03:03:01.509882Z"
+}

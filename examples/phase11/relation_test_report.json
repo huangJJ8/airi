@@ -1,0 +1,144 @@
+{
+  "test_run_id": "6c6a41a5-5596-41ac-a0f6-7a3fc004be1a",
+  "execution_run_id": "07e5e759-0e08-4d70-ae89-b7ad21bfb64d",
+  "artifact_id": "3395a231-e28c-4d0c-a2a1-c4d15837139b",
+  "status": "passed",
+  "total": 8,
+  "passed": 8,
+  "warnings": 0,
+  "failed": 0,
+  "skipped": 0,
+  "created_at": "2026-09-20T02:11:51.217011Z",
+  "finished_at": "2026-09-20T02:11:51.222073Z",
+  "plan": {
+    "test_plan_id": "c53d5625-91b5-4f57-861b-0ff6af11026a",
+    "artifact_id": "3395a231-e28c-4d0c-a2a1-c4d15837139b",
+    "execution_run_id": "07e5e759-0e08-4d70-ae89-b7ad21bfb64d",
+    "tests": [
+      {
+        "test_case_id": "4c8e57b9-1a7b-4c12-8a31-497cfff8754c",
+        "type": "schema",
+        "severity": "error"
+      },
+      {
+        "test_case_id": "f7a74f55-e976-4d22-8822-5bad6c0cfae9",
+        "type": "null",
+        "severity": "warning"
+      },
+      {
+        "test_case_id": "31e59ebc-0155-456b-bd91-4fa22f06a6e3",
+        "type": "duplicate",
+        "severity": "error"
+      },
+      {
+        "test_case_id": "618deb22-ce88-4b49-ac80-4a2d8cf4cf56",
+        "type": "join",
+        "severity": "error"
+      },
+      {
+        "test_case_id": "34e4c7d6-3580-4ea4-a4be-0fdabaef0322",
+        "type": "distinct",
+        "severity": "error"
+      },
+      {
+        "test_case_id": "3e47a56c-a011-445a-9b5e-6d1704ecf7fa",
+        "type": "self_exclusion",
+        "severity": "error"
+      },
+      {
+        "test_case_id": "b942d378-db3d-4c02-b64c-3c455bb29471",
+        "type": "missing_relation",
+        "severity": "warning"
+      },
+      {
+        "test_case_id": "da5316e9-9090-48e2-ae64-040e6f710fc6",
+        "type": "reconciliation",
+        "severity": "error"
+      }
+    ]
+  },
+  "results": [
+    {
+      "test_case_id": "4c8e57b9-1a7b-4c12-8a31-497cfff8754c",
+      "type": "schema",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Check passed",
+      "details": {}
+    },
+    {
+      "test_case_id": "f7a74f55-e976-4d22-8822-5bad6c0cfae9",
+      "type": "null",
+      "severity": "warning",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Check passed",
+      "details": {}
+    },
+    {
+      "test_case_id": "31e59ebc-0155-456b-bd91-4fa22f06a6e3",
+      "type": "duplicate",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Check passed",
+      "details": {}
+    },
+    {
+      "test_case_id": "618deb22-ce88-4b49-ac80-4a2d8cf4cf56",
+      "type": "join",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Person-mediated path confirmed against a direct-join control",
+      "details": {}
+    },
+    {
+      "test_case_id": "34e4c7d6-3580-4ea4-a4be-0fdabaef0322",
+      "type": "distinct",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Duplicate relation rows collapsed to one distinct enterprise",
+      "details": {}
+    },
+    {
+      "test_case_id": "3e47a56c-a011-445a-9b5e-6d1704ecf7fa",
+      "type": "self_exclusion",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Self-referencing relation excluded",
+      "details": {}
+    },
+    {
+      "test_case_id": "b942d378-db3d-4c02-b64c-3c455bb29471",
+      "type": "missing_relation",
+      "severity": "warning",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Enterprises without a usable relationship path stay absent",
+      "details": {}
+    },
+    {
+      "test_case_id": "da5316e9-9090-48e2-ae64-040e6f710fc6",
+      "type": "reconciliation",
+      "severity": "error",
+      "status": "passed",
+      "failure_category": null,
+      "expected_summary": "Conform to approved metric semantics",
+      "actual_summary": "Independent reference matches",
+      "details": {}
+    }
+  ],
+  "classifications": [],
+  "requires_human_review": true
+}

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "airi"
+version = "1.0.0"
+description = "AIRI — AI-assisted risk metric research & development platform (LLMs reason, Python verifies, humans govern)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.7,<3",
+  "SQLAlchemy>=2.0,<2.1",
+  "PyMySQL[rsa]>=1.1,<2",
+  "Jinja2>=3.1.6,<4",
+  "httpx>=0.28,<1",
+  "alembic>=1.14,<2",
+]
+
+[project.optional-dependencies]
+spark = ["PyHive>=0.7,<0.8", "thrift>=0.20,<1"]
+dev = ["pytest>=8.3,<9", "pytest-cov>=6,<7", "ruff>=0.11,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/airi"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+  "unit: local tests requiring no external infrastructure",
+  "spark_integration: explicitly selected Spark test environment checks",
+  "mysql_integration: explicitly selected disposable MySQL database checks",
+  "production_integration: explicitly selected real production runtime adapter checks",
+  "identity_integration: explicitly selected real trusted-identity gateway checks",
+  "telemetry_integration: explicitly selected real trusted-telemetry producer checks",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [".uv-cache", "pytest-cache-files-*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

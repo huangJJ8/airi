@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "metric_key": "invoice_amount",
+  "environment_id": "prod_synth",
+  "runtime_mode": "mock",
+  "provider_query_id": null,
+  "execution_success": true,
+  "row_count": 401,
+  "entity_count": 401,
+  "coverage": 1.0,
+  "null_rate": 0.0,
+  "duplicate_rate": 0.0,
+  "latency_ms": 9,
+  "distribution": {
+    "bins": [
+      {
+        "lower": null,
+        "upper": 1129.1,
+        "count": 107,
+        "is_null": false
+      },
+      {
+        "lower": 1129.1,
+        "upper": 2248.2,
+        "count": 121,
+        "is_null": false
+      },
+      {
+        "lower": 2248.2,
+        "upper": 3367.3,
+        "count": 22,
+        "is_null": false
+      },
+      {
+        "lower": 3367.3,
+        "upper": 4486.4,
+        "count": 16,
+        "is_null": false
+      },
+      {
+        "lower": 4486.4,
+        "upper": 5605.5,
+        "count": 17,
+        "is_null": false
+      },
+      {
+        "lower": 5605.5,
+        "upper": 6724.6,
+        "count": 23,
+        "is_null": false
+      },
+      {
+        "lower": 6724.6,
+        "upper": 7843.7,
+        "count": 30,
+        "is_null": false
+      },
+      {
+        "lower": 7843.7,
+        "upper": 8962.8,
+        "count": 22,
+        "is_null": false
+      },
+      {
+        "lower": 8962.8,
+        "upper": 10081.9,
+        "count": 27,
+        "is_null": false
+      },
+      {
+        "lower": 10081.9,
+        "upper": null,
+        "count": 16,
+        "is_null": false
+      },
+      {
+        "lower": null,
+        "upper": null,
+        "count": 0,
+        "is_null": true
+      }
+    ],
+    "total": 401
+  },
+  "baseline": null,
+  "write_business_output": false,
+  "production_deployed": false,
+  "findings": [],
+  "warnings": [
+    "duplicate_rate_recorded"
+  ],
+  "synthetic_data": true,
+  "observation_time": "2026-09-17T02:10:21.991983Z",
+  "created_at": "2026-09-17T02:10:21.993060Z"
+}

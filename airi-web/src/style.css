@@ -1,0 +1,79 @@
+/* AIRI Web — clean data-platform look (Datadog / Linear inspired).
+   White surfaces, grey text, blue accent; status colors are semantic. */
+
+:root {
+  --airi-bg: #f5f6f8;
+  --airi-surface: #ffffff;
+  --airi-border: #e4e7ed;
+  --airi-text: #303133;
+  --airi-text-secondary: #606266;
+  --airi-primary: #2563eb;
+  --airi-pass: #16a34a;
+  --airi-warn: #d97706;
+  --airi-fail: #dc2626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--airi-bg);
+  color: var(--airi-text);
+  font-family:
+    'Inter',
+    'Helvetica Neue',
+    Arial,
+    'PingFang SC',
+    'Microsoft YaHei',
+    sans-serif;
+  font-size: 14px;
+}
+
+.page {
+  padding: 20px 24px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 650;
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  color: var(--airi-text-secondary);
+  margin: 0 0 20px;
+}
+
+.mono {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12.5px;
+}
+
+.honesty-banner {
+  border: 1px dashed var(--airi-warn);
+  background: #fffbeb;
+  color: #92400e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+pre.sql-block {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  overflow: auto;
+  line-height: 1.55;
+}

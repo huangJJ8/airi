@@ -1,0 +1,8 @@
+SELECT
+    `{{ entity_field }}` AS entity_id,
+    {% if aggregation == 'sum' %}SUM(`{{ value_field }}`){% else %}COUNT(*){% endif %} AS `{{ metric_code }}`
+FROM {% if source_catalog %}`{{ source_catalog }}`.{% endif %}`{{ source_database }}`.`{{ source_table }}`
+WHERE
+    `{{ time_field }}` >= DATE '{{ window_start }}'
+    AND `{{ time_field }}` < DATE '{{ window_end }}'
+GROUP BY `{{ entity_field }}`;

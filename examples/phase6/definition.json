@@ -1,0 +1,14 @@
+{
+  "metric_definition_id": "e10b6ac2-53c5-486f-ae76-f48cbe909a36",
+  "metric_key": "invoice_amount",
+  "display_name": "invoice amount",
+  "scenario": "invoice_risk",
+  "entity_type": "enterprise",
+  "member_metric_names": [
+    "invoice_amount_60d",
+    "invoice_amount_90d"
+  ],
+  "active_version_id": null,
+  "created_at": "2026-09-16T03:02:51.633309Z",
+  "updated_at": "2026-09-16T03:03:00.445488"
+}

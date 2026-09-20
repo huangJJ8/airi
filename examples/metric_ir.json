@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "name": "user_failed_payment_count_30d",
+  "description": "按用户统计过去30天支付失败次数",
+  "entity_key": "user_id",
+  "source": {"database": "risk", "table": "payment_events"},
+  "aggregation": {"function": "count"},
+  "dimensions": [],
+  "filters": [{"field": "status", "operator": "eq", "value": "failed"}],
+  "window": {"size": 30, "unit": "day", "time_field": "event_time", "timezone": "Asia/Shanghai"}
+}

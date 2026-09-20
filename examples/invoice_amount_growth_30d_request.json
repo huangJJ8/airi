@@ -1,0 +1,7 @@
+{
+  "requirement": "近30天企业开票金额增长率",
+  "scenario": "invoice_risk",
+  "execution_context": {
+    "anchor_time": "2026-09-09T00:00:00+08:00"
+  }
+}

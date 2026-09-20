@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# CI never touches a real LLM, a real cluster, or real data. Everything runs
+# offline against SQLite and the deterministic demo_mock substitute.
+env:
+  AIRI_ENVIRONMENT: test
+  AIRI_LLM_MODE: demo_mock
+  AIRI_EXECUTION_MODE: mock
+  AIRI_DEMO_FIXTURES: "true"
+  AIRI_DATABASE_URL: sqlite+pysqlite:///.demo/ci.db
+
+jobs:
+  backend:
+    name: Backend (tests, lint, migrations)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --frozen --extra dev
+
+      - name: Lint
+        run: uv run --frozen ruff check src tests scripts examples
+
+      - name: Check formatting
+        run: uv run --frozen ruff format --check src tests scripts examples
+
+      - name: Open-source safety scan
+        run: uv run --frozen python scripts/check_open_source_safety.py
+
+      - name: Run tests
+        run: uv run --frozen pytest -q
+
+      - name: Run tests with coverage
+        run: uv run --frozen pytest --cov=airi --cov-report=term-missing
+
+      - name: Apply migrations
+        run: uv run --frozen alembic upgrade head
+
+      - name: Report current revision
+        run: uv run --frozen alembic current
+
+      - name: Check for model/migration drift
+        run: uv run --frozen alembic check
+
+  frontend:
+    name: Frontend (build, tests)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: airi-web
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: airi-web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check and build
+        run: npm run build
+
+      - name: Run unit tests
+        run: npm run test
+
+  # Integration suites that require real infrastructure are intentionally skipped
+  # in CI (they are marked skip in the test suite). Real Spark/Hive/MySQL,
+  # production identity, and telemetry acceptance are NOT VERIFIED here.
+  # See SECURITY.md and docs/guides/release-checklist.md.

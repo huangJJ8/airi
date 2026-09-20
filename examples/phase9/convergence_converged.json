@@ -1,0 +1,28 @@
+{
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+  "metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "metric_key": "invoice_amount",
+  "environment_id": "prod_synth",
+  "desired_state_id": "3c4689e0-80cf-45a9-956a-8b169dfcc253",
+  "desired_metric_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+  "desired_version": "1.0.0",
+  "desired_source": "rollback",
+  "registry_active_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+  "registry_active_version": "1.0.0",
+  "runtime_active_version_id": "c524ecc8-702c-4dac-82b3-ac2528de6c75",
+  "runtime_active_version": "1.0.0",
+  "runtime_state": "active",
+  "runtime_identity": null,
+  "environment_fingerprint_hash": null,
+  "convergence_state": "converged",
+  "target_already_satisfied": true,
+  "conflict": null,
+  "possible_actions": [
+    "no_op"
+  ],
+  "recommended_action": "no_op",
+  "rationale": "The desired state is already satisfied by the registry pointer and by the production runtime. Nothing needs to be executed, and this no-op is itself the recorded governance outcome.",
+  "automatic_correction": false,
+  "observed_at": "2026-09-17T10:12:13.140995Z"
+}

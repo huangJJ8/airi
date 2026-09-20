@@ -1,0 +1,12 @@
+{
+  "monitoring_expectation_id": "bdc1194b-efb0-430b-a56d-445d65b4f53f",
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "metric_definition_id": "faa29dc2-148e-4e53-8e8e-b7e6b71bae2c",
+  "metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+  "environment_id": "prod_synth",
+  "telemetry_source_id": "synthetic_monitor",
+  "expected_interval_hours": 1,
+  "grace_hours": 0,
+  "created_by": "demo-admin",
+  "created_at": "2026-09-17T10:12:12.610051Z"
+}

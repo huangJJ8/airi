@@ -1,0 +1,20 @@
+{
+  "scenario_skill": {
+    "name": "enterprise_relation",
+    "version": "1.0.0"
+  },
+  "capabilities": [
+    {
+      "name": "metric_count",
+      "version": "1.0.0"
+    },
+    {
+      "name": "metric_join",
+      "version": "1.0.0"
+    },
+    {
+      "name": "spark_sql_generator",
+      "version": "1.0.0"
+    }
+  ]
+}

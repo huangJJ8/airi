@@ -1,0 +1,32 @@
+# Version control / tooling
+.git/
+.github/
+.workbuddy/
+.tools/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+
+# Node (the frontend has its own build context)
+node_modules/
+airi-web/node_modules/
+airi-web/dist/
+
+# Local demo runtime state and build output
+.demo/
+*.db
+dist/
+build/
+*.log
+
+# Environment files (never bake secrets into an image)
+.env
+airi-web/.env.local

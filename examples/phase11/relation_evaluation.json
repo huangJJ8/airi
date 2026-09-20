@@ -1,0 +1,166 @@
+{
+  "metric_name": "related_enterprise_count",
+  "total_sample": 121,
+  "labeled_sample": 121,
+  "good_count": 83,
+  "bad_count": 38,
+  "non_null_metric": 102,
+  "null_metric": 19,
+  "coverage": 0.8429752066115702,
+  "bad_rate": 0.3140495867768595,
+  "distribution": {
+    "count": 102,
+    "null_count": 19,
+    "min": "1",
+    "max": "4",
+    "mean": "2.4117647058823529411764705882352941176470588235294",
+    "p25": "1.00",
+    "p50": "2.0",
+    "p75": "3.00",
+    "p90": "4.0",
+    "p95": "4.00",
+    "p99": "4.00"
+  },
+  "requested_bins": 10,
+  "actual_bins": 4,
+  "bins": [
+    {
+      "bucket": 0,
+      "is_null": false,
+      "lower": "1",
+      "upper": "1",
+      "count": 30,
+      "good": 28,
+      "bad": 2,
+      "bad_rate": 0.06666666666666667,
+      "lift": 0.21228070175438596,
+      "good_pct": 0.3373493893163019,
+      "bad_pct": 0.05263159833794759,
+      "woe": 1.8578024885974331,
+      "iv_component": 0.5289494206275503
+    },
+    {
+      "bucket": 1,
+      "is_null": false,
+      "lower": "2",
+      "upper": "2",
+      "count": 24,
+      "good": 22,
+      "bad": 2,
+      "bad_rate": 0.08333333333333333,
+      "lift": 0.26535087719298245,
+      "good_pct": 0.26506023704456405,
+      "bad_pct": 0.05263159833794759,
+      "woe": 1.6166404415208044,
+      "iv_component": 0.3434207282703279
+    },
+    {
+      "bucket": 2,
+      "is_null": false,
+      "lower": "3",
+      "upper": "3",
+      "count": 24,
+      "good": 8,
+      "bad": 16,
+      "bad_rate": 0.6666666666666666,
+      "lift": 2.1228070175438596,
+      "good_pct": 0.09638554841050913,
+      "bad_pct": 0.42105260249307863,
+      "woe": -1.4744014947921866,
+      "iv_component": 0.47868958984911614
+    },
+    {
+      "bucket": 3,
+      "is_null": false,
+      "lower": "4",
+      "upper": "4",
+      "count": 24,
+      "good": 8,
+      "bad": 16,
+      "bad_rate": 0.6666666666666666,
+      "lift": 2.1228070175438596,
+      "good_pct": 0.09638554841050913,
+      "bad_pct": 0.42105260249307863,
+      "woe": -1.4744014947921866,
+      "iv_component": 0.47868958984911614
+    },
+    {
+      "bucket": 4,
+      "is_null": true,
+      "lower": null,
+      "upper": null,
+      "count": 19,
+      "good": 17,
+      "bad": 2,
+      "bad_rate": 0.10526315789473684,
+      "lift": 0.335180055401662,
+      "good_pct": 0.20481927681811585,
+      "bad_pct": 0.05263159833794759,
+      "woe": 1.358811345587688,
+      "iv_component": 0.20679434417750386
+    }
+  ],
+  "ks": {
+    "status": "available",
+    "value": 0.6464646464646465,
+    "ascending": 0.6464646464646465,
+    "descending": 0.6464646464646465,
+    "bucket": 1,
+    "direction": "higher_is_riskier",
+    "split": "3"
+  },
+  "iv": 2.0365436727736146,
+  "iv_status": "available",
+  "epsilon": 1e-06,
+  "threshold_candidates": [
+    {
+      "threshold": "2.0",
+      "operator": ">=",
+      "sources": [
+        "p50"
+      ],
+      "hit_count": 72,
+      "hit_rate": 0.5950413223140496,
+      "bad_count": 34,
+      "good_count": 38,
+      "bad_rate": 0.4722222222222222,
+      "precision": 0.4722222222222222,
+      "recall": 0.8947368421052632,
+      "lift": 1.5036549707602338
+    },
+    {
+      "threshold": "3.00",
+      "operator": ">=",
+      "sources": [
+        "p75",
+        "ks_best_split"
+      ],
+      "hit_count": 48,
+      "hit_rate": 0.39669421487603307,
+      "bad_count": 32,
+      "good_count": 16,
+      "bad_rate": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "recall": 0.8421052631578947,
+      "lift": 2.1228070175438596
+    },
+    {
+      "threshold": "4.0",
+      "operator": ">=",
+      "sources": [
+        "p90",
+        "p95",
+        "p99"
+      ],
+      "hit_count": 24,
+      "hit_rate": 0.19834710743801653,
+      "bad_count": 16,
+      "good_count": 8,
+      "bad_rate": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "recall": 0.42105263157894735,
+      "lift": 2.1228070175438596
+    }
+  ],
+  "warnings": []
+}

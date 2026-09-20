@@ -1,0 +1,93 @@
+{
+  "metric_version_id": "8e28a9ad-2aa2-4d86-a4c4-d62940c2ce6a",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_key": "invoice_amount",
+  "version": "1.0.0",
+  "status": "registered",
+  "metric_name": "invoice_amount_60d",
+  "display_name": "近60天企业开票金额",
+  "metric_ir": {
+    "schema_version": "1.0.0",
+    "name": "invoice_amount_60d",
+    "display_name": "近60天企业开票金额",
+    "description": "统计企业近60天开票金额之和",
+    "entity_type": "enterprise",
+    "entity_key": "seller_tax_no",
+    "partition_field": "dt",
+    "source": {
+      "catalog": null,
+      "database": "c_db",
+      "table": "source_fp_jdc_view"
+    },
+    "aggregation": {
+      "function": "sum",
+      "field": "invoice_amt"
+    },
+    "dimensions": [],
+    "filters": [],
+    "window": {
+      "size": 60,
+      "unit": "day",
+      "time_field": "invoice_date",
+      "timezone": "Asia/Shanghai"
+    }
+  },
+  "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+  "artifact_id": "4a007831-6d15-4161-ae39-e3aabd247414",
+  "artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+  "source_refinement_run_id": "87d2835a-237e-40b6-8bbb-7c3985ac05c4",
+  "source_temporal_validation_run_id": "c312bd23-5462-48bf-907d-c64ae3948b44",
+  "source_promotion_review_id": "d90be6d3-88ef-4e86-81a6-b1d0ca4088d2",
+  "version_change": {
+    "kind": "initial",
+    "previous_version": null,
+    "changed_fields": []
+  },
+  "provenance": {
+    "promotion_review_id": "d90be6d3-88ef-4e86-81a6-b1d0ca4088d2",
+    "promotion_evidence_hash": "40370bf48b471b3a03e08f36a5b5a577c81f0c61f4db054526d28aa881847bbf",
+    "promotion_decision": "approved_for_versioning",
+    "temporal_validation_run_id": "c312bd23-5462-48bf-907d-c64ae3948b44",
+    "temporal_report_hash": "cff8327af32f68b3ac67f109f048704c636669fc80f2d76f4db18432769f6f8b",
+    "temporal_status": "passed_with_warnings",
+    "temporal_promotion_eligibility": "eligible_for_review",
+    "refinement_run_id": "87d2835a-237e-40b6-8bbb-7c3985ac05c4",
+    "refinement_report_hash": "8a33bd262c6c8fd283d2db8c740373a856f90a7cd68ec89aeab64d61082f9ac4",
+    "candidate_artifact_id": "4a007831-6d15-4161-ae39-e3aabd247414",
+    "candidate_artifact_hash": "06f620b06b24668cd4e9090728d5c9397346e7de166d31008607586deb3f7d6f",
+    "metric_ir_hash": "4242264a5eddcc6febba2e6f8938c76ec8ba0c2da78254efc6d00978dabe27ff",
+    "test_report_hash": "6f220fdcfdfbe0851da18ce67d25053b431577d618a9e992efcff53d2abd93fa",
+    "experiment_report_hash": "199d90e4d9393630700ab6ad7d6b5b336175313bfe81736f4cc54770bed8cedf",
+    "evaluation_policy": {
+      "metrics": [
+        "coverage",
+        "bad_rate",
+        "lift",
+        "ks",
+        "iv"
+      ],
+      "threshold_percentiles": [
+        50,
+        75,
+        90,
+        95,
+        99
+      ],
+      "version": "1.0.0",
+      "bins": 10,
+      "epsilon": 1e-06,
+      "min_labeled_samples": 100
+    },
+    "label_definition_id": "1f411e58-2144-4646-aa16-842c9f3516e7",
+    "dataset_snapshot_id": "907c6f9c-3b8b-4228-86c5-afd72f5c30d9",
+    "baseline_artifact_id": "87288547-0e77-4120-85ab-c20664ce9b5e",
+    "baseline_experiment_run_id": "d11188e0-5457-4eac-8209-deff3d9cdadc",
+    "environment_validation_run_id": null,
+    "environment_hash": "c2b79bb7f738047484114e0b4a8b2f9ca73963153cef00be4153d9d3dccb6e9b",
+    "execution_mode": "mock",
+    "synthetic_data": true
+  },
+  "content_hash": "66dc9ed0c82b8387db9480f0ee5476191d9459448f2bd827385f8b98667335c7",
+  "synthetic_data": true,
+  "created_at": "2026-09-17T02:10:10.773524Z"
+}

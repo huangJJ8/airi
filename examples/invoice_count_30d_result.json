@@ -1,0 +1,93 @@
+{
+  "workflow_run_id": "ba9c5bf2-9136-44bb-a6e1-75777f8cfe81",
+  "metric_ir": {
+    "schema_version": "1.0.0",
+    "name": "invoice_count_30d",
+    "display_name": "近30天企业开票次数",
+    "description": "企业近30日开票原始记录行数",
+    "entity_type": "enterprise",
+    "entity_key": "seller_tax_no",
+    "partition_field": "dt",
+    "source": {
+      "catalog": null,
+      "database": "c_db",
+      "table": "source_fp_jdc_view"
+    },
+    "aggregation": {
+      "function": "count",
+      "field": null
+    },
+    "dimensions": [],
+    "filters": [],
+    "window": {
+      "size": 30,
+      "unit": "day",
+      "time_field": "invoice_date",
+      "timezone": "Asia/Shanghai"
+    }
+  },
+  "skill_plan": {
+    "scenario_skill": {
+      "name": "invoice_risk",
+      "version": "1.0.0"
+    },
+    "capabilities": [
+      {
+        "name": "metric_window",
+        "version": "1.0.0"
+      },
+      {
+        "name": "metric_count",
+        "version": "1.0.0"
+      },
+      {
+        "name": "spark_sql_generator",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "tool_plan": {
+    "tools": [
+      {
+        "name": "generate_spark_sql_metric",
+        "version": "1.1.0"
+      }
+    ]
+  },
+  "artifact": {
+    "type": "sql",
+    "language": "spark_sql",
+    "status": "draft",
+    "code": "SELECT\n    `seller_tax_no` AS entity_id,\n    COUNT(*) AS `invoice_count_30d`\nFROM `c_db`.`source_fp_jdc_view`\nWHERE\n    `invoice_date` >= DATE '2026-08-10'\n    AND `invoice_date` < DATE '2026-09-09'\nGROUP BY `seller_tax_no`;\n",
+    "warnings": [
+      "dt 的格式及与 invoice_date 的关系未确认；草稿未添加分区过滤，可能全表扫描。",
+      "需确认 invoice_amt 为数值类型、invoice_date 为 DATE；若为 TIMESTAMP，需确认 Spark 会话时区为 Asia/Shanghai；字符串日期需另行确认格式。",
+      "企业发票风险：常用主体字段 seller_tax_no",
+      "业务时间字段 invoice_date；分区字段 dt",
+      "红冲票处理属于待确认业务规则",
+      "发票重复属于潜在风险"
+    ],
+    "template": {
+      "name": "aggregation_metric",
+      "version": "1.1.0"
+    },
+    "artifact_id": "6d176405-26ce-4c3c-94a1-5f8c59a8a0f4",
+    "artifact_version": "1.0.0",
+    "metric_name": "invoice_count_30d",
+    "content_hash": "ffbcaa280d184db51e2d2fbcc29fbac203270c77462549266241fea56055950c"
+  },
+  "derived_plan": null,
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [
+      "仅静态校验；未验证源表、字段类型、数据质量或 Spark 执行结果。"
+    ]
+  },
+  "execution_context": {
+    "anchor_time": "2026-09-09T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "prompt_version": "1.1.0",
+  "requires_human_review": true
+}

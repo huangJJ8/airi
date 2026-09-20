@@ -1,0 +1,29 @@
+[
+  {
+    "deployment_evidence_id": "a2ea8902-f8ee-4d27-afe0-71998ea817ed",
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "metric_key": "invoice_amount",
+    "version": "2.0.0",
+    "environment_id": "prod_synth",
+    "package_hash": "7679d5f5141eab102e85d5001dcf20cf4a813ae0e6d4ba72b68cea6db24c89e5",
+    "environment_fingerprint_hash": null,
+    "adapter": "mock",
+    "authoritative": false,
+    "deploy_status": "deployed",
+    "runtime_identity": null,
+    "runtime_identity_verified": false,
+    "provider_job_id": null,
+    "provider_application_id": null,
+    "provider_query_id": null,
+    "status_confirmed": true,
+    "status_runtime_state": "active",
+    "status_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "production_deployed": false,
+    "detail": "Synthetic mock runtime; no provider job identity exists",
+    "synthetic": true,
+    "deployed_at": "2026-09-17T06:21:23.505806Z",
+    "observed_at": "2026-09-17T06:21:23.518103Z",
+    "evidence_hash": "82c36dd251a73e79bf7936fe223e2b584f7e036325a5ff1ef36aa2025fbc32d9"
+  }
+]

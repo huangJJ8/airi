@@ -1,0 +1,47 @@
+# Normalize line endings for a cross-platform open-source repository.
+# Windows developers check out CRLF; Linux/macOS and CI get LF.
+* text=auto
+
+# Shell scripts MUST be LF, otherwise bash fails with
+# "bad interpreter: /usr/bin/env: No such file or directory" on Linux/macOS.
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows scripts stay CRLF so they remain editable in Notepad/PowerShell ISE.
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Python / config / docs are LF everywhere.
+*.py text eol=lf
+*.pyi text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.j2 text eol=lf
+*.sql text eol=lf
+*.txt text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+Dockerfile text eol=lf
+*.dockerignore text eol=lf
+
+# Binary assets - never touch these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.mp4 binary
+*.webm binary
+*.whl binary
+*.db binary
+
+# Keep lockfiles diffable and out of GitHub's language statistics.
+uv.lock linguist-generated=true
+airi-web/package-lock.json linguist-generated=true

@@ -1,0 +1,20 @@
+{
+  "deployment_id": "38dc23c2-2e90-41cc-907a-18ac3b521614",
+  "metric_definition_id": "f992df28-ff67-4b2b-a8ec-d04334aac5b4",
+  "metric_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "registry_active_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+  "registry_active_version": "2.0.0",
+  "production_runtime_state": "active",
+  "production_active_version_id": "8e28a9ad-2aa2-4d86-a4c4-d62940c2ce6a",
+  "status": "mismatch",
+  "automatic_correction": false,
+  "findings": [
+    {
+      "type": "deployment_state_mismatch",
+      "registry_active_version_id": "ff187cb0-ed07-4711-bedb-159a6e72a379",
+      "production_active_version_id": "8e28a9ad-2aa2-4d86-a4c4-d62940c2ce6a",
+      "runtime_state": "active"
+    }
+  ],
+  "observed_at": "2026-09-17T02:10:23.023210Z"
+}

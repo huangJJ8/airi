@@ -1,0 +1,35 @@
+{
+  "submit_request": {
+    "artifact_id": "a17377e8-66be-4165-a05b-1db0c524d3b3",
+    "artifact_hash": "7f22c482555629f6cb8fb6c1d3b2c76dfdf7b842b592666aba3a6cf9a94135e7",
+    "metric_ir_hash": "3bf7c6599901c78760edfe88b8f9f1fa1b0ed9acd14279b6412db9ea667f5d00"
+  },
+  "pending": {
+    "approval_id": "0ebaaac9-a1b4-4237-b969-b3c05c2e12e2",
+    "workflow_run_id": "d84ab7a2-93f2-40a9-b5a5-41e13ce820b3",
+    "artifact_id": "a17377e8-66be-4165-a05b-1db0c524d3b3",
+    "artifact_version": "1.0.0",
+    "metric_name": "invoice_amount_growth_30d",
+    "metric_ir_hash": "3bf7c6599901c78760edfe88b8f9f1fa1b0ed9acd14279b6412db9ea667f5d00",
+    "artifact_hash": "7f22c482555629f6cb8fb6c1d3b2c76dfdf7b842b592666aba3a6cf9a94135e7",
+    "reviewer": null,
+    "decision": "pending",
+    "comment": null,
+    "created_at": "2026-09-09T09:51:52.699315Z",
+    "reviewed_at": null
+  },
+  "decision": {
+    "approval_id": "0ebaaac9-a1b4-4237-b969-b3c05c2e12e2",
+    "workflow_run_id": "d84ab7a2-93f2-40a9-b5a5-41e13ce820b3",
+    "artifact_id": "a17377e8-66be-4165-a05b-1db0c524d3b3",
+    "artifact_version": "1.0.0",
+    "metric_name": "invoice_amount_growth_30d",
+    "metric_ir_hash": "3bf7c6599901c78760edfe88b8f9f1fa1b0ed9acd14279b6412db9ea667f5d00",
+    "artifact_hash": "7f22c482555629f6cb8fb6c1d3b2c76dfdf7b842b592666aba3a6cf9a94135e7",
+    "reviewer": "iris-demo",
+    "decision": "approved",
+    "comment": "本地 Mock 演示审批，非生产授权",
+    "created_at": "2026-09-09T09:51:52.699315Z",
+    "reviewed_at": "2026-09-09T09:51:52.712937Z"
+  }
+}

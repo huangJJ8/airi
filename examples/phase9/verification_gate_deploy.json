@@ -1,0 +1,61 @@
+{
+  "gate_decision_id": "b5ba1d91-dcd1-4974-8819-cd62d170011b",
+  "action": "deploy",
+  "deployment_id": "30dc850f-dd96-46cc-a825-d35079ac1ed5",
+  "environment_id": "prod_synth",
+  "environment_kind": "production",
+  "mode": "report_only",
+  "result": "allowed",
+  "required_sections": [
+    "environment",
+    "identity",
+    "adapter",
+    "runtime_identity",
+    "shadow"
+  ],
+  "missing_requirements": [
+    "adapter",
+    "environment",
+    "identity",
+    "runtime_identity"
+  ],
+  "integrity_requirements": [],
+  "evidence_refs": {
+    "report_id": "46ea648a-579e-440d-b959-85fe7a3a5548",
+    "report_overall": "partially_verified",
+    "report_sections": {
+      "environment": "not_verified",
+      "identity": "not_verified",
+      "adapter": "not_verified",
+      "deployment": "not_verified",
+      "runtime_identity": "not_verified",
+      "shadow": "verified",
+      "monitoring_source": "verified",
+      "rollback": "not_verified",
+      "reconciliation": "verified"
+    },
+    "capabilities": {
+      "rollback_capability": true,
+      "recovery_capability": false,
+      "authoritative_adapter": false
+    },
+    "override_id": null,
+    "override_waives": [],
+    "package_hash": "cfa7aa79d0d2f4c67a373d9989b7a61a3d6d91c8b4202275ea0697067405530b",
+    "metric_version_id": "b27de7c3-5dcc-4aeb-9e7c-286b876e048e",
+    "environment_fingerprint_hash": null,
+    "required_sections": [
+      "environment",
+      "identity",
+      "adapter",
+      "runtime_identity",
+      "shadow"
+    ]
+  },
+  "report_id": "46ea648a-579e-440d-b959-85fe7a3a5548",
+  "policy_version": "1.0.0",
+  "override_id": null,
+  "detail": "report_only: the verification result is recorded and does not block this action in a non-production or synthetic environment",
+  "decided_by": "demo-admin",
+  "decided_at": "2026-09-17T10:12:13.218774Z"
+}

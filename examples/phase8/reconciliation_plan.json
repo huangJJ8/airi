@@ -1,0 +1,33 @@
+{
+  "reconciliation_plan_id": "2243d2f4-4d77-4c92-9fbc-6b71495c707e",
+  "deployment_id": "815fc5cd-756c-4ba5-8da9-c9410de52442",
+  "metric_definition_id": "8bdb9a4e-be56-448a-a402-a6e20b758c3b",
+  "metric_version_id": "722b7ca5-61c8-4d1a-ae82-c3e9b2b84cab",
+  "metric_key": "invoice_amount",
+  "verdict": "mismatch",
+  "registry_active_version_id": "722b7ca5-61c8-4d1a-ae82-c3e9b2b84cab",
+  "registry_active_version": "2.0.0",
+  "production_runtime_state": "active",
+  "production_active_version_id": "4610e36d-969d-4f34-a126-b47067e9ec1b",
+  "production_active_version": "1.0.0",
+  "environment_id": "prod_synth",
+  "environment_fingerprint_hash": null,
+  "runtime_identity": null,
+  "provider_application_id": null,
+  "deployment_evidence_id": "d2a55f2d-cfdb-44cb-a44b-32d95a539b69",
+  "latest_deployment_review_id": "cf0e6bc4-913a-496d-bbf0-4f79ac2ea272",
+  "rollback_review_ids": [],
+  "alert_ids": [
+    "a5d6fcb0-b3a7-413d-a2a1-16f2ab434b35",
+    "3488f7e2-171d-4930-84ec-a59c1ad63c58"
+  ],
+  "possible_actions": [
+    "runtime_to_registry",
+    "manual_investigation"
+  ],
+  "recommended_action": "runtime_to_registry",
+  "rationale": "The registry holds no package for its own active version, so the runtime cannot be re-aligned to it. The runtime reports a version the registry knows about, so the registry pointer can be moved to match. A human must still decide.",
+  "automatic_correction": false,
+  "created_by": "demo-admin",
+  "created_at": "2026-09-17T06:07:15.513854Z"
+}

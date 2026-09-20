@@ -1,0 +1,12 @@
+{
+  "telemetry_source_id": "synthetic_monitor",
+  "source_system": "synthetic_monitor",
+  "environment_id": "prod_synth",
+  "auth_identity": "monitor@airi.invalid",
+  "schema_version": "1.0.0",
+  "verified": true,
+  "verification_note": "operator attested the producer identity out of band",
+  "registered_by": "demo-admin",
+  "synthetic": false,
+  "created_at": "2026-09-17T06:21:22.679706Z"
+}

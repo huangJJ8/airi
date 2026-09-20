@@ -1,0 +1,59 @@
+{
+  "reconciliation_result_id": "77f0676e-e27d-41da-baa6-508a5fc4cea2",
+  "reconciliation_plan_id": "67f13dd0-2a11-4e07-bce9-a0aab5a91a8d",
+  "reconciliation_review_id": "06628f76-4e19-4b20-ae05-299c20e31725",
+  "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+  "action": "align_registry_to_runtime",
+  "execution_status": "executed",
+  "convergence_status": "verified",
+  "final_status": "reconciliation_completed",
+  "pre_execution": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+    "registry_active_version": "1.0.0",
+    "production_runtime_state": "active",
+    "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "production_active_version": "2.0.0",
+    "environment_fingerprint_hash": null,
+    "runtime_identity": null,
+    "provider_application_id": null,
+    "status": "mismatch",
+    "automatic_correction": false,
+    "findings": [
+      {
+        "type": "deployment_state_mismatch",
+        "registry_active_version_id": "69257399-925d-4238-8072-6c80a3f81e33",
+        "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+        "runtime_state": "active",
+        "environment_fingerprint_hash": null,
+        "runtime_identity": null,
+        "provider_application_id": null
+      }
+    ],
+    "observed_at": "2026-09-17T06:21:25.726441Z"
+  },
+  "post_execution": {
+    "deployment_id": "f395ea36-8787-46ee-a159-e10cd7e26cfa",
+    "metric_definition_id": "1f4edf1d-53de-4c6a-b765-4ac740613a11",
+    "metric_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "registry_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "registry_active_version": "2.0.0",
+    "production_runtime_state": "active",
+    "production_active_version_id": "e7019f8a-9959-4ec6-9622-7a3d61d6b52a",
+    "production_active_version": "2.0.0",
+    "environment_fingerprint_hash": null,
+    "runtime_identity": null,
+    "provider_application_id": null,
+    "status": "consistent",
+    "automatic_correction": false,
+    "findings": [],
+    "observed_at": "2026-09-17T06:21:25.852092Z"
+  },
+  "provider_job_id": null,
+  "detail": "the runtime was re-observed and now agrees with the registry",
+  "executed_by": "demo-admin",
+  "executed_at": "2026-09-17T06:21:25.939749Z",
+  "created_at": "2026-09-17T06:21:25.939749Z"
+}
