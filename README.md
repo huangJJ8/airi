@@ -329,6 +329,7 @@ airi/
 │   ├── screenshots/      captured from the running demo
 │   ├── demo/             demo GIF / MP4
 │   ├── history/          phase-by-phase implementation reports
+│   ├── interview/        pitch, Q&A, architecture walkthrough, demo script
 │   └── portfolio.md      design rationale, interview form
 ├── tests/                backend test suite
 ├── migrations/           alembic (head: 0011_operational_convergence)

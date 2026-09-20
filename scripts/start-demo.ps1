@@ -29,6 +29,29 @@ function Test-Command($name) {
     return [bool](Get-Command $name -ErrorAction SilentlyContinue)
 }
 
+# Native commands (uv, npm, node) write progress and warnings to stderr. Windows
+# PowerShell 5.1 turns *any* stderr line from a native command into a terminating
+# NativeCommandError when $ErrorActionPreference is "Stop" - so a perfectly
+# successful `uv sync` can abort this script (for example when its output is
+# merged with 2>&1 by a wrapper, a log capture, or CI).
+#
+# Run natives with the preference relaxed and decide on $LASTEXITCODE instead.
+# Real failures are still fatal.
+function Invoke-Native([string]$Label, [scriptblock]$Command) {
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & $Command
+        $code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previous
+    }
+    if ($code -ne 0) {
+        Write-Host "[ERROR] $Label failed (exit $code)." -ForegroundColor Red
+        exit 1
+    }
+}
+
 function Test-PortFree($port) {
     $conn = Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
     return ($null -eq $conn)
@@ -85,29 +108,34 @@ Write-Host "Frontend : http://localhost:$FrontendPort"
 
 # --- 2) backend dependencies + migrations -------------------------------------
 Write-Host "== syncing backend dependencies (uv) =="
-uv sync --frozen --extra dev
-if ($LASTEXITCODE -ne 0) { Write-Host "[ERROR] uv sync failed." -ForegroundColor Red; exit 1 }
+Invoke-Native "uv sync" { uv sync --frozen --extra dev }
 
 Write-Host "== running database migrations (SQLite demo database) =="
-uv run --frozen alembic upgrade head
-if ($LASTEXITCODE -ne 0) { Write-Host "[ERROR] alembic upgrade failed." -ForegroundColor Red; exit 1 }
+Invoke-Native "alembic upgrade head" { uv run --frozen alembic upgrade head }
 
 # --- 3) synthetic seed data (idempotent: rebuilds the demo database) ----------
 Write-Host "== seeding synthetic demo data (invoice_risk + enterprise_relation) =="
-uv run --frozen python scripts/seed_demo.py
-if ($LASTEXITCODE -ne 0) { Write-Host "[ERROR] seed_demo.py failed." -ForegroundColor Red; exit 1 }
+Invoke-Native "seed_demo.py" { uv run --frozen python scripts/seed_demo.py }
 
 # --- 4) frontend dependencies ---------------------------------------------------
 $WebDir = Join-Path $Root "airi-web"
 if (-not (Test-Path (Join-Path $WebDir "node_modules"))) {
     Write-Host "== installing frontend dependencies (npm ci) =="
     Push-Location $WebDir
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     npm ci
-    if ($LASTEXITCODE -ne 0) {
+    $npmCode = $LASTEXITCODE
+    if ($npmCode -ne 0) {
         npm install
-        if ($LASTEXITCODE -ne 0) { Write-Host "[ERROR] npm install failed." -ForegroundColor Red; Pop-Location; exit 1 }
+        $npmCode = $LASTEXITCODE
     }
+    $ErrorActionPreference = $previous
     Pop-Location
+    if ($npmCode -ne 0) {
+        Write-Host "[ERROR] npm install failed (exit $npmCode)." -ForegroundColor Red
+        exit 1
+    }
 }
 
 # --- 5) start backend -----------------------------------------------------------
