@@ -7,10 +7,24 @@ on:
   workflow_dispatch:
 
 # CI never touches a real LLM, a real cluster, or real data. Everything runs
-# offline against SQLite and the deterministic demo_mock substitute.
+# offline against SQLite.
+#
+# Careful with this block: a workflow-level AIRI_* variable reaches *inside* the
+# test suite, because the suite is deliberately hermetic - its fixtures build
+# Settings(_env_file=None, ...) so that tests see the unconfigured defaults
+# rather than whatever a developer happens to have in .env. A variable set here
+# therefore overrides those defaults on the runner but not on a developer
+# machine, which is exactly how "green locally, red in CI" happens.
+#
+# AIRI_LLM_MODE was removed for this reason: it made /api/v1/meta report
+# demo_mock, so the LLM-unconfigured paths returned 200/201 instead of the
+# 503/409/diagnostics_only the suite asserts. Those demo_mock paths are already
+# covered by tests that opt in explicitly, e.g.
+# Settings(llm_mode="demo_mock") in tests/test_demo_mode.py, so nothing is lost.
+# Values for *running the demo* live in .env and in scripts/start-demo.* - they
+# do not belong in the test job.
 env:
   AIRI_ENVIRONMENT: test
-  AIRI_LLM_MODE: demo_mock
   AIRI_EXECUTION_MODE: mock
   AIRI_DEMO_FIXTURES: "true"
   AIRI_DATABASE_URL: sqlite+pysqlite:///.demo/ci.db
