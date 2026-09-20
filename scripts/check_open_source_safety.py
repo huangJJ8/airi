@@ -19,6 +19,11 @@ Design notes:
   (``c_db`` / ``tmp_db`` / ``demo`` databases) contain no real data and are
   deliberately NOT flagged. See SECURITY.md.
 - Unit-test placeholder secrets are allowlisted explicitly.
+- ``users.noreply.github.com`` is treated like ``example.`` — it is GitHub's own
+  public no-reply domain, published by design, and carries no private address.
+  Documentation that tells contributors to *use* it must not fail this scan.
+  Nothing else about the e-mail rule is relaxed: real personal or corporate
+  addresses are still findings.
 
 Usage:
     uv run --frozen python scripts/check_open_source_safety.py
@@ -105,7 +110,8 @@ PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     (
         "non_example_email",
         re.compile(
-            r"\b[A-Za-z0-9._%+-]+@(?!example\.|test\.|localhost|synthetic\.)"
+            r"\b[A-Za-z0-9._%+-]+@"
+            r"(?!example\.|test\.|localhost|synthetic\.|users\.noreply\.github\.com)"
             r"(?:[A-Za-z0-9-]+\.)+(?:com|cn|net|org|io)\b"
         ),
     ),
