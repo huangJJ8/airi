@@ -32,6 +32,7 @@ cd ..
 ## 2. Database
 
 ```bash
+mkdir -p .demo   # SQLite will not create a file inside a missing directory; .demo/ is gitignored
 AIRI_DATABASE_URL="sqlite+pysqlite:///.demo/release_check.db" uv run --frozen alembic upgrade head
 AIRI_DATABASE_URL="sqlite+pysqlite:///.demo/release_check.db" uv run --frozen alembic current
 AIRI_DATABASE_URL="sqlite+pysqlite:///.demo/release_check.db" uv run --frozen alembic check

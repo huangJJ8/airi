@@ -36,6 +36,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # .demo/ is gitignored, so a clean checkout does not have it - and SQLite
+      # will not create a database file inside a directory that does not exist
+      # ("unable to open database file"). scripts/start-demo.* does exactly this
+      # mkdir for the same reason; CI has to do it too.
+      - name: Prepare runtime directory
+        run: mkdir -p .demo
+
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:

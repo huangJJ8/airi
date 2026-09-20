@@ -25,7 +25,7 @@ Python or Node for you, and never require administrator privileges.
 ### Windows (primary, verified)
 
 ```powershell
-git clone <your-repo-url>
+git clone https://github.com/huangJJ8/airi.git
 cd airi
 
 .\scripts\start-demo.ps1
@@ -59,7 +59,7 @@ Stop everything with:
 ### macOS / Linux (best-effort, not runtime-verified in this repo)
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/huangJJ8/airi.git
 cd airi
 
 ./scripts/start-demo.sh
@@ -79,6 +79,7 @@ If you prefer to run the steps yourself:
 # 1. backend
 uv sync --frozen --extra dev
 cp .env.example .env                     # optional; the demo works with defaults
+mkdir -p .demo                           # .demo/ is gitignored: a fresh clone does not have it
 uv run --frozen alembic upgrade head
 uv run --frozen python scripts/seed_demo.py
 
@@ -90,6 +91,11 @@ cd airi-web
 npm ci
 npm run dev
 ```
+
+> `mkdir -p .demo` is the POSIX spelling; on Windows PowerShell use `mkdir .demo`.
+> SQLite will not create its database file inside a directory that does not
+> exist, so this step is required in a fresh clone — `scripts/start-demo.*` does
+> it for you automatically.
 
 Open <http://localhost:5173>.
 
