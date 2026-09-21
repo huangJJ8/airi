@@ -1,307 +1,213 @@
-# AIRI — 5-Minute Live Interview Demo
+# AIRI —— 5 分钟现场面试演示
 
-A timed, rehearsal-ready script. Nine steps, 5 minutes, then the honest close.
+一份带计时、可以直接拿来排练的脚本。九个步骤、5 分钟，然后用诚实的那段收尾。
 
 ---
 
-## Before the interview
+## 面试之前
 
-Rehearse this **three times end to end with a stopwatch**. The failure mode is
-not the software — it is spending 2 minutes on the dashboard.
+拿着秒表**从头到尾完整排练三遍**。失败的原因不会是软件——而是在 dashboard 上耗掉 2 分钟。
 
 ```powershell
 .\scripts\start-demo.ps1     # migrate → seed synthetic data → both servers
 ```
 
-Wait for both services to report healthy, then open <http://localhost:5173>.
-Have the terminal running `start-demo.ps1` visible in a second window so the
-health output can be shown if asked.
+等两个服务都报告健康，然后打开 <http://localhost:5173>。把跑着 `start-demo.ps1` 的那个终端放在另一个窗口里保持可见，这样被问到的时候可以把健康检查输出亮出来。
 
-**Keep the `LOCAL DEMO` / `Synthetic Data` / `NOT PRODUCTION VERIFIED` markers
-visible.** Do not crop or hide them — they are a deliberate part of the story and
-you will point at them in step 9.
+**让 `LOCAL DEMO` / `Synthetic Data` / `NOT PRODUCTION VERIFIED` 这些标记保持可见。** 不要裁掉或藏起来——它们是这段叙事里刻意保留的一部分，第 9 步你会指着它们讲。
 
-### Timing budget
+### 计时预算
 
-| Step | Page | Time |
+| 步骤 | 页面 | 时间 |
 | --- | --- | --- |
 | 1 | dashboard | 0:20 |
-| 2 | development — requirement | 0:40 |
-| 3 | development — IR and skills | 0:50 |
-| 4 | development — generated SQL | 0:50 |
+| 2 | development — 需求 | 0:40 |
+| 3 | development — IR 与技能 | 0:50 |
+| 4 | development — 生成的 SQL | 0:50 |
 | 5 | testing | 0:35 |
 | 6 | experiments | 0:45 |
 | 7 | reflection | 0:30 |
 | 8 | registry | 0:20 |
-| 9 | enterprise relation (via development) | 0:50 |
-| — | close | 0:30 |
+| 9 | enterprise relation（经由 development） | 0:50 |
+| — | 收尾 | 0:30 |
 
-If you are running long, **cut step 1 and step 8** — not steps 3, 4 or 9.
+如果时间超了，**砍掉第 1 步和第 8 步**——不要砍第 3、4、9 步。
 
 ---
 
-## Step 1 — Dashboard (`/dashboard`) · 20s
+## 第 1 步 —— Dashboard（`/dashboard`）· 20 秒
 
-**Show:** open the page, do not click anything yet.
+**展示：** 打开这个页面，先什么都别点。
 
-**我要讲什么:** "This is a risk metric R&D platform. The dashboard shows the
-metric lifecycle — and the labels tell you which layer owns each step: the LLM
-understands intent, Python produces every artifact, a human approves every gate."
+**要讲什么：**「这是一个风险指标研发平台。dashboard 展示的是指标的生命周期——那些标签告诉你每一步归哪一层管：LLM 负责理解意图，Python 负责产出每一个产物，人负责审批每一道关卡。」
 
 **面试官可能问什么**
 
-- *"Is this production?"* → "No. It's a portfolio/research implementation. All the
-  data you're about to see is synthetic — see the markers on screen."
-- *"Where's the data from?"* → "Generated in-repo. There is no connection to any
-  real system in this demo."
-- *"Why a web UI at all?"* → "So the workflow is demonstrable. It also forces the
-  governance boundary to be explicit, because the UI is not allowed to compute
-  business logic."
+- *「这是生产环境吗？」* → 「不是。它是一个作品集/研究性质的实现。你接下来看到的所有数据都是合成的——看屏幕上的那些标记。」
+- *「数据是从哪来的？」* → 「仓库里生成的。这个演示没有连到任何真实系统。」
+- *「为什么还要做个 Web UI？」* → 「这样工作流才是可演示的。它同时也逼着治理边界必须显式化，因为 UI 不允许做业务计算。」
 
 ---
 
-## Step 2 — Development: the requirement (`/development`) · 40s
+## 第 2 步 —— Development：需求（`/development`）· 40 秒
 
-**Do:** show the requirement textbox, then submit the invoice-risk requirement.
+**操作：** 展示需求输入框，然后提交那条发票风险需求。
 
-**要讲什么:** the input is **natural language** — a risk analyst's sentence, not
-a form. Note what happens next: it is parsed into a **structured object**, not
-into SQL directly.
+**要讲什么：** 输入的是**自然语言**——一个风险分析师写的一句话，不是一张表单。注意接下来发生的事：它被解析成一个**结构化对象**，而不是直接变成 SQL。
 
 **面试官可能问什么**
 
-- *"What if the model returns garbage?"* → "The run fails loudly. The response
-  must satisfy a strict schema; there is no repair step and no fallback to a
-  canned answer. A successful run means the model genuinely produced a valid IR."
-- *"Can I inject anything here?"* → "You can try — it will fail schema validation.
-  Identifiers have to match a strict pattern, so free text has nowhere to go."
-- *"Is this an agent?"* → "It's an agentic pipeline with a deterministic control
-  path. One LLM step here: requirement understanding."
+- *「如果模型返回垃圾怎么办？」* → 「这次运行会大声失败。响应必须满足严格的 schema；没有修补环节，也不会退回一个预先备好的答案。一次成功的运行，意味着模型真的产出了合规的 IR。」
+- *「我能在这里注入点东西吗？」* → 「你可以试试——它会挂在 schema 校验上。标识符必须匹配严格的模式，所以自由文本无处可去。」
+- *「这是一个 agent 吗？」* → 「它是一条 agentic 流水线，但控制路径是确定性的。这里只有一步用到 LLM：理解需求。」
 
 ---
 
-## Step 3 — Development: IR and skills · 50s
+## 第 3 步 —— Development：IR 与技能 · 50 秒
 
-**Show:** the Metric IR panel, then the skills panel. Point at the scenario name
-and the capability list.
+**展示：** Metric IR 面板，然后是技能面板。指着场景名和能力清单。
 
-**要讲什么 — this is the core of the demo:**
+**要讲什么 —— 这是整场演示的核心：**
 
-1. The IR is the **reviewable boundary**. Source, window, filters, aggregation,
-   grouping, label definition, evaluation spec — as fields, each validated.
-2. **Scenario Skill × Capability Skill:** `invoice_risk` is *what the business
-   means*; `metric_sum` / `metric_window` / `metric_count` are *how a mechanism
-   is realised*, and each pins a tool version.
-3. "The model has now finished its job. Everything after this point is Python."
+1. IR 是那条**可评审的边界**。source、window、filters、aggregation、grouping、label definition、evaluation spec——都是字段，每个都经过校验。
+2. **场景技能 × 能力技能：** `invoice_risk` 是*业务想表达什么*；`metric_sum` / `metric_window` / `metric_count` 是*某个机制怎么落地*，每个都钉住一个工具版本。
+3. 「模型到这儿就把活儿干完了。从这一点往后全是 Python。」
 
 **面试官可能问什么**
 
-- *"Why not just let it write the SQL?"* → "Because generated SQL has no spec to
-  review against, isn't reproducible, and has no clean approval point."
-- *"Why a skills layer rather than prompting harder?"* → "Because the mechanism
-  should be declared data, not prompt text. You can audit a declaration; you
-  can't audit a prompt."
-- *"Where does business meaning enter the SQL?"* → "It doesn't. That's a hard
-  rule — business semantics stay out of the SQL layer."
+- *「为什么不干脆让它写 SQL？」* → 「因为生成出来的 SQL 没有规格可以对照评审，不可复现，也没有一个干净的审批点。」
+- *「为什么要有技能层，而不是把提示词写得更狠？」* → 「因为机制应该是声明式的数据，而不是提示词里的文字。声明你能审计，提示词你审计不了。」
+- *「业务含义是从哪儿进到 SQL 里的？」* → 「没进。这是一条硬规则——业务语义留在 SQL 层之外。」
 
 ---
 
-## Step 4 — Development: the generated SQL · 50s
+## 第 4 步 —— Development：生成的 SQL · 50 秒
 
-**Show:** the generated SQL artifact, and the approval state.
+**展示：** 生成的 SQL 产物，以及审批状态。
 
-**要讲什么:** this SQL was **not written by the model**. It was rendered by a
-deterministic Python tool from a fixed Jinja template, filled with IR values that
-survived validation — then it passed a **closed-grammar** validator before it
-could be approved.
+**要讲什么：** 这条 SQL **不是模型写的**。它是由一个确定性的 Python 工具从固定 Jinja 模板渲染出来的，填进去的是通过了校验的 IR 值——然后它还得先过一遍**封闭语法**校验器，才有资格被审批。
 
-Then point at the **hash** and say: "The human approves a content hash, so the
-query that runs is byte-identical to the query that was reviewed."
+然后指着那个**哈希**说：「人审批的是一个内容哈希，所以跑起来的查询和被评审过的查询逐字节一致。」
 
 **面试官可能问什么**
 
-- *"What stops SQL injection?"* → "Three layers. The model never emits SQL;
-  identifiers are pattern-constrained in the IR; and the validator is a closed
-  grammar with full matching — no `UNION`, nested queries, comments or
-  multi-statements — plus DDL/DML verbs refused outright. Execution is read-only."
-- *"What if someone edits the SQL after approval?"* → "The hash changes, so the
-  approval no longer matches. Approval is over content, not over a filename."
-- *"Is the template safe if the IR is valid?"* → "The validator doesn't trust the
-  generator. That's deliberate — the architecture assumes its own code could be
-  wrong."
+- *「怎么防 SQL 注入？」* → 「三层。模型从不发出 SQL；标识符在 IR 里被模式约束住；校验器是一套封闭语法加全量匹配——不许 `UNION`、不允许嵌套查询、注释和多语句——此外 DDL/DML 动词一律拒绝。执行是只读的。」
+- *「如果有人审批之后改了 SQL 呢？」* → 「哈希会变，审批就对不上了。审批针对的是内容，不是一个文件名。」
+- *「如果 IR 合法，模板就安全吗？」* → 「校验器不信任生成器。这是刻意的——这套架构假定自己的代码也可能出错。」
 
 ---
 
-## Step 5 — Testing (`/testing`) · 35s
+## 第 5 步 —— Testing（`/testing`）· 35 秒
 
-**Show:** the test results — scenario-declared checks, pass/fail.
+**展示：** 测试结果——场景声明的检查项、通过/失败。
 
-**要讲什么:** because the IR is structured, the platform knows **what to
-assert**: schema conformance, null handling, duplicate keys, window boundaries,
-distinct semantics, reconciliation. For join scenarios there is also a
-**direct-join control**. The scenario declares the checks; Python runs them.
+**要讲什么：** 因为 IR 是结构化的，平台知道**该断言什么**：schema 一致性、空值处理、重复键、窗口边界、distinct 语义、对账。join 场景还额外有一个**直连 join 对照**。检查项由场景声明，Python 负责跑。
 
 **面试官可能问什么**
 
-- *"Who wrote these tests?"* → "The scenario declares the check types; the
-  platform generates and runs them. These are not hand-written per metric."
-- *"Are these real tests or a demo of tests?"* → "Real — they execute against the
-  fixture data and can fail. If you want, I can show you the failing path."
-- *"How does a metric get promoted if a test fails?"* → "It doesn't. Tests are
-  part of the evidence, and the gate is separate."
+- *「这些测试是谁写的？」* → 「场景声明检查的类型；平台负责生成并执行。这些不是逐个指标手写的。」
+- *「这些是真测试，还是测试的演示？」* → 「真的——它们对着夹具数据执行，而且会失败。你要想看，我可以给你演示失败那条路径。」
+- *「如果测试挂了，指标还能被晋级吗？」* → 「不能。测试是证据的一部分，而关卡是独立的一道。」
 
 ---
 
-## Step 6 — Experiments (`/experiments`) · 45s
+## 第 6 步 —— Experiments（`/experiments`）· 45 秒
 
-**Show:** coverage, bad rate, decile bins, KS (with direction), IV, lift,
-threshold candidates.
+**展示：** coverage、bad rate、decile bins、KS（带方向）、IV、lift、threshold candidates。
 
-**要讲什么:** every number here is computed in Python and stored as a **fact**.
-Two distinctions worth stating out loud:
+**要讲什么：** 这里的每个数字都是 Python 算出来、并按**事实**存储的。有两个区分值得说出口：
 
-- **KS has a direction** — a strongly separating metric pointing the wrong way is
-  a finding, not a success.
-- The platform **refuses to compare incomparable runs**. Different dataset, label
-  definition, evaluation window or snapshot → no comparison. A misleading number
-  is worse than no number.
+- **KS 是有方向的**——一个区分度很强但方向反了的指标是个发现，不是个成绩。
+- 平台**拒绝比较不可比的运行**。数据集、标签定义、评估窗口或快照不同 → 就不比较。一个误导性的数字比没有数字更糟。
 
 **面试官可能问什么**
 
-- *"Are these numbers meaningful?"* → "About the pipeline, yes. About real risk
-  performance, no — this is synthetic data, and the README says so explicitly."
-- *"Which statistic would you actually trust?"* → "None in isolation. I'd want
-  coverage and bad rate first — a high-IV metric on 2% of records is a headline,
-  not a signal."
-- *"Why compute in Python and not ask the model?"* → "Because these have to be
-  reproducible and auditable. The model never computes a statistic."
+- *「这些数字有意义吗？」* → 「对这条链路而言，有意义。对真实风险表现而言，没有——这是合成数据，README 里写得很明确。」
+- *「你会真的相信哪个统计量？」* → 「单独看哪个都不信。我会先看 coverage 和 bad rate——一个高 IV 的指标只落在 2% 的记录上，那是标题，不是信号。」
+- *「为什么用 Python 算，而不是问模型？」* → 「因为这些必须是可复现、可审计的。模型从不计算任何统计量。」
 
 ---
 
-## Step 7 — Reflection (`/reflection`) · 30s
+## 第 7 步 —— Reflection（`/reflection`）· 30 秒
 
-**Show:** the diagnostics, then the hypotheses, then the proposals section.
+**展示：** 诊断，然后是假设，最后是提案区。
 
-**要讲什么:** the model is given the facts and asked for **hypotheses** — stored
-separately, in their own type and their own table. Then the key sentence:
+**要讲什么：** 把事实交给模型，让它给出**假设**——假设单独存储，有自己的类型、自己的表。然后是那句关键的话：
 
-> "A reflection never changes anything by itself. It can only produce a bounded
-> proposal, and a human decides."
+> 「反思本身永远不会改变任何东西。它只能产出一个受约束的提案，由人来决定。」
 
 **面试官可能问什么**
 
-- *"So the AI's output is useless?"* → "No — it's advisory, and it's useful
-  precisely because it can't act. The dangerous version is one where the model's
-  opinion silently becomes the new metric definition."
-- *"How do you keep facts and opinions apart?"* → "Different models, different
-  tables. It's enforced by storage, not by a convention in the docs."
+- *「那 AI 的输出是不是没用？」* → 「不是——它是建议性的，而且恰恰因为它不能动手才有用。危险的做法是让模型的看法悄无声息地变成新的指标定义。」
+- *「你怎么把事实和看法分开？」* → 「不同的模型、不同的表。靠的是存储强制，不是文档里的一句约定。」
 
 ---
 
-## Step 8 — Registry (`/registry`) · 20s
+## 第 8 步 —— Registry（`/registry`）· 20 秒
 
-**Show:** the version list, the active version, the audit events.
+**展示：** 版本列表、当前活跃版本、审计事件。
 
-**要讲什么:** metrics are **immutable, versioned, auditable assets**. You never
-edit a version — you create one. There's an active pointer, an audit-event
-stream, and rollback.
+**要讲什么：** 指标是**不可变、带版本、可审计的资产**。你从不编辑某个版本——你是新建一个。有一个活跃指针、一条审计事件流，还有回滚。
 
 **面试官可能问什么**
 
-- *"Why not just keep SQL files in git?"* → "Git gives you history. The registry
-  gives you history *plus* which version is active, who approved it, what evidence
-  supported it, and a rollback path."
-- *"How do you roll back safely?"* → "Point the active pointer at the previous
-  immutable version; the previous one is still intact because nothing was ever
-  mutated."
+- *「为什么不干脆把 SQL 文件放在 git 里？」* → 「git 给你历史。注册表给你历史*再加上*：哪个版本在用、谁审批的、有什么证据支撑、以及一条回滚路径。」
+- *「你怎么安全地回滚？」* → 「把活跃指针指回上一个不可变版本；上一个版本还完好无损，因为从来没有东西被就地改动过。」
 
 ---
 
-## Step 9 — Enterprise Relation (`/development`) · 50s · **the closer**
+## 第 9 步 —— Enterprise Relation（`/development`）· 50 秒 · **压轴**
 
-**Do:** switch to the `enterprise_relation` scenario and run it.
+**操作：** 切到 `enterprise_relation` 场景并运行它。
 
-**要讲什么:** this is the same workflow — not a fork. The difference is the
-scenario: a **two-hop relationship** (enterprise → person → enterprise) with
-`COUNT DISTINCT` and a self-loop exclusion.
+**要讲什么：** 这是同一套工作流——不是一个分叉。差别在场景：一个**两跳关系**（enterprise → person → enterprise），带着 `COUNT DISTINCT` 和自环排除。
 
-Then the single most important sentence of the demo:
+然后是整场演示里最重要的那一句：
 
-> "To support this I did **not** write an `enterprise_relation` join tool. I
-> promoted the mechanism to a general `metric_join` capability. That's why adding
-> this scenario added no new orchestration — only a new scenario file. New
-> Scenario, not new Workflow."
+> 「为了支持它，我**没有**去写一个 `enterprise_relation` 的 join 工具。我把这个机制晋级成了一个通用的 `metric_join` 能力。这就是为什么加这个场景没有带来任何新的编排——只多了一个场景文件。是新场景，不是新工作流。」
 
-**Show the join SQL** so the audience sees the two-hop join and the
-`related_enterprise_id != enterprise_id` predicate.
+**展示 join SQL**，让观众看到那个两跳 join 和 `related_enterprise_id != enterprise_id` 谓词。
 
 **面试官可能问什么**
 
-- *"How do I know this isn't hardcoded for this demo?"* → "Because it goes
-  through the identical pipeline, and the join is a general capability pinned to a
-  tool version. The only files that differ between the two scenarios are the two
-  scenario declarations."
-- *"Why did you pick this as the second scenario?"* → "Because it's structurally
-  different — a join with distinct semantics — which is the one that would expose
-  an IR that was really only fitted to scenario one."
-- *"What would a third scenario cost?"* → "If it needs the same mechanisms, one
-  scenario file plus a fixture. If it needs a new mechanism, a new capability plus
-  a tool and template — but no change to the parser, workflow, experiments,
-  registry or UI."
+- *「我怎么知道这不是为了这个 demo 硬编码的？」* → 「因为它走的是完全同一条流水线，而且这个 join 是一个通用能力，钉住某个工具版本。两个场景之间唯一不同的文件，就是那两份场景声明。」
+- *「你为什么挑它当第二个场景？」* → 「因为它在结构上就不一样——一个带 distinct 语义的 join——而正是这种场景会暴露出一个其实只拟合了场景一的 IR。」
+- *「第三个场景要花多少成本？」* → 「如果它需要同样的机制，就一个场景文件加一个夹具。如果需要新机制，就多一个能力、加一个工具和模板——但解析器、工作流、实验、注册表和 UI 都不用动。」
 
 ---
 
-## The close · 30s
+## 收尾 · 30 秒
 
-Stop clicking. Say this while the enterprise-relation SQL is still on screen:
+停下手上的点击。趁企业关系的那条 SQL 还留在屏幕上，说这段话：
 
-> "Two things I want to be explicit about. One: this is a portfolio and research
-> implementation — all the data is synthetic, and none of these statistics say
-> anything about real predictive power. Two: the Spark/Hive and production
-> adapters exist and are boundary-tested, but they are **not verified** against a
-> real cluster, because there was none available — so they default to inert and
-> fail closed.
+> 「有两件事我想说清楚。第一：这是一个作品集和研究性质的实现——所有数据都是合成的，这些统计量没有一个说明真实的预测能力。第二：Spark/Hive 和生产适配器是存在的、也做过边界测试，但它们**没有**对着真实集群验证过，因为当时没有可用的集群——所以它们默认处于惰性状态并失败关闭。
 >
-> That's why the slogan is what it is: **LLMs reason. Python verifies. Humans
-> govern.** The SQL that ships was never written by the model."
+> 这就是那句标语为什么长这样：**LLMs reason. Python verifies. Humans govern.**（模型负责推理，Python 负责验证，人负责治理。）最终发出去的那条 SQL，从来不是模型写的。」
 
 ---
 
-## What NOT to demo in 5 minutes
+## 5 分钟里不要演示什么
 
-Do **not** open the production/runtime-governance surface (verification,
-convergence, monitoring, notifications, packaging, release review). It is a large
-part of the backend and it will eat your entire time budget.
+**不要**打开生产/运行时治理那一块（verification、convergence、monitoring、notifications、packaging、release review）。它在后端里占很大一块，会把你整个时间预算吃光。
 
-If the interviewer asks, one sentence is enough:
+如果面试官问起来，一句话就够了：
 
-> "The backend also carries the metric registry's release path and the runtime
-> governance layer — verification, convergence and monitoring. Those are outside
-> what I can show in five minutes; today's demo is the metric R&D main chain."
+> 「后端里还带着指标注册表的发布路径和运行时治理层——verification、convergence 和 monitoring。这些超出了我五分钟能展示的范围；今天的演示是指标研发的主链路。」
 
-Then offer [architecture-walkthrough.md](architecture-walkthrough.md) as the
-follow-up.
+然后把 [architecture-walkthrough.md](architecture-walkthrough.md) 作为后续材料递出去。
 
 ---
 
-## Recovery lines
+## 救场话术
 
-**If the demo fails to start:**
+**如果演示起不来：**
 
-> "The demo runs on synthetic data with a deterministic LLM substitute, so if the
-> environment is off we don't lose the point — let me show you the pipeline
-> directly." → run `uv run --frozen python examples/quick_demo.py` in the
-> terminal. It prints real artifacts from the same chain. This is why you ran it
-> before sharing your screen.
+> 「这个演示跑在合成数据上，用的是确定性的 LLM 替代品，所以就算环境出问题，也不影响我们要讲的东西——我直接给你看这条流水线。」→ 在终端里跑 `uv run --frozen python examples/quick_demo.py`。它会打印同一条链路产出的真实产物。这就是为什么你要在共享屏幕之前先跑一遍。
 
-**If a page is slow or empty:**
+**如果某个页面很慢或者是空的：**
 
-> "The UI is a thin client over the API — every number you see comes from the
-> backend. Let me show you the same call in the API docs instead." → open
-> <http://localhost:8000/docs>.
+> 「这个 UI 是 API 之上的一层薄客户端——你看到的每个数字都来自后端。我给你看 API 文档里同一个调用。」→ 打开 <http://localhost:8000/docs>。
 
-**If you are asked something you did not verify:**
+**如果被问到你没有验证过的东西：**
 
-> "I didn't verify that — it would need a real cluster, and I don't want to guess
-> at the answer." This is always the right answer. It is consistent with the
-> entire project.
+> 「这个我没验证过——它需要真实集群，我不想瞎猜答案。」这是永远正确的回答。它跟整个项目是一致的。

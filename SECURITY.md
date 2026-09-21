@@ -1,55 +1,30 @@
-# Security Policy
+# 安全策略
 
-## Project scope
+## 项目范围
 
-AIRI is a **research / portfolio implementation** of an AI-assisted risk
-metric research and development platform. It is designed to run locally with
-synthetic data. It is **not** a production financial risk system and has not
-been verified against real Spark/Hive clusters, real identity providers, or
-real telemetry pipelines.
+AIRI 是 AI 辅助风控指标研发平台的一个**研究 / 作品集实现**。它设计为在本地使用合成数据运行。它**不是**生产环境的金融风控系统，也从未在真实的 Spark/Hive 集群、真实身份提供方或真实遥测链路上验证过。
 
-## Data policy
+## 数据策略
 
-- All bundled demo data (invoice facts, enterprise relations, labels,
-  experiment samples) is **synthetic**. No real customer data, real company
-  names, real persons, or real identifiers are included.
-- Data-source identifiers such as `c_db.source_fp_jdc_view`,
-  `tmp_db.airi_invoice_fixture` and `demo.*` are **opaque synthetic
-  identifiers** used consistently across fixtures, prompts and generated SQL.
-  They carry no real data and are not references to a live environment.
-- Do **not** submit real financial data, real credentials, or real internal
-  hostnames in issues, pull requests, fixtures, or screenshots.
+- 所有随附的 demo 数据（发票事实、企业关系、标签、实验样本）均为**合成数据**。不包含任何真实客户数据、真实公司名、真实个人或真实标识符。
+- 诸如 `c_db.source_fp_jdc_view`、`tmp_db.airi_invoice_fixture` 和 `demo.*` 之类的数据源标识符，是在夹具、提示词和生成 SQL 中一致使用的**不透明合成标识符**。它们不携带真实数据，也不是对某个在线环境的引用。
+- **不要**在 issue、拉取请求、夹具或截图中提交真实金融数据、真实凭据或真实内部主机名。
 
-## Credentials
+## 凭据
 
-- The default local demo needs **no** API keys: it uses SQLite, a
-  deterministic `demo_mock` LLM substitute, and synthetic fixtures.
-- If you configure a real LLM endpoint, put credentials in `.env` (which is
-  git-ignored) - never commit them.
-- The repository ships `.env.example` with placeholder values only.
+- 默认的本地 demo **不需要**任何 API key：它使用 SQLite、一个确定性的 `demo_mock` LLM 替身，以及合成夹具。
+- 如果你配置真实的 LLM 端点，请把凭据放在 `.env` 中（该文件已被 git 忽略）—— 绝不提交它们。
+- 仓库随附的 `.env.example` 只包含占位值。
 
-## What is intentionally NOT security-hardened
+## 有意不做安全加固的部分
 
-- The reviewer identity on approvals is caller-asserted; there is **no
-  login/authentication** on the API. This is acceptable only for controlled
-  local/demo environments.
-- Production adapters (`spark_test`, production provider, identity trust
-  boundary, telemetry attestation) exist as **failure-closed integration
-  seams**. They are NOT VERIFIED against real infrastructure in this
-  repository; see `REAL_ENVIRONMENT_CHECKLIST.md` and the phase reports in
-  `docs/history/`.
+- 审批中的评审人身份由调用方声称；API 上**没有**登录 / 认证。这只在受控的本地 / demo 环境中可以接受。
+- 生产适配器（`spark_test`、生产 provider、身份信任边界、遥测证明）以**故障关闭（fail-closed）的集成接缝**形式存在。它们在本仓库中针对任何真实基础设施都**未验证（NOT VERIFIED）**；参见 `REAL_ENVIRONMENT_CHECKLIST.md` 和 `docs/history/` 中的阶段报告。
 
-## Reporting a vulnerability
+## 上报漏洞
 
-Please use GitHub **Security Advisories** ("Report a vulnerability" under the
-Security tab) rather than opening a public issue. Include reproduction steps
-and, where relevant, the affected phase/report. There is no SLA commitment -
-this is a portfolio project - but reports are appreciated and will be
-addressed as time permits.
+请使用 GitHub 的 **Security Advisories**（Security 标签页下的 "Report a vulnerability"），而不是开公开 issue。请附上复现步骤，并在相关时附上受影响的阶段 / 报告。本项目没有 SLA 承诺 —— 这是一个作品集项目 —— 但欢迎报告，会在时间允许时处理。
 
-## Safety scanner
+## 安全扫描器
 
-`scripts/check_open_source_safety.py` scans the repository for
-high-confidence sensitive patterns (private keys, credential-shaped tokens,
-forbidden identifiers, real user paths) and fails CI on findings. It is a
-guardrail, not a substitute for review.
+`scripts/check_open_source_safety.py` 会扫描仓库中的高置信度敏感模式（私钥、形似凭据的 token、禁用标识符、真实用户路径），并在发现问题时让 CI 失败。它是一道护栏，不能替代人工审查。

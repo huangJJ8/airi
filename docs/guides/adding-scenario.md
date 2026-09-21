@@ -1,18 +1,17 @@
-# Adding a Scenario
+# 新增场景
 
-This guide is a case study: how `enterprise_relation` was added as the second
-scenario, and what that implies for the next one.
+本指南是一则案例研究：`enterprise_relation` 是如何作为第二个场景被加入的，以及
+这对下一个场景意味着什么。
 
-The result to aim for is stated negatively, because that is the hard part:
+要达成的结果是用否定形式表述的，因为这才是难的部分：
 
-> **New Scenario ≠ New Workflow.**
+> **新场景 ≠ 新工作流。**
 
-If adding a scenario requires a new pipeline, a new SQL builder, or a
-scenario-specific endpoint, the abstraction has failed.
+如果新增一个场景需要新流水线、新 SQL builder 或场景专属端点，那说明抽象失败了。
 
 ---
 
-## The rule
+## 规则
 
 ```text
 Scenario Skill      → business semantics        (domain knowledge)
@@ -20,24 +19,22 @@ Capability Skill    → execution mechanics       (mechanism)
 Tool                → deterministic realisation (pinned by a capability)
 ```
 
-Ask: *would another domain plausibly need this?*
+问一句：*另一个领域是否也可能需要它？*
 
-- "Enterprise → person → enterprise" → **scenario knowledge**. Nothing else
-  needs it.
-- "Join two structured sources on equality" → **capability**. Many domains need it.
-- "Render a join into validated SQL" → **tool**. One implementation, pinned.
+- “Enterprise → person → enterprise” → **场景知识**。别的场景不需要它。
+- “按等值条件 join 两个结构化数据源” → **能力**。很多领域都需要它。
+- “把 join 渲染成经过校验的 SQL” → **工具（Tool）**。一份实现，被固定引用。
 
-Getting this wrong in either direction is the failure mode: business meaning in
-the SQL layer forks the pipeline; mechanism in the domain layer can't be reused.
+无论往哪个方向弄错都是失败模式：业务含义落进 SQL 层会 fork 流水线；机制落进领域
+层则无法复用。
 
 ---
 
-## Step by step (as done in Phase 11)
+## 分步说明（Phase 11 的实际做法）
 
-### 1. Scenario skill — semantics only
+### 1. 场景技能 —— 只放语义
 
-Add `src/airi/skills/<scenario>.py`. It declares *what the business means* and
-nothing about SQL:
+新增 `src/airi/skills/<scenario>.py`。它声明*业务含义*，与 SQL 无关：
 
 ```python
 KNOWLEDGE = [
@@ -71,32 +68,30 @@ def enterprise_relation_skills():
     return [*capabilities, scenario]
 ```
 
-Note what is **absent**: no join syntax, no alias handling, no dialect, no SQL.
-`test_types` declares which *categories* of test this domain needs — the backend
-turns them into the actual test list the UI renders.
+注意**没有**什么：没有 join 语法、没有别名处理、没有方言、没有 SQL。`test_types`
+声明这个领域需要哪*几类*测试 —— 后端把它们变成 UI 实际渲染的测试列表。
 
-### 2. Register it
+### 2. 注册它
 
-Add the skill to the registry wiring in `src/airi/main.py` alongside
-`invoice_risk`. The registry pins `name@version`; there is no "latest".
+把该技能加入 `src/airi/main.py` 中与 `invoice_risk` 并列的注册表装配。注册表固定
+`name@version`；没有 “latest”。
 
-### 3. Reuse capabilities — do not fork them
+### 3. 复用能力 —— 不要 fork
 
-`metric_join` already existed as a *generic* capability, so the scenario simply
-references it. `metric_count` already supported `COUNT(DISTINCT field)`.
+`metric_join` 已经作为*通用*能力存在，所以场景直接引用它即可。`metric_count` 本
+就支持 `COUNT(DISTINCT field)`。
 
-If `metric_count` had not supported distinct counting, the right fix would be a
-minimal extension to the existing capability (`distinct: true`) — **not** a new
-`enterprise_relation_count_skill`. Re-coupling business and mechanism is exactly
-what this architecture exists to prevent.
+如果 `metric_count` 不支持去重计数，正确的做法是对既有能力做最小扩展
+（`distinct: true`）—— **而不是**新增 `enterprise_relation_count_skill`。把业务与
+机制重新耦合，正是这套架构要防止的事。
 
-Only add a new capability when the *mechanism* is genuinely new and reusable.
-If it is new but not reusable, it is scenario knowledge in the wrong place.
+只有当*机制*确实既新又可复用时，才新增一个能力。如果它新但不可复用，那就是放错
+位置的场景知识。
 
-### 4. Extend the IR, not the workflow
+### 4. 扩展 IR，而不是扩展工作流
 
-`MetricIR` gained optional `joins: list[JoinSpec]` and
-`column_filters: list[FieldComparison]` (`src/airi/metric_ir/joins.py`).
+`MetricIR` 增加了可选的 `joins: list[JoinSpec]`
+和 `column_filters: list[FieldComparison]`（`src/airi/metric_ir/joins.py`）。
 
 ```text
 JoinSpec
@@ -106,106 +101,101 @@ JoinSpec
 └── conditions   : list[FieldComparison]      # 1..4, operator "=" or "<>"
 ```
 
-Design constraints that kept the change additive:
+让这次改动保持增量式的设计约束：
 
-- fields are **optional with empty defaults** → existing IRs still validate
-- `schema_version` stays `1.0.0` → no migration, joins live in the JSON document
-- **no DAG**, no recursive joins, no `RIGHT`/`FULL`/`CROSS`/`LATERAL`
-- the canonical hash **includes** `joins`, so a different relationship path
-  cannot collide with an existing hash
+- 字段是**可选的、默认空** → 既有 IR 仍然校验通过
+- `schema_version` 保持 `1.0.0` → 无需迁移，joins 存在于 JSON 文档里
+- **没有 DAG**，没有递归 join，没有 `RIGHT`/`FULL`/`CROSS`/`LATERAL`
+- 规范化哈希**包含** `joins`，因此不同的关系路径不会与既有哈希碰撞
 
-Wanting a `MetricIRV2` is usually a sign the change wasn't modelled as optional.
+想要一个 `MetricIRV2`，通常说明这次改动没有被建模为可选。
 
-### 5. Teach the parser the new vocabulary
+### 5. 把新词表教给解析器
 
-Two places, deliberately different:
+两处，且有意不同：
 
-- **Demo LLM** (`src/airi/infrastructure/demo_llm.py`) — a deterministic mapping
-  from the demo phrase to a structured result. Explicitly *not* a pattern match
-  inside the real parser.
-- **Real parser prompt** (`src/airi/agents/requirement_parser/prompts.py`) — a
-  structured description of the new scenario and the expected join shape, so a
-  real LLM translates into the known grammar.
+- **Demo LLM**（`src/airi/infrastructure/demo_llm.py`）—— 从演示语句到结构化结果的
+  确定性映射。它明确*不是*真实解析器里的模式匹配。
+- **真实解析器 prompt**（`src/airi/agents/requirement_parser/prompts.py`）—— 对新
+  场景和预期 join 形态的结构化描述，使真实 LLM 能翻译成已知语法。
 
-Unknown or ambiguous requirements must be **rejected**, not guessed. In Phase 11
-the ambiguous phrase 「统计企业关联数量」 is refused, and cross-scenario phrases
-fail scenario isolation.
+未知或有歧义的需求必须**被拒绝**，而不是靠猜。在 Phase 11 中，有歧义的表述
+「统计企业关联数量」会被拒绝，跨场景的表述则无法通过场景隔离。
 
-### 6. Synthetic fixture with hand-computed expectations
+### 6. 带手算期望值的合成夹具
 
-Add a synthetic dataset (`src/airi/infrastructure/relation_fixture.py`) that
-deliberately contains the awkward cases:
+新增一个合成数据集（`src/airi/infrastructure/relation_fixture.py`），有意包含这些
+棘手情况：
 
-| Case | Why |
+| 情况 | 原因 |
 | --- | --- |
-| duplicated relation row | proves `COUNT DISTINCT` |
-| two persons → same other enterprise | proves de-duplication is by enterprise |
-| relation looping back to the subject enterprise | proves self-exclusion |
-| enterprise with no relations | proves "no fabricated zero row" |
+| 重复的关系行 | 证明 `COUNT DISTINCT` |
+| 两个自然人 → 同一家其他企业 | 证明去重是按企业进行的 |
+| 关系回指主体企业 | 证明自身排除 |
+| 没有任何关联关系的企业 | 证明“不伪造零值行” |
 
-Expected values are written **by hand**. Tests never call production code to
-derive the expected answer — otherwise the test just asserts the code equals
-itself.
+期望值**由人工写出**。测试绝不调用生产代码来推导预期答案 —— 否则测试只是在断言
+代码等于它自己。
 
-### 7. Tests
+### 7. 测试
 
-Add `tests/test_<scenario>.py` covering the declared `test_types` plus
-regressions that matter beyond this scenario:
+新增 `tests/test_<scenario>.py`，覆盖声明的 `test_types`，外加对本场景之外也重要
+的回归项：
 
-- join correctness — the path is `enterprise → person → related_enterprise`,
-  **not** a direct `enterprise_id → related_enterprise_id` shortcut
-- distinct semantics
-- self-relation exclusion
-- null / duplicate entity
-- missing relation
-- reconciliation
+- join 正确性 —— 路径是 `enterprise → person → related_enterprise`，**不是**
+  `enterprise_id → related_enterprise_id` 的直连捷径
+- 去重语义
+- 自身关系排除
+- null / 重复实体
+- 缺失关系
+- 对账
 
-Then add **planner regression** and **scenario isolation** tests:
+然后加入**规划器回归**和**场景隔离**测试：
 
-- `invoice_risk` plans to `metric_sum + metric_window`
-- `enterprise_relation` plans to `metric_join + metric_count`
-- neither leaks into the other
+- `invoice_risk` 规划为 `metric_sum + metric_window`
+- `enterprise_relation` 规划为 `metric_join + metric_count`
+- 两者不会互相泄漏
 
-### 8. Wire the demo surface
+### 8. 接好演示入口
 
-- `scripts/seed_demo.py` — seed the new scenario through the *real* governed
-  API chain (not by inserting rows directly)
-- `examples/demo_phase11.py` — terminal demo running both scenarios side by side
-- Web `Demo Examples` dropdown — one entry, backed by the same pages
+- `scripts/seed_demo.py` —— 通过*真实*的受治理 API 链播种新场景（而不是直接插入
+  数据行）
+- `examples/demo_phase11.py` —— 并排运行两个场景的终端演示
+- Web 端 `Demo Examples` 下拉菜单 —— 一个条目，背后是同一批页面
 
-No new page. `/development`, `/testing`, `/experiments` are reused.
+没有新页面。复用 `/development`、`/testing`、`/experiments`。
 
 ---
 
-## Checklist
+## 检查清单
 
-- [ ] Scenario skill added with semantics, `test_types`, and human-review flag
-- [ ] Skill registered (pinned version, no "latest")
-- [ ] Existing capabilities reused; extensions kept generic
-- [ ] IR change is optional/backward-compatible (or a migration + version bump is justified)
-- [ ] Canonical hash covers the new fields
-- [ ] Demo LLM + real prompt updated; unknown/ambiguous input still rejected
-- [ ] Synthetic fixture includes duplicated / self / multi-person / empty cases
-- [ ] Hand-computed expected values in tests
-- [ ] Planner regression + scenario isolation tests
-- [ ] Seed script + demo script updated
-- [ ] Web shows the new scenario **without a new page**
+- [ ] 已新增场景技能，含语义、`test_types` 和人工评审标记
+- [ ] 技能已注册（固定版本，没有 “latest”）
+- [ ] 复用了既有能力；扩展保持通用
+- [ ] IR 改动是可选的/向后兼容的（或迁移 + 版本号提升有充分理由）
+- [ ] 规范化哈希覆盖新字段
+- [ ] Demo LLM 与真实 prompt 已更新；未知/有歧义输入仍被拒绝
+- [ ] 合成夹具包含重复 / 自身 / 多自然人 / 空结果等情形
+- [ ] 测试中有手算的期望值
+- [ ] 规划器回归 + 场景隔离测试
+- [ ] 播种脚本与演示脚本已更新
+- [ ] Web 端展示新场景而**没有新页面**
 
-## Anti-patterns
+## 反模式
 
-| Don't | Why |
+| 不要 | 原因 |
 | --- | --- |
-| `generate_<scenario>_sql` tool | scenario-specific SQL forks the generator |
-| Business phrases inside SQL templates | business meaning belongs in the scenario skill |
-| `MetricIRV2` for an additive field | optional fields + JSON document column keep it versionless |
-| Copying a workflow per scenario | the whole point is one workflow |
-| `if "关联企业" in requirement` in the real parser | hardcoded phrases don't generalise; use the skill catalog / structured prompt |
-| Tests that compute expectations with production code | asserts nothing |
+| `generate_<scenario>_sql` 工具 | 场景专属 SQL 会 fork 生成器 |
+| SQL 模板里出现业务措辞 | 业务含义属于场景技能 |
+| 为增量字段引入 `MetricIRV2` | 可选字段 + JSON 文档列让它无需升级版本 |
+| 每个场景复制一套工作流 | 重点就是只有一套工作流 |
+| 在真实解析器里写 `if "关联企业" in requirement` | 硬编码语句无法泛化；应使用技能目录 / 结构化 prompt |
+| 用生产代码计算期望值的测试 | 什么都断言不了 |
 
 ---
 
-## Next
+## 下一步
 
-- [Architecture Overview](../architecture/overview.md) — how the pieces fit
-- [Design Principles](../architecture/design-principles.md) — why the split exists
-- [Demo Guide](demo.md) — see both scenarios run
+- [架构总览](../architecture/overview.md) —— 各部分如何拼合
+- [设计原则](../architecture/design-principles.md) —— 为什么要这样拆分
+- [演示指南](demo.md) —— 看两个场景实际运行

@@ -1,124 +1,109 @@
-# Design Principles
+# 设计原则
 
-Five boundaries shape every decision in AIRI. They exist because a language
-model is useful for *understanding intent* and dangerous for *producing
-irreversible artefacts*, and because research findings are not production
-authorisations.
+有五条边界塑造了 AIRI 里的每一个决定。它们之所以存在，是因为语言模型擅长*理解意图*、
+而危险在于*产出不可逆的产物*，也因为研究结论不等于生产授权。
 
 ---
 
-## 1. The LLM never owns the final SQL
+## 1. LLM 从不拥有最终 SQL
 
 ```text
 LLM  →  Metric IR  →  Deterministic tool  →  SQL
 ```
 
-A model may propose *what* is being measured. It may not write the query that
-measures it.
+模型可以提出*在度量什么*。它不可以写出度量它的那条查询。
 
-**Why.** Text-to-SQL is easy to demo and hard to trust. A raw generated query
-cannot be reviewed against a spec, cannot be diffed meaningfully, and silently
-changes when the model or prompt changes. By forcing the model's output through
-a strict schema, the SQL becomes a pure function of a reviewable intermediate
-representation:
+**为什么。** Text-to-SQL 演示起来容易，信任起来很难。一条原始生成的查询无法与规格对照评审，
+无法做出有意义的 diff，而且模型或提示词一变它就悄悄改变。强制模型的输出穿过一个严格 schema
+之后，SQL 就变成了一个可评审中间表示的纯函数：
 
 ```python
 sql = generate_spark_sql_metric(metric_ir)   # template + allow-list, no model
 ```
 
-**Consequences.**
+**推论。**
 
-- The same IR always yields byte-identical SQL — the canonical hash is stable.
-- A reviewer reads the IR, not a 60-line query.
-- Prompt or model changes cannot alter emitted SQL unless the IR changes first.
-- If the model emits something the schema rejects, the run fails. AIRI does not
-  repair it, and it does not fall back to a canned answer.
+- 同一个 IR 永远产出逐字节相同的 SQL——规范化哈希是稳定的。
+- 评审人读的是 IR，而不是一条 60 行的查询。
+- 除非 IR 先变，提示词或模型的改动无法改变产出的 SQL。
+- 如果模型产出了 schema 拒绝的东西，运行就失败。AIRI 不修补它，也不回退到预置答案。
 
-The prompt itself carries a structured representation of the expected IR
-(including the relation join shape), so the model's job is *translation into a
-known grammar*, not free-form invention.
+提示词本身携带了一份期望 IR 的结构化表示（含关联的 join 形状），所以模型的任务是
+*翻译进一个已知语法*，而不是自由发明。
 
 ---
 
-## 2. Facts versus hypotheses
+## 2. 事实与假设
 
 ```text
 Statistics   → deterministic, recomputable, evidence
 Reflection   → probabilistic, narrative, a hypothesis
 ```
 
-**Why.** A convincing paragraph about why a metric is good is not evidence. If
-narrative and number live in the same place, the narrative eventually wins.
+**为什么。** 一段关于"这个指标为什么好"的、有说服力的文字不是证据。如果叙事和数字放在
+同一个地方，最终胜出的会是叙事。
 
-**Consequences.**
+**推论。**
 
-- Coverage, KS, IV, lift, bins, and threshold candidates are computed by Python
-  from the sample. Re-running reproduces them exactly.
-- Reflection output is stored as a *separate artefact type* with its own schema.
-  It can cite statistics; it can never overwrite them.
-- Reflection may propose `source_field_review` or `business_rule_review`. It has
-  no capability to modify an IR, a threshold, or a label definition directly.
+- 覆盖率、KS、IV、提升度、分箱和阈值候选都由 Python 从样本计算。重跑一次，结果分毫不差。
+- 反思输出作为*独立的产物类型*存储，有自己的 schema。它可以引用统计，但永远不能覆写统计。
+- 反思可以提出 `source_field_review` 或 `business_rule_review`。它没有能力直接修改一个 IR、
+  一个阈值，或一个标签定义。
 
 ---
 
-## 3. Scenario knowledge ≠ execution mechanics
+## 3. 场景知识 ≠ 执行机制
 
 ```text
 Domain knowledge   →  Scenario Skill
 Execution mechanics →  Capability Skill  (+ pinned Tool)
 ```
 
-**Why.** If business meaning leaks into the SQL layer, every new domain forks
-the pipeline. If mechanism leaks into the domain layer, you cannot reuse it.
+**为什么。** 如果业务含义渗进 SQL 层，每个新领域都要分叉流水线。如果机制渗进领域层，
+你就没法复用它。
 
-**Consequences.**
+**推论。**
 
-- A scenario skill declares business semantics, entity semantics, data-source
-  semantics, relationship semantics, field interpretation, business rules, and
-  known pitfalls.
-- A scenario skill does **not** contain SQL, join templates, or dialect details.
-- A capability skill declares *how* a mechanism is realised and which pinned
-  tool implements it. It declares no business meaning.
-- `metric_join` is the deliberate proof: it composes two structured sources
-  through constrained equality joins and knows nothing about enterprises,
-  persons, or risk. The `enterprise → person → enterprise` path is scenario
-  knowledge.
+- 场景技能声明业务语义、实体语义、数据源语义、关联语义、字段解释、业务规则，以及已知陷阱。
+- 场景技能**不**包含 SQL、join 模板，或方言细节。
+- 能力技能声明某个机制*如何*实现，以及由哪个锁定的工具实现它。它不声明任何业务含义。
+- `metric_join` 是刻意留下的证据：它通过受限的等值 join 组合两个结构化数据源，而对企业、
+  自然人、风控一无所知。`enterprise → person → enterprise` 这条路径属于场景知识。
 
-This is what makes Phase 11's result meaningful — adding a second, structurally
-different scenario required **zero new workflow**.
+这正是 Phase 11 的结果之所以有意义的原因——新增第二个结构不同的场景，需要
+**零条新工作流**。
 
 ---
 
-## 4. Research ≠ production
+## 4. 研究 ≠ 生产
 
 ```text
 Experiment passed  ≠  Production released
 ```
 
-**Why.** A metric that separates good from bad on a synthetic (or even real)
-sample has not been shown to be stable, monitored, or safe to serve. Collapsing
-these two states is how unvalidated numbers reach a decision surface.
+**为什么。** 一个在合成（甚至真实）样本上能把好坏分开的指标，尚未被证明是稳定的、
+被监控的、可以安全对外服务的。把这两种状态混为一谈，是未经验证的数字流向决策面的方式。
 
-**Consequences.**
+**推论。**
 
-AIRI models the lifecycle as a chain of explicit, human-gated transitions:
+AIRI 把生命周期建模成一条由人把关的显式状态转换链：
 
-| Stage | Question answered |
+| 阶段 | 回答的问题 |
 | --- | --- |
-| Development | Is the metric expressible and is the SQL well-formed? |
-| Testing | Does it behave correctly on the edge cases we care about? |
-| Experiment | Does it separate outcomes on a sample, and by how much? |
-| Reflection | What might be wrong with it? |
-| Refinement | Should a bounded change be proposed? |
-| Temporal / OOT | Does it still hold out of time? |
-| Registry | Which immutable version is the approved one? |
-| Release / Deployment | Is it authorised to run, and is it observed? |
+| 开发 | 指标能否表达，SQL 是否形态良好？ |
+| 测试 | 在我们关心的边界情形上，它的行为是否正确？ |
+| 实验 | 它在样本上能否区分结果，能区分多少？ |
+| 反思 | 它可能哪里有问题？ |
+| 精炼 | 是否应该提出一个有界的改动？ |
+| 时间 / OOT | 跨时间它是否依然成立？ |
+| 注册表 | 哪一个不可变版本是被批准的那个？ |
+| 发布 / 部署 | 它是否被授权运行，以及是否被观测？ |
 
-Every stage records its own evidence. Nothing auto-promotes.
+每个阶段都记录自己的证据。没有任何东西会自动晋级。
 
 ---
 
-## 5. Humans govern
+## 5. 由人治理
 
 ```text
 SQL approval
@@ -127,25 +112,21 @@ Release review
 Deployment review
 ```
 
-**Why.** The system is designed to *assist* a risk analyst, not to replace the
-accountability of one.
+**为什么。** 这套系统是为了*辅助*风控分析师，而不是取代某个人的问责。
 
-**Consequences.**
+**推论。**
 
-- Generated SQL is inert until a human approves the exact content hash.
-- Promotion, release, and deployment are separate approvals with separate
-  reviewers. Approving SQL does not approve production use.
-- Approved artefacts are immutable. A change means a new version — the audit
-  trail never rewrites history.
-- Governance errors surface as explicit HTTP 409 conflicts with a machine-
-  readable `error_code`, so the UI shows the real reason instead of a generic
-  failure.
+- 生成的 SQL 在有人批准了确切的内容哈希之前是惰性的。
+- 晋级、发布和部署是各自独立的审批，各有各自的评审人。批准 SQL 不等于批准生产使用。
+- 已批准的产物不可变。要改就意味着新版本——审计轨迹永不重写历史。
+- 治理错误会以显式的 HTTP 409 冲突浮现，并带机器可读的 `error_code`，
+  所以界面展示的是真实原因，而不是一个笼统的失败。
 
 ---
 
-## Related reading
+## 相关阅读
 
-- [Architecture Overview](overview.md) — pipeline and component map
-- [Quickstart](../guides/quickstart.md) — run it locally
-- [Adding a Scenario](../guides/adding-scenario.md) — extend it without forking it
-- [Portfolio notes](../portfolio.md) — why these decisions, in interview form
+- [架构总览](overview.md) —— 流水线与组件地图
+- [快速开始](../guides/quickstart.md) —— 在本地跑起来
+- [新增一个场景](../guides/adding-scenario.md) —— 扩展它，而不是分叉它
+- [作品集说明](../portfolio.md) —— 这些决策的原因，以面试问答形式呈现

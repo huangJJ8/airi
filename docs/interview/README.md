@@ -1,38 +1,33 @@
-# Interview & Portfolio Assets
+# 面试与作品集材料
 
-Everything in this folder is **job-application material** — written for a person
-presenting AIRI, not for a user running it. The repo's user-facing docs live in
-[`../guides/`](../guides/) and [`../architecture/`](../architecture/).
+这个文件夹里的所有内容都是**求职材料**——写给要介绍 AIRI 的人，不是写给要运行 AIRI 的用户。
+仓库里面向用户的文档在 [`../guides/`](../guides/) 和 [`../architecture/`](../architecture/)。
 
-| File | Use it when |
+| 文件 | 什么时候用它 |
 | --- | --- |
-| [highlights.md](highlights.md) | You need the 5 things worth remembering, and nothing else |
-| [airi-pitch.md](airi-pitch.md) | You have 30 seconds, 3 minutes, or 10 minutes to introduce AIRI |
-| [airi-qa.md](airi-qa.md) | You are being asked "why did you do it this way?" |
-| [architecture-walkthrough.md](architecture-walkthrough.md) | You are sharing your screen and walking through the code |
-| [demo-script.md](demo-script.md) | You are running the live 5-minute demo |
-| [../resume-project.md](../resume-project.md) | You are writing the resume entry itself |
+| [highlights.md](highlights.md) | 你只需要记住最值得记的 5 件事，别的都不用 |
+| [airi-pitch.md](airi-pitch.md) | 你有 30 秒、3 分钟或 10 分钟来介绍 AIRI |
+| [airi-qa.md](airi-qa.md) | 面试官在问你“为什么当时这么做？” |
+| [architecture-walkthrough.md](architecture-walkthrough.md) | 你正在共享屏幕、对着代码逐段讲 |
+| [demo-script.md](demo-script.md) | 你正在跑 5 分钟的现场演示 |
+| [../resume-project.md](../resume-project.md) | 你正在写简历里那一条项目经历本身 |
 
-## Ground rules for all of it
+## 所有材料共同的底线
 
-Be accurate. AIRI's whole architectural argument is that a claim should be
-traceable to evidence — a resume that overstates it contradicts the project.
+要准确。AIRI 整套架构论证的核心就是：一个说法必须能追溯到证据——简历上吹过头，等于跟项目本身自相矛盾。
 
-Say this | Not this
+这么说 | 别说
 --- | ---
-AI-assisted | AI-powered
-research and development platform | production-ready system
-synthetic data, end-to-end demo | real fraud detection
-2 differentiated scenarios, 91% backend coverage | "improved efficiency by 80%"
-deterministic tool layer, human-approved gates | fully autonomous agent
+AI-assisted（AI 辅助） | AI-powered
+research and development platform（研发平台） | production-ready system
+synthetic data, end-to-end demo（合成数据、端到端演示） | real fraud detection（真实欺诈检测）
+2 differentiated scenarios, 91% backend coverage（2 个差异化场景、后端覆盖率） | "improved efficiency by 80%"
+deterministic tool layer, human-approved gates（确定性工具层、人工审批的关卡） | fully autonomous agent（完全自主的智能体）
 
-The three claims that are **not** supported by this repository, and must never
-appear in a resume, pitch, or interview answer:
+有三条说法是本仓库**不**支持的，绝不能出现在简历、自我介绍或面试回答里：
 
-- That AIRI runs on real enterprise data, or has any real predictive power.
-- That Spark/Hive/MySQL/IAM integrations are verified (they are code-complete and
-  deliberately fail-closed, but unverified).
-- That any statistic in `examples/` describes real risk performance.
+- 说 AIRI 跑在真实企业数据上，或者具备任何真实的预测能力。
+- 说 Spark/Hive/MySQL/IAM 的集成已经验证（它们代码完整、并且刻意失败关闭，但未验证）。
+- 说 `examples/` 里的任何统计数字反映了真实的风险表现。
 
-See the [Limitations](../../README.md#limitations) section of the README for the
-canonical wording.
+规范表述见 README 的 [限制与已知不足（Limitations）](../../README.md#limitations) 一节。

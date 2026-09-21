@@ -1,40 +1,38 @@
 ---
-name: Feature request
-about: Suggest a scenario, capability, or improvement
+name: 功能请求
+about: 建议一个场景、能力或改进
 title: "[feature] "
 labels: enhancement
 ---
 
-## What problem are you solving
+## 你要解决什么问题
 
-<!-- Describe the need, not the implementation. -->
+<!-- 描述需求，而不是实现。 -->
 
-## Which layer does this belong to?
+## 它属于哪一层？
 
-This is the most useful part of the request — AIRI deliberately separates
-knowledge from mechanism, and picking the wrong layer is how the architecture
-degrades. Please pick one and say why.
+这是本请求中最有用的部分 —— AIRI 有意把知识与机制分开，选错层正是架构退化的方式。请选一个并说明理由。
 
-- [ ] **Scenario Skill** — new business semantics / a new domain
-- [ ] **Capability Skill** — a new *reusable* execution mechanism
-- [ ] **Tool** — a new deterministic realisation of an existing mechanism
-- [ ] **Metric IR** — a new structural field (say whether it can be optional)
-- [ ] **Evaluation / statistics** — a new computed measure
-- [ ] **Web UI** — presentation only (no business logic in the browser)
-- [ ] **Docs / tooling**
-- [ ] **Not sure** — that's fine, describe it and we'll figure out the layer
+- [ ] **场景技能（Scenario Skill）** —— 新的业务语义 / 新的领域
+- [ ] **能力技能（Capability Skill）** —— 新的*可复用*执行机制
+- [ ] **工具（Tool）** —— 某个既有机制的新确定性实现
+- [ ] **指标 IR（Metric IR）** —— 新的结构性字段（说明它是否可以设为可选）
+- [ ] **评估 / 统计** —— 新的计算度量
+- [ ] **Web UI** —— 仅展示（浏览器中不含业务逻辑）
+- [ ] **文档 / 工具链**
+- [ ] **不确定** —— 也没关系，描述清楚，我们来判断它属于哪一层
 
-## Does an existing capability already cover it?
+## 是否已有能力覆盖它？
 
-<!-- e.g. metric_join, metric_count, metric_window, metric_sum, spark_sql_generator -->
-<!-- If you want a new capability: would a second, unrelated domain need it? -->
+<!-- 例如 metric_join、metric_count、metric_window、metric_sum、spark_sql_generator -->
+<!-- 若你想要一个新能力：第二个无关领域会需要它吗？ -->
 
-## Proposed behaviour
+## 建议的行为
 
-## Alternatives considered
+## 考虑过的替代方案
 
-## Scope check
+## 范围检查
 
-- [ ] This is not a request to bypass the approval / promotion / release gates
-- [ ] This does not require real data to be bundled in the repository
-- [ ] This is compatible with "the LLM proposes, Python produces artefacts"
+- [ ] 这不是绕过审批 / 晋级 / 发布闸门的请求
+- [ ] 这不需要把真实数据随附到仓库中
+- [ ] 这与「LLM 提议，Python 产出产物」相容

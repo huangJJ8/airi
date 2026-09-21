@@ -1,375 +1,208 @@
-# AIRI — Technical Interview Q&A
+# AIRI —— 技术面试问答
 
-22 questions an interviewer is likely to ask about AIRI, with the answer I would
-actually give. Answers are deliberately specific — vague answers to these
-questions are what makes a portfolio project sound like a tutorial.
+面试官很可能问到的 22 个关于 AIRI 的问题，附带我真会给出的回答。回答是刻意写具体的——这类问题答得含糊，正是作品集项目听起来像教程的原因。
 
 ---
 
-## 1. Why not go straight from the requirement to text-to-SQL?
-
-Because generated SQL is the wrong **unit of review**.
-
-Three concrete failures: it has no spec to validate against, so a reviewer can
-only eyeball a wall of joins; it is not reproducible, so the same requirement can
-produce a different query next week; and it has no clean approval point — you
-cannot say "this is the query I approved" about a string that regenerates itself.
-
-AIRI compiles the requirement into a structured `MetricIR` instead, and *Python*
-emits the SQL from a controlled template. The model's job ends at "what does the
-user mean"; the artifact that ships is produced deterministically from a
-validated object.
-
-## 2. What is the value of Metric IR, specifically?
-
-Four things, in order of importance:
-
-1. **It is reviewable.** A human can diff a structured metric definition against
-   a business intent. You cannot diff SQL against intent.
-2. **It is testable.** Because the IR declares source, window, filters,
-   aggregation, grouping and label definition as fields, the test layer knows
-   what to assert — window boundaries, null handling, duplicate keys, distinct
-   semantics, join correctness — instead of guessing.
-3. **It is stable under model changes.** Change the model or the prompt and the
-   IR may change; but if the IR is unchanged, the SQL is byte-identical.
-4. **It is versioned.** The registry stores metric versions keyed to the
-   structure, not to a string of text.
-
-## 3. What is the difference between a Skill and a Tool?
-
-A **Skill** is declarative knowledge: what a mechanism means, what it requires,
-and which tool it pins. A **Tool** is imperative code: the thing that actually
-produces SQL, registers a template, and returns an artifact.
-
-Concretely: `metric_sum@1.0.0` is a capability skill that says "this is an
-aggregation over a window with these required IR fields" and points at
-`generate_spark_sql_metric@1.1.0`. The tool is the Python class that renders
-`spark/atomic_metric.sql.j2` and returns the SQL plus its hash.
-
-The split matters because **the registry can validate the declaration without
-importing or executing the mechanism**. A skill is data you can audit; a tool is
-code you have to trust.
-
-## 4. Scenario Skill vs. Capability Skill?
-
-- **Scenario Skill** — *what the business means.* Owns domain semantics,
-  terminology, the intent, and which mechanisms this domain needs. Two exist:
-  `invoice_risk@1.0.0` and `enterprise_relation@1.0.0`.
-- **Capability Skill** — *how a mechanism is realised.* Owns the mechanism's
-  contract and the tool version that implements it. Shared across scenarios.
-
-The test of the split: a **new scenario should not need a new mechanism**. The
-second scenario needed two-hop joins — that required a new *capability*
-(`metric_join@1.0.0`), not a new scenario-specific tool, and once it existed both
-scenarios could reference it. Business semantics stay out of the SQL layer.
-
-## 5. How do you prevent the LLM from hallucinating SQL?
-
-I never let it write SQL in the first place. The prevention stack, outer to
-inner:
-
-1. **The model's output type is not SQL.** It returns a Pydantic model
-   (`MetricIR`). There is no code path that accepts SQL text from the model.
-2. **Strict schema validation.** `extra="forbid"`, identifier patterns
-   (`^[a-z][a-z0-9_]{0,63}$`), enum-constrained join types and operators. A
-   response that does not fit raises — it is not repaired.
-3. **No silent fallback.** An invalid response fails the run loudly. It never
-   degrades to a canned answer, so a "successful" run always means the model
-   actually produced a valid IR.
-4. **Template-only SQL emission.** SQL is rendered from fixed Jinja templates
-   with validated values interpolated.
-5. **Static grammar validation on the output.** Even though Python wrote it, the
-   SQL still has to pass an allow-list check — `INNER`/`LEFT` joins only,
-   equality predicates only, no `UNION`, no CTEs, no UDFs, no DDL/DML.
-6. **Read-only execution sandbox.**
-
-Belt, braces, and a locked door. The hallucination risk is not "the model writes
-bad SQL" — it is "the model writes plausible IR"; that is the layer I defend.
-
-## 6. Why Pydantic specifically?
-
-Because the IR boundary is the project's core control, and Pydantic is a
-**declarative, self-documenting, runtime-enforced** way to express it. One class
-definition gives me: validation, coercion, JSON schema, clear error messages, and
-a serialisation format that round-trips into the registry.
-
-Two details that mattered in practice:
-
-- **Strict modes.** `extra="forbid"` and explicit patterns mean a model that
-  invents a field fails rather than getting silently ignored.
-- **Typed decoding of persisted data.** The registry round-trips IR through JSON;
-  the decoder is the same schema, so stored artifacts cannot drift out of
-  validity.
-
-The alternative — hand-written validators — would be more code, less obvious, and
-would drift from the docs.
-
-## 7. Why not LangGraph?
-
-> The current workflow's control path is **deterministic**. Ordinary Python
-> orchestration is easier to test, easier to audit, and easier to debug than a
-> graph runtime — so I did not introduce LangGraph just to have an agent
-> framework in the stack. If the control flow later becomes genuinely dynamic —
-> loops whose shape depends on runtime evidence — that is the point at which a
-> graph runtime would start paying for itself.
-
-The workflow here is a fixed pipeline with explicit gates. The complexity lives
-in the *domain governance*, not in the control flow, so a framework would add a
-dependency and an abstraction without removing any of the real work.
-
-## 8. Why not multi-agent?
-
-> AIRI's complexity comes from **domain governance and evidence chain**, not from
-> the number of roles. Splitting the system into more agents would not
-> automatically make it more reliable — it would just distribute the same
-> decisions across more hops and make the failure modes harder to trace. So v1.0
-> invests in structured IR, deterministic tools, and a governed workflow instead.
-
-A concrete illustration: if a "reflection agent" could write directly to the
-registry, adding an agent would have *removed* a governance boundary. The
-current design keeps reflection read-only over facts and forces its output
-through a human decision.
-
-## 9. What is Reflection in this system, precisely?
-
-Reflection is an **evidence-interpretation step**. Python computes the facts
-(coverage, bad rate, decile bins, KS and its direction, IV, lift, PSI, threshold
-candidates). Those facts are handed to the LLM, which returns **hypotheses**:
-what the evidence might mean, and what to try next.
-
-It is stored in its own model and its own table. It is not a metric version, not
-a configuration, and not a dataset.
-
-## 10. Why don't reflection conclusions take effect automatically?
-
-Because a hypothesis is not evidence, and the failure mode is silent.
-
-If reflection could write to the metric definition directly, then "the model
-thinks separation is weak" would become "separation is weak" — an opinion
-laundering itself into a governed artifact, with no trace of which one it was.
-Worse, it would be untestable: the metric would change for reasons that are not
-in the evidence.
-
-So reflection output is **read-only relative to the metric**. It can produce a
-bounded refinement proposal; a human accepts or rejects it. The facts and the
-hypotheses live in different storage with different types, which is what makes
-the distinction enforceable rather than merely documented.
-
-## 11. How are KS / IV / Lift actually used here?
-
-As **evidence for a decision**, never as a decision.
-
-- **Coverage / bad rate** — is this metric even applicable, and to how much of
-  the population? A high-IV metric on 2% of records is a headline, not a signal.
-- **KS with direction** — separation, *plus* which way it points. Direction is
-  tracked because a strongly separating metric that points the wrong way is a
-  finding, not a success.
-- **IV** — per-feature predictive strength.
-- **Lift / decile bins** — is the relationship monotonic across the risk
-  ordering, or is it concentrated in one bin?
-- **Threshold candidates** — *research candidates*, explicitly not recommended
-  production thresholds.
-- **PSI** — drift against a frozen reference, computed in deterministic Python
-  with zero LLM calls.
-
-The platform also **refuses to compare incomparable runs** — different dataset,
-label definition, evaluation window or snapshot means no comparison, because a
-misleading number is worse than no number.
-
-## 12. Why did you pick enterprise relationships for the second scenario?
-
-Because it is structurally *different* in exactly the way that stress-tests the
-architecture, while staying in the same risk domain.
-
-The first scenario (`invoice_risk`) is single-source aggregation with a window.
-The second (`enterprise_relation`) is a **two-hop relationship**:
-enterprise → person → enterprise, with `COUNT DISTINCT` and a self-loop
-exclusion (`related_enterprise_id != enterprise_id`).
-
-If the architecture had only worked for single-source aggregation, a second
-single-source scenario would have hidden that. A join scenario forces the
-question: *is the IR general, or did I just fit it to scenario one?* — and it
-produces a falsifiable claim: two scenarios, one workflow, no forked
-orchestration.
-
-## 13. How did you keep the join general instead of scenario-specific?
-
-By refusing to write it as `enterprise_relation_join`. Instead:
-
-- **IR level** — `MetricIR` gained optional `joins`, `column_filters`,
-  `source_alias`, `aggregation_alias`. All optional, so the schema version stayed
-  `1.0.0` and **no migration was needed**.
-- **Join IR** — a `JoinSpec{left_source, right_source, join_type, conditions[]}`
-  with a deliberately narrow grammar: `INNER`/`LEFT` only, equality only.
-- **Capability level** — a new general capability `metric_join@1.0.0` pinning
-  `generate_spark_sql_metric@1.3.0` and template `spark/join_metric.sql.j2`.
-- **Validation** — a closed grammar for join SQL, plus a static validator that
-  rejects anything outside it.
-- **Canonical hashing** — extended to include joins, so a changed join changes
-  the artifact hash. Otherwise the approval hash would not cover the join, which
-  would be a governance hole.
-
-The generalisation test: the second scenario references `metric_join`, and so
-could a third — without touching the tool.
-
-## 14. If a third scenario had to be added, what would it take?
-
-Depends on whether it needs a new *mechanism*:
-
-- **Same mechanisms, new domain semantics** — one scenario skill file
-  (`src/airi/skills/<name>.py`) declaring its capabilities and knowledge, plus a
-  synthetic fixture. No IR change, no tool change, no migration. Follow
-  [Adding a Scenario](../guides/adding-scenario.md), which also lists the
-  anti-patterns.
-- **New mechanism** (say, a window-function ranking) — a new capability skill
-  pinning a new tool, a new tool class, a new template, a new entry in the static
-  SQL validator's allow-list, and probes in `src/airi/testing/`.
-
-What would *not* change: the requirement parser, the workflow, the experiment
-layer, the registry, and the UI. That is the point of the
-Scenario × Capability split — and it is why the second scenario is the evidence,
-not the feature list.
-
-## 15. Why is there no real Spark here?
-
-> This is a portfolio project running on a local Windows machine, with no
-> enterprise Spark/Hive cluster available. So AIRI defaults to SQLite, synthetic
-> data, and a mock adapter. The system **keeps the adapter interface and the
-> fail-closed verification boundary**, but it does not package a mock result as a
-> production-verified one.
-
-Concretely: the Spark SQL executor and the production adapters exist and are
-exercised at the boundary layer, but they are marked **unverified**, and the
-identity providers and production adapters **default to inert** so a
-misconfigured deployment fails closed rather than trusting a client-supplied
-name or a synthetic runtime.
-
-I would rather ship a project that states its boundary precisely than one that
-implies a capability it never ran.
-
-## 16. How do you keep mock and real production distinguishable?
-
-Six mechanisms, all of them structural rather than conventional:
-
-1. **Explicit configuration, not fallback.** `AIRI_LLM_MODE=demo_mock` is a
-   deliberate substitute that must be *set*. If you configure a real endpoint and
-   it returns something schema-invalid, the run raises — it does not quietly
-   degrade to the mock. Demo mode is never a silent fallback.
-2. **Fail-closed default.** Production adapters and identity providers default to
-   inert.
-3. **Adapter interfaces.** Real integrations are implementations behind an
-   interface, so the mock is not a special case inside business logic.
-4. **Honest markers.** Screenshots and the demo carry `LOCAL DEMO` /
-   `Synthetic Data` / `NOT PRODUCTION VERIFIED`, and they are kept visible on
-   purpose.
-5. **Skipped, not mocked.** Integration suites that need real infrastructure are
-   reported as **skipped** — they are never faked into a green result.
-6. **Wording discipline.** The README distinguishes "code-complete and
-   boundary-tested" from "verified against a real environment". Those are
-   different claims and the docs never merge them.
-
-## 17. How would you connect it to a real Spark/Hive cluster?
-
-The seams already exist; the work is operator-driven verification, not
-architecture:
-
-1. Implement (or configure) the query executor for the real engine behind the
-   existing executor interface.
-2. Point `AIRI_DATABASE_URL` at the real metastore/warehouse config and switch
-   the execution mode off `mock`.
-3. Implement the real identity provider so approvals are attributed to real
-   actors — the protected requirements around actor authentication are
-   non-waivable by design.
-4. Run the environment acceptance path (`src/airi/environments/`) against the
-   cluster and record the result.
-5. Walk [Real Environment Checklist](../guides/real-environment-checklist.md)
-   and only then change the "unverified" wording — because the wording is the
-   claim.
-
-The part that should **not** change: the IR boundary, the deterministic SQL
-generator, the static validator, and the approval gates. Those are the
-architecture; the engine is a deployment detail.
-
-## 18. Where exactly is the human in the loop?
-
-At four distinct recorded gates, not one final checkbox:
+## 1. 为什么不直接从需求走到 text-to-SQL？
+
+因为生成出来的 SQL 是一个错误的**评审单元**。
+
+三个具体的失败点：它没有规格可以校验，所以评审人只能对着一墙 join 用眼睛扫；它不可复现，同一条需求下周可能生出另一条查询；它也没有一个干净的审批点——对着一个会自己重新生成的字符串，你说不出「这就是我审批过的查询」。
+
+AIRI 改为把需求编译成结构化的 `MetricIR`，由 *Python* 从受控模板里把 SQL 发出来。模型的活儿到「用户想表达什么」为止；最终发出去的产物，是由一个已校验对象确定性地生成的。
+
+## 2. 指标 IR 的价值具体在哪？
+
+四点，按重要性排序：
+
+1. **它可评审。** 人可以把一份结构化的指标定义拿去跟业务意图做 diff。你没法拿 SQL 去跟意图做 diff。
+2. **它可测试。** 因为 IR 把 source、window、filters、aggregation、grouping 和 label definition 都声明成了字段，测试层知道该断言什么——窗口边界、空值处理、重复键、distinct 语义、join 正确性——而不是靠猜。
+3. **它在模型变更下是稳定的。** 换模型或改提示词，IR 可能会变；但只要 IR 没变，SQL 就逐字节一致。
+4. **它是带版本的。** 注册表存指标版本时，键是结构，不是一段文本字符串。
+
+## 3. 技能（Skill）和工具（Tool）有什么区别？
+
+**技能（Skill）**是声明式知识：某个机制是什么意思、需要什么、钉住哪个工具。**工具（Tool）**是命令式代码：真正去产出 SQL、注册模板、返回产物的那个东西。
+
+具体说：`metric_sum@1.0.0` 是一个能力技能，它声明「这是一个窗口上的聚合，需要这些 IR 字段」，并指向 `generate_spark_sql_metric@1.1.0`。工具则是那个渲染 `spark/atomic_metric.sql.j2`、返回 SQL 及其哈希的 Python 类。
+
+这个切分之所以重要，是因为**注册表可以校验这份声明，而不必导入或执行这个机制**。技能是你能审计的数据；工具是你不得不信任的代码。
+
+## 4. 场景技能 vs. 能力技能？
+
+- **场景技能（Scenario Skill）**——*业务想表达什么。* 它管领域语义、术语、意图，以及这个领域需要哪些机制。目前有两个：`invoice_risk@1.0.0` 和 `enterprise_relation@1.0.0`。
+- **能力技能（Capability Skill）**——*机制是怎么落地的。* 它管这个机制的契约，以及实现它的工具版本。跨场景共享。
+
+检验这个切分的标准是：**新场景不应该需要新机制**。第二个场景需要两跳 join——这要求的是一个新*能力*（`metric_join@1.0.0`），而不是一个场景专用的新工具；一旦它存在，两个场景都能引用它。业务语义始终留在 SQL 层之外。
+
+## 5. 你怎么防止 LLM 瞎编 SQL？
+
+我压根就不让它写 SQL。这套防线从外到内是：
+
+1. **模型的输出类型不是 SQL。** 它返回的是一个 Pydantic 模型（`MetricIR`）。不存在任何一条代码路径会接收来自模型的 SQL 文本。
+2. **严格的 schema 校验。** `extra="forbid"`、标识符模式（`^[a-z][a-z0-9_]{0,63}$`）、用枚举约束的 join 类型和运算符。不合规的响应会直接抛错——不会被修补。
+3. **没有静默兜底。** 非法响应会让这次运行大声失败。它绝不降级到一个预先备好的答案，所以一次「成功」的运行，永远意味着模型真的产出了合规的 IR。
+4. **SQL 只能由模板发出。** SQL 由固定 Jinja 模板渲染，插入的是已校验的值。
+5. **对输出做静态语法校验。** 就算 SQL 是 Python 写的，它仍然必须通过白名单检查——只允许 `INNER`/`LEFT` join、只允许等值谓词、不许 `UNION`、不许 CTE、不许 UDF、不许 DDL/DML。
+6. **只读执行沙箱。**
+
+背带、腰带，再加一道锁死的门。真正的幻觉风险不是「模型写出烂 SQL」——而是「模型写出一份看起来合理的 IR」；我防的是这一层。
+
+## 6. 为什么偏偏选 Pydantic？
+
+因为 IR 这条边界是本项目的核心控制点，而 Pydantic 提供了一种**声明式、自文档化、运行时强制**的表达方式。一个类定义同时给我：校验、类型转换、JSON schema、清晰的报错信息，以及一种能往返序列化进注册表的格式。
+
+两个在实践中很要紧的细节：
+
+- **严格模式。** `extra="forbid"` 加上显式模式，意味着模型自己发明一个字段会直接失败，而不是被悄悄忽略。
+- **对持久化数据做带类型的解码。** 注册表用 JSON 让 IR 往返；解码器就是同一份 schema，所以存下来的产物不会漂出合法范围。
+
+另一条路——手写校验器——代码更多、更不直观，而且会跟文档脱节。
+
+## 7. 为什么不用 LangGraph？
+
+> 当前工作流的控制路径是**确定性的**。用普通的 Python 编排，比用一个图运行时更好测、更好审计、也更好调试——所以我不会为了让技术栈里有个 agent 框架就引进 LangGraph。如果将来控制流真的变动态了——循环的形状取决于运行时证据——那才是图运行时开始回本的时候。
+
+这里的工作流是一条带显式关卡的固定流水线。复杂度在*领域治理*里，不在控制流里；所以引入框架只会多一个依赖、多一层抽象，真正的活儿一点没少。
+
+## 8. 为什么不做 multi-agent？
+
+> AIRI 的复杂度来自**领域治理和证据链**，不来自角色的数量。把系统拆成更多 agent 并不会自动让它更可靠——只会把同一批决策摊到更多跳上去，让故障模式更难追。所以 v1.0 把投入放在结构化 IR、确定性工具和受治理的工作流上。
+
+举个具体的例子：如果搞一个「反思 agent」能直接写注册表，那加一个 agent 反而*拆掉*了一条治理边界。当前的设计让反思对事实保持只读，并强制它的输出必须经过人的决策。
+
+## 9. 在这个系统里，反思（reflection）到底是什么？
+
+反思是一个**证据解读步骤**。Python 算出事实（coverage、bad rate、decile bins、KS 及其方向、IV、lift、PSI、threshold candidates），把这些事实交给 LLM，LLM 返回**假设**：这些证据可能意味着什么，接下来该试什么。
+
+它存在自己的模型、自己的表里。它不是指标版本，不是配置，也不是数据集。
+
+## 10. 为什么反思的结论不自动生效？
+
+因为假设不是证据，而且这种失败是无声的。
+
+如果反思能直接写指标定义，那「模型觉得区分度弱」就会变成「区分度弱」——一条主观看法把自己洗成了受治理的产物，而且事后查不出到底是哪一种。更糟的是，这样不可测试：指标会因为证据里没有的原因而改变。
+
+所以反思的输出**对指标而言是只读的**。它可以产出一个受约束的精炼提案，由人来接受或拒绝。事实和假设存在不同的存储里、类型也不同——这才让这个区分是可强制的，而不只是写在文档里。
+
+## 11. KS / IV / Lift 在这里到底怎么用？
+
+当作**决策的证据**，从来不是决策本身。
+
+- **Coverage / bad rate**——这个指标到底适用吗，覆盖了多少人群？一个高 IV 的指标只落在 2% 的记录上，那是标题，不是信号。
+- **带方向的 KS**——区分度，*再加上*它指向哪边。之所以要跟踪方向，是因为一个区分度很强但方向反了的指标是个发现，不是个成绩。
+- **IV**——单特征的预测强度。
+- **Lift / decile bins**——这个关系沿着风险排序是单调的吗，还是全挤在某一箱里？
+- **Threshold candidates**——*研究用的候选值*，明确不是推荐的生产阈值。
+- **PSI**——相对冻结参照的漂移，用确定性 Python 计算，零次 LLM 调用。
+
+平台还会**拒绝比较不可比的运行**——数据集、标签定义、评估窗口或快照只要有一项不同，就不做比较，因为一个误导性的数字比没有数字更糟。
+
+## 12. 第二个场景为什么选企业关系？
+
+因为它在结构上就是*不一样*，而且不一样的方式恰好能给架构做压力测试，同时又没离开同一个风险领域。
+
+第一个场景（`invoice_risk`）是带窗口的单源聚合。第二个（`enterprise_relation`）是一个**两跳关系**：enterprise → person → enterprise，还带着 `COUNT DISTINCT` 和自环排除（`related_enterprise_id != enterprise_id`）。
+
+如果这套架构只对单源聚合管用，那再做一个单源场景就会把这个问题盖住。而一个 join 场景会逼出那个问题：*这个 IR 是通用的，还是我只是把它拟合到了场景一？*——同时它也给出一个可证伪的说法：两个场景、一套工作流、没有分叉的编排。
+
+## 13. 你是怎么让 join 保持通用、而不是场景专用的？
+
+靠的是拒绝把它写成一个 `enterprise_relation_join`。具体做法：
+
+- **IR 层**——`MetricIR` 新增了可选的 `joins`、`column_filters`、`source_alias`、`aggregation_alias`。全是可选的，所以 schema 版本停在 `1.0.0`，**不需要做迁移**。
+- **Join IR**——一个 `JoinSpec{left_source, right_source, join_type, conditions[]}`，语法刻意收得很窄：只允许 `INNER`/`LEFT`，只允许等值。
+- **能力层**——一个新的通用能力 `metric_join@1.0.0`，钉住 `generate_spark_sql_metric@1.3.0` 和模板 `spark/join_metric.sql.j2`。
+- **校验**——给 join SQL 定了一套封闭语法，再加一个静态校验器，凡是超出这套语法的都拒绝。
+- **规范化哈希（canonical hashing）**——扩展到把 join 也算进去，这样改了 join，产物哈希就会变。否则审批哈希覆盖不到 join，那就是一个治理漏洞。
+
+泛化性的检验：第二个场景引用了 `metric_join`，第三个场景同样可以引用——而完全不用动那个工具。
+
+## 14. 如果还要加第三个场景，需要付出什么？
+
+取决于它需不需要一个新*机制*：
+
+- **同样的机制、新的领域语义**——一个场景技能文件（`src/airi/skills/<name>.py`），声明它的能力和知识，再加一个合成夹具（fixture）。IR 不动、工具不动、不用迁移。照 [新增一个场景](../guides/adding-scenario.md) 做，那份文档里也列了反模式。
+- **新机制**（比如一个窗口函数排名）——一个新的能力技能，钉住一个新工具：一个新的工具类、一个新模板、在静态 SQL 校验器白名单里加一条，以及在 `src/airi/testing/` 里加探针。
+
+而*不会*变的是：需求解析器、工作流、实验层、注册表和 UI。这正是场景 × 能力这个切分的意义所在——也是为什么第二个场景才是证据，而不是功能清单。
+
+## 15. 这里为什么没有真实的 Spark？
+
+> 这是一个跑在本地 Windows 机器上的作品集项目，没有可用的企业级 Spark/Hive 集群。所以 AIRI 默认用 SQLite、合成数据和一个 mock 适配器。系统**保留了适配器接口和失败关闭的校验边界**，但它不会把 mock 出来的结果包装成「经过生产验证」的结果。
+
+具体来说：Spark SQL 执行器和生产适配器都存在，也在边界层被跑过，但它们被标记为**未验证（unverified）**；身份提供方和生产适配器**默认处于惰性状态**，这样配置错误的部署会失败关闭，而不是去信任一个客户端传进来的名字或者一个合成的运行时。
+
+我更愿意交出一个把边界讲清楚的项目，而不是一个暗示自己有某种它从没跑过的能力的项目。
+
+## 16. 你怎么让 mock 和真实生产分得清？
+
+六个机制，全都是结构性的，而不是靠约定：
+
+1. **显式配置，不是兜底。** `AIRI_LLM_MODE=demo_mock` 是一个必须被*设置*才会生效的刻意替代品。如果你配了一个真实端点，而它返回了不合 schema 的东西，这次运行会抛错——它不会悄悄降级到 mock。Demo 模式永远不是静默兜底。
+2. **失败关闭的默认值。** 生产适配器和身份提供方默认处于惰性状态。
+3. **适配器接口。** 真实集成是接口背后的实现，所以 mock 不是业务逻辑里的一个特例分支。
+4. **诚实的标记。** 截图和演示里带着 `LOCAL DEMO` / `Synthetic Data` / `NOT PRODUCTION VERIFIED`，而且是刻意保持可见的。
+5. **跳过（skipped），而不是 mock 掉。** 需要真实基础设施的集成测试套件会被报告为**跳过（skipped）**——它们绝不会被伪造成绿色通过。
+6. **措辞纪律。** README 把「代码完整、边界已测」和「已在真实环境验证过」区分开。这是两种不同的说法，文档从不把它们合并。
+
+## 17. 你会怎么把它接到真实的 Spark/Hive 集群上？
+
+接缝已经在了；要做的是由运维驱动的验证，不是架构改造：
+
+1. 在现有执行器接口背后，为真实引擎实现（或配置）查询执行器。
+2. 把 `AIRI_DATABASE_URL` 指向真实的 metastore/warehouse 配置，并把执行模式从 `mock` 切走。
+3. 实现真实的身份提供方，让审批能归属到真实主体——围绕主体认证的那些受保护需求，在设计上就是不可豁免的。
+4. 对着集群跑一遍环境验收路径（`src/airi/environments/`），并把结果记下来。
+5. 走一遍 [真实环境检查清单](../guides/real-environment-checklist.md)，然后才去改那句「未验证」的措辞——因为措辞本身就是那个声明。
+
+而**不应该**变的部分是：IR 边界、确定性 SQL 生成器、静态校验器和审批关卡。这些才是架构；引擎只是部署细节。
+
+## 18. 人在环里具体在哪一环？
+
+在四道彼此独立、有记录的关卡上，而不是最后打一个勾：
 
 ```text
 SQL approval → promotion review → release review → deployment review
 ```
 
-Plus the refinement gate: the AI can propose a bounded change, but a human
-decides. Approval is **content-addressed** — the human approves a hash of the
-exact artifact — so the thing approved and the thing that runs cannot diverge.
+另外还有精炼这一关：AI 可以提出一个受约束的改动，但由人拍板。审批是**内容寻址**的——人审批的是那个确切产物的哈希——所以被审批的东西和真正跑的东西不可能对不上。
 
-## 19. How is the system auditable?
+## 19. 这个系统怎么做到可审计？
 
-- **Content-addressed approvals.** The approved artifact is identified by hash;
-  any change to the SQL (or to the joins it contains) changes the hash.
-- **Immutable metric versions** in the registry, with a **rollback** path. You
-  never edit a version; you create a new one.
-- **An audit-event stream** per metric: who did what, at which gate, against
-  which artifact.
-- **Canonical hashing** of IR so the same structure hashes the same way
-  regardless of dict ordering.
-- **Artefacts at every stage.** Each stage writes an artifact that becomes the
-  evidence for the next, so the chain from requirement to deployed metric is
-  reconstructable.
+- **内容寻址的审批。** 被审批的产物用哈希来标识；SQL（或它包含的 join）只要有改动，哈希就会变。
+- 注册表里的**不可变指标版本**，外加一条**回滚**路径。你从不编辑某个版本，而是新建一个。
+- 每个指标一条**审计事件流**：谁在哪个关卡、对哪个产物做了什么。
+- 对 IR 做**规范化哈希**，这样同一份结构不管字典顺序如何，哈希结果都一样。
+- **每个阶段都有产物。** 每个阶段都会写出一个产物，成为下一阶段的证据，所以从需求到已部署指标的这条链是可以还原重建的。
 
-The design rule underneath: an audit trail is only real if the thing you approve
-is the thing that runs. Content-addressing is what enforces that.
+底下那条设计规则是：只有当「你审批的东西」就是「真正跑的东西」时，审计轨迹才算数。内容寻址正是强制这一点的机制。
 
-## 20. Why does a Metric Registry exist at all?
+## 20. 为什么非得有一个指标注册表？
 
-Because a metric is not a one-off query — it is a **governed, versioned asset
-with a lifecycle**.
+因为指标不是一次性的查询——它是一个**受治理、带版本、有生命周期的资产**。
 
-Without a registry, you have SQL files in a folder and no answer to: which
-version is active, who approved it, what evidence supported it, what changed
-between versions, and how to roll back when the new one is worse.
+没有注册表，你只有文件夹里的一堆 SQL 文件，而这些问题的答案一个都没有：哪个版本在用、是谁审批的、有什么证据支撑它、版本之间改了什么、新版本更差的时候怎么回滚。
 
-With it: immutable versions, an active-version pointer, per-metric audit events,
-rollback, and a release/promotion review that has the experiment evidence
-attached. That is also what makes the platform's governance claims checkable
-rather than aspirational.
+有了注册表就有：不可变版本、一个指向当前活跃版本的指针、每个指标的审计事件、回滚，以及一次附带着实验证据的发布/晋级评审。也正是这一点，让平台的治理主张变成可核查的，而不是一句愿景。
 
-## 21. What was the single hardest technical problem?
+## 21. 最难的一个技术问题是什么？
 
-**Keeping the approval hash meaningful while extending the IR.**
+**在扩展 IR 的同时，让审批哈希仍然有意义。**
 
-Approval is content-addressed, which is what makes it trustworthy — but that
-means the hash must cover *everything that affects the produced SQL*. When joins
-were added for the second scenario, the join was a new part of the IR. If the
-canonical hash had not been extended to include joins, you could have changed the
-join, kept the same hash, and gotten a "valid" approval for a query nobody
-reviewed.
+审批是内容寻址的，这正是它可信的原因——但这意味着哈希必须覆盖*所有会影响产出 SQL 的东西*。为第二个场景加 join 时，join 是 IR 的一个新部分。如果规范化哈希没有扩展到把 join 算进去，你就能改掉 join、哈希却不变，从而拿到一个「有效」的审批，而那条查询根本没人评审过。
 
-It is a classic problem shape: the safety property (hash covers the artifact) and
-the extensibility requirement (add a field) interact, and the interaction is
-where the bug lives. The fix was extending canonical hashing *and* the tests that
-pin it.
+这是一类经典的问题形状：安全属性（哈希覆盖产物）和可扩展性需求（加一个字段）相互作用，而 bug 就住在这两者的交叉点上。修法是把规范化哈希扩展掉，*并且*补上钉住它的测试。
 
-Honourable mention: the same class of bug at the persistence layer — state stored
-both as a column *and* inside a JSON document must be written together, and the
-read path must guard which one wins. That one bit me twice before it became a
-written rule in `CONTRIBUTING.md`.
+提名奖：持久化层里同一类 bug——同一份状态既存在一个列里、*又*存在一个 JSON 文档里，写入时必须一起写，读取路径还必须守住到底以哪一个为准。这个我踩了两次，后来才把它写成 `CONTRIBUTING.md` 里的一条规则。
 
-## 22. If you did it again, what would you change?
+## 22. 如果重做一遍，你会改什么？
 
-Being honest, in priority order:
+说实话，按优先级排：
 
-1. **Write the second scenario earlier.** The multi-scenario proof is worth more
-   than several of the single-scenario features I built before it. Building it
-   late meant some generalisation work had to be retrofitted rather than designed
-   in.
-2. **Persist state in one place.** The column-plus-JSON duplication was a mistake
-   I had to defend against repeatedly. One source of truth from day one.
-3. **Force the demo path to exist from the start.** A "one command and it runs"
-   path changes design decisions — it surfaces configuration coupling early.
-4. **Treat the fixture identifier choice as a real decision.** One synthetic table
-   name derived from a realistic-looking internal name, which then became
-   expensive to change because artifacts embedded it. Naming is architecture when
-   it gets hashed.
-5. **Keep the phased reports.** That one I would do again exactly as-is — writing
-   down what was *not* verified at each stage is why the final README's
-   limitations section is accurate instead of retrofitted.
+1. **更早写第二个场景。** 多场景这个证明，比我之前做的好几个单场景功能都更值钱。写晚了，导致一部分泛化工作只能事后补，而不是一开始就设计进去。
+2. **状态只存一处。** 列加 JSON 的双份存储是我反复要防的一个错误。从第一天起就只有一个真相来源。
+3. **从一开始就强制存在演示路径。** 一条「敲一条命令就能跑起来」的路径会改变设计决策——它会把配置耦合提前暴露出来。
+4. **把夹具（fixture）标识符的选择当成一个真正的决策。** 有一个合成表名是从一个看起来很真实的内部名字派生出来的，后来变得很难改，因为产物里把它嵌进去了。当一个名字会被哈希的时候，命名就是架构。
+5. **保留分阶段报告。** 这一条我会原样再做一次——把每个阶段*没*验证的东西写下来，正是最终 README 的限制章节准确、而不是事后补的原因。

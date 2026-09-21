@@ -1,56 +1,35 @@
-# AIRI v1.0.0 — Portfolio Edition
+# AIRI v1.0.0 — 作品集版
 
-**An AI-assisted risk metric research & development platform.**
+**一个 AI 辅助的风控指标研发平台。**
 
-AIRI turns a natural-language risk requirement into a strictly validated
-**Metric IR**, deterministic SQL, automated metric tests, statistical
-experiments, evidence-driven reflection, and governed metric versions.
+AIRI 把一条自然语言风控需求转化为经过严格校验的 **Metric IR**、确定性 SQL、自动化指标测试、统计实验、证据驱动的反思，以及受治理的指标版本。
 
-> **LLMs reason. Python verifies. Humans govern.**
+> **LLMs reason. Python verifies. Humans govern.**（模型负责推理，Python 负责验证，人负责治理。）
 
-This is the first public release. AIRI v1.0.0 is **feature-complete by design** —
-the platform is frozen, and future capability work lives in the
-[Roadmap](../README.md#roadmap) rather than in the release.
+这是首次公开发布。AIRI v1.0.0 **在设计上功能已完备** —— 平台已冻结，后续的能力工作放在 [路线图](../README.md#roadmap) 而不是本发布版中。
 
 ---
 
-## Highlights
+## 亮点
 
-- **Natural-language requirement parsing** — a risk requirement compiles into a
-  strict, versioned Pydantic contract; ambiguous or cross-domain requirements are
-  rejected, never guessed.
-- **Structured Metric IR** — the reviewable boundary between the model and the
-  database. The model may propose; only the schema admits.
-- **Scenario Skill × Capability Skill** — domain semantics separated from
-  execution mechanics. Capabilities are declared once and pin tool versions.
-- **Deterministic SQL generation** — SQL is emitted by versioned Python tools and
-  controlled Jinja templates. **The model never writes the SQL that ships.**
-- **Static SQL validation** — a closed grammar (full-match, not a substring
-  blacklist) with DDL/DML refused outright.
-- **Automated metric testing** — schema, null handling, duplicates, window
-  boundaries, join correctness, distinct semantics, self-loop exclusion,
-  reconciliation, and a direct-join control for joined metrics.
-- **KS / IV / Lift experimentation** — coverage, bad rate, decile bins, KS with
-  direction, IV, lift, threshold candidates, and PSI against a frozen reference.
-- **Evidence-driven LLM reflection** — hypotheses are stored separately from
-  computed facts, in a different type and a different table.
-- **Controlled refinement** — bounded, human-decided proposals. Nothing is
-  silently replaced.
-- **Temporal validation** — multi-slice historical and out-of-time slicing with
-  PSI-based stability diagnostics.
-- **Metric Registry** — immutable, content-hashed versions with an audit-event
-  stream and two-phase rollback.
-- **Human-in-the-loop governance** — four distinct recorded gates: SQL approval,
-  promotion review, release review, deployment review.
-- **Vue Web UI** — dashboard, development, testing, experiment, reflection,
-  registry. Zero business computation in the browser; the browser never calls an
-  LLM.
-- **Two demo scenarios through one identical workflow** — Invoice Risk and
-  Enterprise Relation.
+- **自然语言需求解析** —— 一条风控需求会被编译为严格、带版本的 Pydantic 契约；歧义或跨域需求会被拒绝，绝不猜测。
+- **结构化 Metric IR** —— 模型与数据库之间可评审的边界。模型可以提议，但只有 schema 能接纳。
+- **Scenario Skill × Capability Skill** —— 领域语义与执行机制分离。能力只需声明一次，并钉选工具版本。
+- **确定性 SQL 生成** —— SQL 由带版本的 Python 工具和受控 Jinja 模板产出。**模型从不编写实际交付的 SQL。**
+- **静态 SQL 校验** —— 闭式文法（完整匹配，而非子串黑名单），并直接拒绝 DDL/DML。
+- **自动化指标测试** —— schema、空值处理、重复、窗口边界、join 正确性、distinct 语义、自环排除、对账，以及对 join 型指标的直连 join 对照。
+- **KS / IV / Lift 实验** —— 覆盖率、bad rate、十分位分箱、带方向的 KS、IV、lift、阈值候选，以及相对冻结参考的 PSI。
+- **证据驱动的 LLM 反思** —— 假设与计算事实分开存储，类型不同、表也不同。
+- **受控精炼（refinement）** —— 有界、由人决策的提案。不会有任何东西被悄悄替换。
+- **时序验证** —— 多切片历史切片与跨期（out-of-time）切片，配以基于 PSI 的稳定性诊断。
+- **Metric Registry** —— 不可变、内容哈希的版本，带审计事件流与两阶段回滚。
+- **人在环治理** —— 四个各自独立记录的闸门：SQL 审批、晋级评审、发布评审、部署评审。
+- **Vue Web UI** —— 仪表盘、开发、测试、实验、反思、注册表。浏览器中零业务计算；浏览器从不调用 LLM。
+- **两个 demo 场景走完全相同的一条工作流** —— Invoice Risk 与 Enterprise Relation。
 
 ---
 
-## Architecture
+## 架构
 
 ```text
 Natural Language
@@ -65,31 +44,31 @@ Natural Language
   → Registry + Governance   immutable versions, human approval gates
 ```
 
-Three layers own three different things, and the boundary is the design:
+三层各自拥有不同的东西，而边界就是设计本身：
 
-| Layer | Owns |
+| 层 | 负责 |
 | --- | --- |
-| **LLM** | Requirement understanding, evidence interpretation |
-| **Python** | IR validation, SQL generation, testing, statistics, hashing |
-| **Human** | Approval, promotion, release, deployment |
+| **LLM** | 需求理解、证据解释 |
+| **Python** | IR 校验、SQL 生成、测试、统计、哈希 |
+| **Human** | 审批、晋级、发布、部署 |
 
-Full detail:
-[Architecture Overview](https://github.com/huangJJ8/airi/blob/main/docs/architecture/overview.md)
+完整细节：
+[架构总览](https://github.com/huangJJ8/airi/blob/main/docs/architecture/overview.md)
 ·
-[Design Principles](https://github.com/huangJJ8/airi/blob/main/docs/architecture/design-principles.md)
+[设计原则](https://github.com/huangJJ8/airi/blob/main/docs/architecture/design-principles.md)
 
 ---
 
-## Demo Scenarios
+## Demo 场景
 
-**Invoice Risk** — "统计企业近30天开票金额"
+**Invoice Risk** —— "统计企业近30天开票金额"
 
 ```text
 invoice_risk × metric_sum × metric_window
 → single-source windowed SUM
 ```
 
-**Enterprise Relation** — "统计企业关联自然人控制的其他企业数量"
+**Enterprise Relation** —— "统计企业关联自然人控制的其他企业数量"
 
 ```text
 enterprise_relation × metric_join × metric_count
@@ -97,11 +76,7 @@ enterprise_relation × metric_join × metric_count
 → COUNT DISTINCT with self-loop exclusion
 ```
 
-Both scenarios share the same parser, IR, planners, SQL generator, validator,
-approval gate, testing layer, experiment layer and web workflow. The second
-scenario required **no new orchestration** — the join mechanism was promoted to a
-general capability (`metric_join@1.0.0`) rather than written as a scenario
-special case.
+两个场景共用同一套解析器、IR、规划器、SQL 生成器、校验器、审批闸门、测试层、实验层和 web 工作流。第二个场景**没有新增任何编排** —— join 机制被提升为通用能力（`metric_join@1.0.0`），而不是写成场景特例。
 
 > `New Scenario ≠ New Workflow.`
 
@@ -109,44 +84,36 @@ special case.
 
 ## Web UI
 
-Vue 3 + TypeScript + Vite + Element Plus + ECharts, six pages:
+Vue 3 + TypeScript + Vite + Element Plus + ECharts，共六个页面：
 Dashboard · Metric Development · Metric Testing · Experiment ·
-Reflection & Refinement · Metric Registry.
+Reflection & Refinement · Metric Registry。
 
-Every KS / IV / lift value and every version state comes from the backend API.
-The frontend performs **zero** business computation and renders governance
-conflicts (HTTP 409) using the backend's error code rather than inventing a
-message.
+每一个 KS / IV / lift 值和每一个版本状态都来自后端 API。前端执行**零**业务计算，并使用后端的 error code 来呈现治理冲突（HTTP 409），而不是自行编造消息。
 
 ---
 
-## Testing
+## 测试
 
-| Suite | Result |
+| 套件 | 结果 |
 | --- | --- |
-| Backend (`pytest`) | **675 passed / 14 skipped** |
-| Backend coverage | **91%** |
-| Frontend (`vitest`) | **28 passed** |
-| Lint (`ruff check` + `format --check`) | clean |
-| Migrations (`alembic check`) | head `0011_operational_convergence`, no drift |
-| Open-source safety scan | clean |
+| 后端（`pytest`） | **675 passed / 14 skipped** |
+| 后端覆盖率 | **91%** |
+| 前端（`vitest`） | **28 passed** |
+| Lint（`ruff check` + `format --check`） | clean |
+| 迁移（`alembic check`） | head `0011_operational_convergence`，无漂移 |
+| 开源安全扫描 | clean |
 
-All of the above was also run on a real GitHub Actions runner on the tagged
-commit: workflow `CI`, run #5 — **both jobs green** (frontend install /
-type-check / build / unit tests; backend lint / format / safety scan / tests /
-coverage / migrations / drift check).
+以上全部也在打标签的那个提交上、在真实的 GitHub Actions runner 上跑过：workflow `CI`，run #5 —— **两个 job 全绿**（前端 install / type-check / build / unit tests；后端 lint / format / safety scan / tests / coverage / migrations / drift check）。
 
-The 14 skipped tests are the integration suites that require real infrastructure
-(Spark/Hive, MySQL, production identity, telemetry). They are **skipped, not
-mocked** — a green suite never implies a verified integration.
+那 14 个跳过的测试是需要真实基础设施（Spark/Hive、MySQL、生产身份、遥测）的集成套件。它们是被**跳过，而不是被 mock** —— 一套全绿的测试永远不意味着集成已验证。
 
 ---
 
-## Run Locally
+## 本地运行
 
-Requirements: Python ≥ 3.12, [uv](https://docs.astral.sh/uv/), Node.js ≥ 20.19.
+要求：Python ≥ 3.12、[uv](https://docs.astral.sh/uv/)、Node.js ≥ 20.19。
 
-**Windows (verified):**
+**Windows（已验证）：**
 
 ```powershell
 git clone https://github.com/huangJJ8/airi.git
@@ -154,51 +121,36 @@ cd airi
 .\scripts\start-demo.ps1     # migrate → seed synthetic data → start both servers
 ```
 
-Then open <http://localhost:5173>. API docs at <http://localhost:8000/docs>.
-Stop with `.\scripts\stop-demo.ps1`.
+然后打开 <http://localhost:5173>。API 文档在 <http://localhost:8000/docs>。用 `.\scripts\stop-demo.ps1` 停止。
 
-**macOS / Linux (best-effort)** — `./scripts/start-demo.sh` / `./scripts/stop-demo.sh`.
-The mirror scripts exist but the verified environment for this project is Windows.
+**macOS / Linux（尽力而为）** —— `./scripts/start-demo.sh` / `./scripts/stop-demo.sh`。镜像脚本存在，但本项目的已验证环境是 Windows。
 
-**No install, terminal only:**
+**无需安装，仅用终端：**
 
 ```bash
 uv run --frozen python examples/quick_demo.py
 ```
 
-**Docker** — `docker compose up --build`. Provided and statically reviewed;
-runtime **NOT VERIFIED** (Docker was unavailable in the development
-environment).
+**Docker** —— `docker compose up --build`。已提供并经过静态审查；运行时**未验证（NOT VERIFIED）**（开发环境中没有 Docker）。
 
-No API key, no cluster, no internal network required. The demo runs on SQLite
-with a deterministic LLM substitute (`AIRI_LLM_MODE=demo_mock`) — a deliberate,
-explicitly configured substitute, not a fallback.
+无需 API key、无需集群、无需内网。demo 运行在 SQLite 上，使用确定性的 LLM 替身（`AIRI_LLM_MODE=demo_mock`）—— 这是有意为之、显式配置的替身，不是兜底方案。
 
 ---
 
-## Known Limitations
+## 已知限制
 
-Stated plainly, because they matter:
+直说，因为它们很重要：
 
-- **All bundled data is synthetic.** Every dataset is generated in-repo. The
-  reported statistics demonstrate the pipeline; they say **nothing** about real
-  predictive power.
-- **Spark / Hive / MySQL production integrations are not verified.** The
-  adapters and executors exist in code and are exercised at the boundary layer,
-  but they have never been run against a real environment in this repository.
-  They default to inert and fail closed.
-- **This is a portfolio / research implementation.** It must **not** be
-  interpreted as validated financial-risk infrastructure.
-- **`production_deployed` is `false` everywhere by construction.**
-- **Reviewer identity is caller-asserted** in demo mode (demo-grade, no
-  authentication).
-- **Docker runtime is unverified**, and the `.sh` scripts are best-effort.
-- **One synthetic identifier is intentionally opaque** — an internal-looking
-  table name kept to avoid invalidating historical artifacts. It is a placeholder
-  with no real data behind it.
+- **所有随附数据均为合成数据。** 每个数据集都在仓库内生成。报告的统计量只用来演示这条流水线；它们对真实预测能力**没有**任何说明。
+- **Spark / Hive / MySQL 生产集成未经验证。** 适配器和执行器在代码中存在，并在边界层被行使，但在本仓库中从未针对真实环境运行过。它们默认不生效（inert）并故障关闭（fail closed）。
+- **这是作品集 / 研究型实现。** 它**不得**被理解为经过验证的金融风控基础设施。
+- **按构造，`production_deployed` 在所有地方都是 `false`。**
+- **demo 模式下评审人身份由调用方声称**（demo 级，无认证）。
+- **Docker 运行时未经验证**，且 `.sh` 脚本为尽力而为。
+- **有一个合成标识符是有意不透明的** —— 一个看起来像内部表名的名字，保留它是为了避免让历史产物失效。它只是一个占位符，背后没有真实数据。
 
-See [Limitations](https://github.com/huangJJ8/airi/blob/main/README.md#limitations)
-and the [Real Environment Checklist](https://github.com/huangJJ8/airi/blob/main/docs/guides/real-environment-checklist.md).
+参见 [限制与已知不足](https://github.com/huangJJ8/airi/blob/main/README.md#limitations)
+和 [真实环境检查清单](https://github.com/huangJJ8/airi/blob/main/docs/guides/real-environment-checklist.md)。
 
 ---
 

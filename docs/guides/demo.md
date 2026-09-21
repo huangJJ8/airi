@@ -1,78 +1,76 @@
-# Demo Guide
+# 演示指南
 
-AIRI ships two structurally different demo scenarios that run through the
-**same** product workflow. That is the point: a new business domain is added by
-supplying scenario knowledge, not by forking the pipeline.
+AIRI 内置两个结构上不同的演示场景，它们走**同一套**产品工作流。这正是重点所在：
+新增一个业务域靠的是提供场景知识，而不是 fork 流水线。
 
-> Everything below uses **synthetic data** generated in-repo. No real company,
-> person, invoice, or identifier is involved. Results are illustrative only and
-> are **not** production evidence.
+> 下文全部使用仓库内生成的**合成数据**。不涉及任何真实公司、个人、发票或标识符。
+> 结果仅供参考，**不是**生产证据。
 
 ---
 
-## Why two scenarios
+## 为什么有两个场景
 
-| | Invoice Risk | Enterprise Relation |
+| | Invoice Risk（发票风险） | Enterprise Relation（企业关联） |
 | --- | --- | --- |
-| Business semantics | billing amount over time | control relationships between enterprises |
-| Data shape | one fact table | two tables joined on a person |
-| Entity path | enterprise → invoice facts | enterprise → person → enterprise |
-| Mechanics | time window + `SUM` | join + `COUNT DISTINCT` |
-| Capabilities | `metric_window`, `metric_sum` | `metric_join`, `metric_count` |
-| Shared | Requirement Parser, Metric IR, Skill Planner, Tool Planner, SQL Generator, Validator, Approval, Testing, Experiment, Web UI | ← same |
+| 业务语义 | 随时间变化的开票金额 | 企业之间的控制关系 |
+| 数据形态 | 单张事实表 | 两张表按自然人关联 |
+| 实体路径 | enterprise → invoice facts | enterprise → person → enterprise |
+| 实现机制 | 时间窗口 + `SUM` | join + `COUNT DISTINCT` |
+| 能力 | `metric_window`, `metric_sum` | `metric_join`, `metric_count` |
+| 共用 | Requirement Parser、Metric IR、Skill Planner、Tool Planner、SQL Generator、Validator、Approval、Testing、Experiment、Web UI | ← 相同 |
 
-If a single pipeline can absorb both without a second workflow, the
-Scenario Skill × Capability Skill split is doing real work.
+如果同一条流水线不用第二套工作流就能同时容纳二者，说明场景技能（Scenario
+Skill）× 能力技能（Capability Skill）的拆分确实在起作用。
 
 ---
 
-## Demo A — Invoice Risk
+## 演示 A —— Invoice Risk（发票风险）
 
-### Input
+### 输入
 
 ```text
 统计企业近30天开票金额
 ```
 
-### Expected resolution
+### 预期解析结果
 
-| Step | Result |
+| 步骤 | 结果 |
 | --- | --- |
-| Scenario | `invoice_risk@1.0.0` |
-| Capabilities | `metric_window`, `metric_sum`, `spark_sql_generator` |
-| Metric IR | `entity_key: enterprise_id`, `aggregation: sum(amount)`, `window: 30 natural days`, explicit anchor |
-| SQL | single-table windowed `SUM` |
+| 场景 | `invoice_risk@1.0.0` |
+| 能力 | `metric_window`, `metric_sum`, `spark_sql_generator` |
+| 指标 IR（Metric IR） | `entity_key: enterprise_id`, `aggregation: sum(amount)`, `window: 30 natural days`, 显式锚点 |
+| SQL | 单表带窗口的 `SUM` |
 
-### What to look at
+### 关注点
 
-- **Development** — the Metric IR viewer shows the window (left-closed,
-  right-open, `Asia/Shanghai`) and the summed field.
-- **Testing** — window boundary semantics, schema, null/duplicate handling.
-- **Experiment** — coverage, KS, IV, lift, bins, threshold candidates.
-- **Reflection** — narrative reading of the statistics, plus bounded proposals.
-- **Registry** — an immutable governed version.
+- **Development** —— 指标 IR 查看器显示窗口（左闭右开，`Asia/Shanghai`）以及被求和
+  的字段。
+- **Testing** —— 窗口边界语义、schema、null/重复处理。
+- **Experiment** —— coverage、KS、IV、lift、bins、阈值候选。
+- **Reflection** —— 对统计结果的叙述性解读，以及有界提案。
+- **Registry** —— 一个不可变的受治理版本。
 
 ---
 
-## Demo B — Enterprise Relation
+## 演示 B —— Enterprise Relation（企业关联）
 
-### Input
+### 输入
 
 ```text
 统计企业关联自然人控制的其他企业数量
 ```
 
-### Expected resolution
+### 预期解析结果
 
-| Step | Result |
+| 步骤 | 结果 |
 | --- | --- |
-| Scenario | `enterprise_relation@1.0.0` |
-| Capabilities | `metric_join`, `metric_count`, `spark_sql_generator` |
-| Relationship path | `enterprise → person → enterprise` (two hops) |
-| Aggregation | `COUNT DISTINCT related_enterprise_id` |
-| Business rule | self-exclusion — `related_enterprise_id <> enterprise_id` |
+| 场景 | `enterprise_relation@1.0.0` |
+| 能力 | `metric_join`, `metric_count`, `spark_sql_generator` |
+| 关系路径 | `enterprise → person → enterprise`（两跳） |
+| 聚合 | `COUNT DISTINCT related_enterprise_id` |
+| 业务规则 | 自身排除 —— `related_enterprise_id <> enterprise_id` |
 
-### Generated SQL (shape)
+### 生成的 SQL（形态）
 
 ```sql
 SELECT
@@ -87,40 +85,36 @@ GROUP BY
     ep.enterprise_id
 ```
 
-This is produced by the shared deterministic tool from the IR — the workflow
-never builds SQL strings.
+这由共享的确定性工具从 IR 生成 —— 工作流从不自行拼装 SQL 字符串。
 
-### What to look at
+### 关注点
 
-- **Development** — the IR viewer now shows a `joins` block, plus a Relationship
-  summary line (`enterprise → person → enterprise`) and `COUNT DISTINCT`.
-- **Testing** — the test list is scenario-specific and delivered by the backend:
-  *Join Correctness*, *Distinct Count*, *Self Relation Exclusion*. There is no
-  window test, because this metric has no window.
-- **Experiment** — reuses the same evaluation engine (`coverage`, KS, IV, lift,
-  bins, thresholds) with this metric's data. No second evaluation stack.
+- **Development** —— IR 查看器现在会显示一个 `joins` 块，外加一行关系摘要
+  （`enterprise → person → enterprise`）和 `COUNT DISTINCT`。
+- **Testing** —— 测试列表由后端按场景下发：*Join Correctness*、*Distinct Count*、
+  *Self Relation Exclusion*。没有窗口测试，因为这个指标没有窗口。
+- **Experiment** —— 复用同一套评估引擎（`coverage`、KS、IV、lift、bins、
+  thresholds），只是换成这个指标的数据。没有第二套评估栈。
 
-### Edge cases exercised by the bundled fixture
+### 随仓库附带的夹具（fixture）覆盖的边界情况
 
-The synthetic relation dataset is built so that these all occur, and the
-automated tests assert each:
+合成关系数据集被构造成让下列情况全部出现，自动化测试逐条断言：
 
-| Case | Expected behaviour |
+| 情况 | 预期行为 |
 | --- | --- |
-| Same relation row duplicated | `COUNT DISTINCT` prevents double counting |
-| Two persons → the same other enterprise | counted once, not twice |
-| Person whose relation loops back to the enterprise itself | excluded by self-exclusion |
-| Enterprise with no relations | not present in results (no fabricated zero row) |
+| 同一条关系行重复出现 | `COUNT DISTINCT` 防止重复计数 |
+| 两个自然人 → 同一家其他企业 | 只计一次，不是两次 |
+| 自然人的关系回指企业自身 | 由自身排除规则排除 |
+| 没有任何关联关系的企业 | 不出现在结果中（不伪造零值行） |
 
-Hand-computed expectations live in the fixture and are written by hand — the
-tests never call production code to derive the expected answer.
+手算的期望值就在夹具里，由人工写出 —— 测试绝不会调用生产代码来推导预期答案。
 
 ---
 
-## Walking through the UI
+## UI 操作走查
 
-Both demos follow the identical path. **You never copy/paste a UUID** — the
-context travels via the route query and a session-scoped store.
+两个演示走完全相同的路径。**不需要复制粘贴 UUID** —— 上下文通过路由 query 和
+会话级 store 传递。
 
 ```text
 /development   pick a Demo Example → Generate → review IR / Skills / SQL
@@ -134,9 +128,9 @@ context travels via the route query and a session-scoped store.
 /registry      governed metric version
 ```
 
-### Honest-mode markers
+### 诚实模式标记
 
-The UI deliberately keeps these visible. They are a feature, not clutter:
+UI 有意让这些一直可见。它们是特性，不是冗余：
 
 - `LOCAL DEMO`
 - `Synthetic Data`
@@ -145,19 +139,18 @@ The UI deliberately keeps these visible. They are a feature, not clutter:
 
 ---
 
-## What the demo does *not* claim
+## 演示**不**主张什么
 
-- Not a production risk system.
-- Synthetic data is not risk evidence.
-- The experiment numbers are illustrative of the *pipeline*, not of predictive
-  power on real portfolios.
-- Enterprise Spark/Hive/production adapters exist in code but are **not
-  verified** in this repository.
+- 不是生产风控系统。
+- 合成数据不是风险证据。
+- 实验数字说明的是*流水线*，而不是在真实资产组合上的预测能力。
+- 企业级 Spark/Hive/生产适配器存在于代码中，但在本仓库中**未验证**（NOT
+  VERIFIED）。
 
 ---
 
-## Next
+## 下一步
 
-- [Quickstart](quickstart.md) — get it running
-- [API Guide](api.md) — drive it from HTTP
-- [Adding a Scenario](adding-scenario.md) — how Demo B was added
+- [快速开始](quickstart.md) —— 把它跑起来
+- [API 指南](api.md) —— 用 HTTP 驱动它
+- [新增场景](adding-scenario.md) —— 演示 B 是怎样加进来的

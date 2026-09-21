@@ -10,6 +10,8 @@ pytest-cache-files-*/
 .coverage.*
 htmlcov/
 *.egg-info/
+docs/history
+docs/resume-project.md
 
 # Environment / secrets (never commit real credentials)
 .env

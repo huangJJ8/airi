@@ -1,10 +1,8 @@
-# Contributing to AIRI
+# 参与贡献 AIRI
 
-Contributions are welcome. AIRI is a portfolio/research project, so the bar
-for merging is: **understandable, deterministic where possible, and honest
-about what is verified vs not.**
+欢迎参与贡献。AIRI 是一个作品集 / 研究型项目，因此合并的门槛是：**可理解、尽可能确定性，并且对哪些已验证、哪些未验证保持诚实。**
 
-## Setup
+## 环境搭建
 
 ```bash
 # backend (Python 3.12+, managed with uv)
@@ -15,14 +13,14 @@ cd airi-web
 npm ci
 ```
 
-## Development workflow
+## 开发流程
 
-1. Create a branch for your change.
-2. Make the change with tests.
-3. Run the full quality gate (see below) - all of it must pass.
-4. Open a pull request using the PR template.
+1. 为你的改动创建一个分支。
+2. 带着测试完成改动。
+3. 运行完整质量门禁（见下文）—— 必须全部通过。
+4. 使用 PR 模板提交拉取请求。
 
-## Backend tests
+## 后端测试
 
 ```bash
 uv run --frozen pytest
@@ -32,12 +30,9 @@ uv run --frozen ruff format --check src tests scripts examples
 uv run --frozen alembic check
 ```
 
-Integration tests (`spark_integration`, `mysql_integration`,
-`production_integration`, `identity_integration`, `telemetry_integration`)
-intentionally **skip** without real infrastructure. A skip is the correct
-outcome; never make them fake a pass.
+集成测试（`spark_integration`、`mysql_integration`、`production_integration`、`identity_integration`、`telemetry_integration`）在没有真实基础设施时会**有意跳过**。跳过才是正确结果；绝不允许让它们伪造通过。
 
-## Frontend tests
+## 前端测试
 
 ```bash
 cd airi-web
@@ -45,65 +40,51 @@ npm run build
 npm run test
 ```
 
-## Open-source safety check
+## 开源安全检查
 
-Before every commit that touches content, run:
+每次提交涉及内容的改动前，运行：
 
 ```bash
 uv run --frozen python scripts/check_open_source_safety.py
 ```
 
-Never commit real credentials, real customer data, real company names, or
-real internal hostnames/table names. Demo data must stay synthetic.
+绝不提交真实凭据、真实客户数据、真实公司名，或真实的内部主机名 / 表名。Demo 数据必须保持合成数据。
 
-## Adding a Scenario Skill
+## 新增场景技能（Scenario Skill）
 
-This is the extension path the architecture is built for. A new business
-scenario (e.g. a new risk domain) should be added as **knowledge**, not as a
-new workflow:
+这是架构所支持的扩展路径。一个新的业务场景（例如一个新的风险域）应当作为**知识**加入，而不是作为新工作流：
 
-1. Add a Scenario Skill under `src/airi/skills/` describing the domain:
-   entities, data sources, relationship semantics, business rules, known
-   pitfalls, test expectations.
-2. Reuse existing capability skills (`metric_sum`, `metric_count`,
-   `metric_window`, `metric_join`, ...) where possible.
-3. If a genuinely new *mechanism* is needed, add a **generic** capability
-   skill (like `metric_join` was for Phase 11) - never a
-   `<scenario>_sql_generator` style tool.
-4. Extend the parser catalog / demo LLM mapping so the scenario can be
-   reached from natural language, and **reject** ambiguous requirements
-   instead of guessing.
-5. Add a synthetic fixture with hand-calculated expected results.
-6. Add tests: scenario selection, planner routing, SQL shape, and the
-   hand-calculated numbers.
+1. 在 `src/airi/skills/` 下新增一个 Scenario Skill 来描述该领域：实体、数据源、关系语义、业务规则、已知陷阱、测试预期。
+2. 尽可能复用已有的能力技能（`metric_sum`、`metric_count`、`metric_window`、`metric_join`……）。
+3. 如果确实需要一种全新的*机制*，就新增一个**通用**能力技能（就像 `metric_join` 在 Phase 11 那样）—— 绝不要做 `<scenario>_sql_generator` 这类工具。
+4. 扩展解析器目录 / demo LLM 映射，使该场景可以从自然语言触达，并且对歧义需求**直接拒绝**，而不是猜测。
+5. 新增一个合成夹具（fixture），并附上手算的预期结果。
+6. 新增测试：场景选择、规划器路由、SQL 形态，以及手算的数字。
 
-See [docs/guides/adding-scenario.md](docs/guides/adding-scenario.md) for the
-full walkthrough using `enterprise_relation` as the worked example.
+完整的走查（以 `enterprise_relation` 为示例）见 [docs/guides/adding-scenario.md](docs/guides/adding-scenario.md)。
 
-**Do not** do these:
+**不要**做这些：
 
-- Copy the development/testing/experiment workflow for a new scenario.
-- Put SQL strings or JOIN paths inside the Scenario Skill.
-- Let the LLM produce final SQL directly (the Metric IR exists precisely to
-  prevent that).
-- Create scenario-specific SQL tools.
+- 为新场景复制开发 / 测试 / 实验工作流。
+- 把 SQL 字符串或 JOIN 路径放进 Scenario Skill。
+- 让 LLM 直接产出最终 SQL（Metric IR 的存在正是为了避免这一点）。
+- 创建场景专用的 SQL 工具。
 
-## Adding a Capability Skill
+## 新增能力技能（Capability Skill）
 
-Capability skills encode *execution mechanics* (how to aggregate, how to
-join, how to generate SQL), versioned independently of any scenario:
+能力技能编码的是*执行机制*（如何聚合、如何 join、如何生成 SQL），独立于任何场景进行版本化：
 
-1. Declare the skill (id, version, inputs/outputs, constraints).
-2. Implement or extend the deterministic Python tool / Jinja template.
-3. Extend the static SQL validator allowlist if new SQL shapes are introduced.
-4. Test the tool in isolation plus planner routing from at least one scenario.
+1. 声明该技能（id、version、输入 / 输出、约束）。
+2. 实现或扩展确定性 Python 工具 / Jinja 模板。
+3. 若引入了新的 SQL 形态，扩展静态 SQL 校验器白名单。
+4. 单独测试该工具，并从至少一个场景测试规划器路由。
 
-## Pull request checklist
+## 拉取请求检查清单
 
-- [ ] `pytest` passes (no baseline test removed)
-- [ ] `ruff check` and `ruff format --check` pass
-- [ ] `airi-web`: `npm run build` and `npm run test` pass
-- [ ] No sensitive data (run the safety scanner)
-- [ ] Scenario vs Capability boundary preserved (no domain knowledge in tools, no SQL mechanics in scenario skills)
-- [ ] No direct LLM-to-SQL path introduced
-- [ ] Anything not actually verified is labeled SKIPPED / NOT VERIFIED, not silently green
+- [ ] `pytest` 通过（没有删除基线测试）
+- [ ] `ruff check` 与 `ruff format --check` 通过
+- [ ] `airi-web`：`npm run build` 与 `npm run test` 通过
+- [ ] 无敏感数据（运行安全扫描器）
+- [ ] 保持 Scenario 与 Capability 的边界（工具里没有领域知识，场景技能里没有 SQL 机制）
+- [ ] 未引入 LLM 直连 SQL 的路径
+- [ ] 任何实际未验证的内容都标注为 SKIPPED / NOT VERIFIED，而不是悄悄变绿

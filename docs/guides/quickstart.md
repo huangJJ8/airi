@@ -1,28 +1,28 @@
-# Quickstart
+# 快速开始
 
-Run the full AIRI demo locally in one command. **No Spark, no MySQL, no LLM API
-key, no internal network.** The default mode is SQLite + a deterministic demo
-LLM substitute + bundled synthetic data, entirely offline.
+在本地一条命令运行完整的 AIRI 演示。**无需 Spark、无需 MySQL、无需 LLM API
+密钥、无需内网。** 默认模式为 SQLite + 确定性的演示 LLM 替身 + 随仓库附带的合成
+数据，完全离线。
 
 ---
 
-## Prerequisites
+## 前置条件
 
-| Tool | Requirement | Verified on |
+| 工具 | 要求 | 验证版本 |
 | --- | --- | --- |
-| Python | `>=3.12` (from `pyproject.toml`) | 3.13.12 |
-| [uv](https://docs.astral.sh/uv/) | any recent version | 0.9.x |
-| Node.js | `>=20.19` (Vite 8 requirement) | 22.22.2 |
-| npm | ships with Node | 10.x |
+| Python | `>=3.12`（取自 `pyproject.toml`） | 3.13.12 |
+| [uv](https://docs.astral.sh/uv/) | 任意较新版本 | 0.9.x |
+| Node.js | `>=20.19`（Vite 8 的要求） | 22.22.2 |
+| npm | 随 Node 一起提供 | 10.x |
 
-Install missing tools from their official sites. The demo scripts never install
-Python or Node for you, and never require administrator privileges.
+缺少的工具请从各自官网安装。演示脚本不会替你安装 Python 或 Node，也从不要求
+管理员权限。
 
 ---
 
-## One-command demo
+## 一条命令运行演示
 
-### Windows (primary, verified)
+### Windows（主要平台，已验证）
 
 ```powershell
 git clone https://github.com/huangJJ8/airi.git
@@ -31,17 +31,17 @@ cd airi
 .\scripts\start-demo.ps1
 ```
 
-The script:
+该脚本会：
 
-1. checks that `uv`, `node`, and `npm` are on `PATH`, and that ports 8000/5173 are free
-2. syncs backend dependencies (`uv sync --frozen --extra dev`)
-3. runs migrations against a local SQLite demo database
-4. seeds synthetic demo data through the real governed API chain
-5. installs frontend dependencies on first run (`npm ci`)
-6. starts backend + frontend and health-checks both
-7. prints the URLs and writes PIDs to `.demo/demo-processes.json`
+1. 检查 `uv`、`node`、`npm` 是否在 `PATH` 上，以及端口 8000/5173 是否空闲
+2. 同步后端依赖（`uv sync --frozen --extra dev`）
+3. 对本地 SQLite 演示数据库执行迁移
+4. 通过真实的受治理 API 链播种合成演示数据
+5. 首次运行时安装前端依赖（`npm ci`）
+6. 启动后端 + 前端并对二者做健康检查
+7. 打印 URL，并把 PID 写入 `.demo/demo-processes.json`
 
-When it finishes you should see:
+运行结束时应当看到：
 
 ```text
 == AIRI local demo is running ==
@@ -50,13 +50,13 @@ When it finishes you should see:
    Stop with  : .\scripts\stop-demo.ps1
 ```
 
-Stop everything with:
+停止全部：
 
 ```powershell
 .\scripts\stop-demo.ps1
 ```
 
-### macOS / Linux (best-effort, not runtime-verified in this repo)
+### macOS / Linux（尽力而为，本仓库未做运行时验证）
 
 ```bash
 git clone https://github.com/huangJJ8/airi.git
@@ -66,14 +66,14 @@ cd airi
 ./scripts/stop-demo.sh
 ```
 
-> The shell scripts mirror the PowerShell flow, but the maintainers' verified
-> environment is Windows. Treat the `.sh` variants as best-effort.
+> shell 脚本与 PowerShell 流程一致，但维护者验证过的环境是 Windows。请把 `.sh`
+> 变体视为尽力而为。
 
 ---
 
-## Manual setup
+## 手动搭建
 
-If you prefer to run the steps yourself:
+如果希望自己执行这些步骤：
 
 ```bash
 # 1. backend
@@ -92,33 +92,31 @@ npm ci
 npm run dev
 ```
 
-> `mkdir -p .demo` is the POSIX spelling; on Windows PowerShell use `mkdir .demo`.
-> SQLite will not create its database file inside a directory that does not
-> exist, so this step is required in a fresh clone — `scripts/start-demo.*` does
-> it for you automatically.
+> `mkdir -p .demo` 是 POSIX 写法；在 Windows PowerShell 上请用 `mkdir .demo`。
+> SQLite 不会在一个并不存在的目录里创建数据库文件，因此在全新克隆的仓库里这一步
+> 是必需的 —— `scripts/start-demo.*` 会自动替你完成。
 
-Open <http://localhost:5173>.
+打开 <http://localhost:5173>。
 
 ---
 
-## What to click
+## 点击哪里
 
-Both demo scenarios run through the **same** pages — `/development` →
-`/testing` → `/experiments`.
+两个演示场景都走**同一组**页面 —— `/development` → `/testing` → `/experiments`。
 
-| Scenario | Requirement | Capabilities |
+| 场景 | 需求 | 能力 |
 | --- | --- | --- |
-| **Invoice Risk** | 统计企业近30天开票金额 | `metric_sum`, `metric_window` |
-| **Enterprise Relation** | 统计企业关联自然人控制的其他企业数量 | `metric_join`, `metric_count` |
+| **发票风险** | 统计企业近30天开票金额 | `metric_sum`, `metric_window` |
+| **企业关联** | 统计企业关联自然人控制的其他企业数量 | `metric_join`, `metric_count` |
 
-On `/development`, use the **Demo Examples** dropdown to fill the requirement,
-then Generate → Submit → Approve → continue to Testing → Experiment.
+在 `/development` 页面上用 **Demo Examples** 下拉菜单填入需求，然后依次
+Generate → Submit → Approve，继续到 Testing → Experiment。
 
-See the [Demo Guide](demo.md) for the full walkthrough.
+完整走查见[演示指南](demo.md)。
 
 ---
 
-## Verifying the install
+## 验证安装
 
 ```bash
 # backend
@@ -132,47 +130,45 @@ cd airi-web && npm run build && npm run test            # 28 passed
 
 ---
 
-## Configuration
+## 配置
 
-All settings are environment variables with the `AIRI_` prefix (see `.env.example`
-and `airi-web/.env.example`). A few that matter for the demo:
+所有设置都是带 `AIRI_` 前缀的环境变量（见 `.env.example` 和
+`airi-web/.env.example`）。与演示相关的几个：
 
-| Variable | Demo value | Meaning |
+| 变量 | 演示取值 | 含义 |
 | --- | --- | --- |
-| `AIRI_DATABASE_URL` | `sqlite+pysqlite:///.demo/airi_web_demo.db` | local demo database |
-| `AIRI_LLM_MODE` | `demo_mock` | deterministic LLM substitute, no network |
-| `AIRI_EXECUTION_MODE` | `mock` | mock execution over synthetic fixtures |
-| `AIRI_DEMO_FIXTURES` | `true` | load bundled synthetic datasets |
-| `AIRI_CORS_ORIGINS` | `["http://localhost:5173"]` | allow the dev server origin |
+| `AIRI_DATABASE_URL` | `sqlite+pysqlite:///.demo/airi_web_demo.db` | 本地演示数据库 |
+| `AIRI_LLM_MODE` | `demo_mock` | 确定性的 LLM 替身，不联网 |
+| `AIRI_EXECUTION_MODE` | `mock` | 在合成夹具（fixture）上做 mock 执行 |
+| `AIRI_DEMO_FIXTURES` | `true` | 加载随仓库附带的合成数据集 |
+| `AIRI_CORS_ORIGINS` | `["http://localhost:5173"]` | 允许开发服务器来源 |
 
-An `.env` file is optional: process environment variables take precedence, and
-`start-demo` sets everything it needs explicitly so the demo stays reproducible
-even if your `.env` points at MySQL or a real LLM.
+`.env` 文件是可选的：进程环境变量优先，并且 `start-demo` 会显式设置自己需要的
+一切，所以即使你的 `.env` 指向 MySQL 或真实 LLM，演示依然可复现。
 
-`AIRI_LLM_MODE=demo_mock` is a **deliberate substitute**, not a silent fallback.
-If you configure a real LLM and it returns something the strict schema rejects,
-AIRI raises an error — it never quietly degrades to the mock.
+`AIRI_LLM_MODE=demo_mock` 是**有意的替身**，不是静默回退。如果你配置了真实 LLM，
+而它返回了严格 schema 会拒绝的内容，AIRI 会报错 —— 绝不会悄悄降级到 mock。
 
 ---
 
-## Troubleshooting
+## 故障排查
 
-| Symptom | Cause / fix |
+| 现象 | 原因 / 处理 |
 | --- | --- |
-| `[ERROR] 'uv' not found on PATH` | install uv, reopen the terminal |
-| `[ERROR] Port 8000 is already in use` | run `.\scripts\stop-demo.ps1`, or free the port |
-| Backend unhealthy after 60s | read `.demo/backend.log` |
-| Frontend unhealthy after 60s | read `.demo/frontend.log` |
-| Demo data looks stale | re-run `.\scripts\start-demo.ps1`; seeding rebuilds the demo DB |
-| `alembic` tries to reach MySQL | set `AIRI_DATABASE_URL` to the SQLite URL above |
+| `[ERROR] 'uv' not found on PATH` | 安装 uv，重新打开终端 |
+| `[ERROR] Port 8000 is already in use` | 运行 `.\scripts\stop-demo.ps1`，或释放该端口 |
+| 后端在 60 秒后不健康 | 查看 `.demo/backend.log` |
+| 前端在 60 秒后不健康 | 查看 `.demo/frontend.log` |
+| 演示数据看起来是旧的 | 重新运行 `.\scripts\start-demo.ps1`；播种会重建演示数据库 |
+| `alembic` 试图连 MySQL | 把 `AIRI_DATABASE_URL` 设为上面的 SQLite URL |
 
-The demo database lives at `.demo/airi_web_demo.db` and is git-ignored. Deleting
-it is safe — the next `start-demo` recreates and reseeds it.
+演示数据库位于 `.demo/airi_web_demo.db`，已被 git 忽略。删除它是安全的 —— 下一次
+`start-demo` 会重建并重新播种它。
 
 ---
 
-## Next
+## 下一步
 
-- [Demo Guide](demo.md) — what each scenario demonstrates
-- [Adding a Scenario](adding-scenario.md) — extend AIRI without forking it
-- [API Guide](api.md) — domain endpoints
+- [演示指南](demo.md) —— 每个场景演示了什么
+- [新增场景](adding-scenario.md) —— 在不 fork AIRI 的前提下扩展它
+- [API 指南](api.md) —— 领域端点

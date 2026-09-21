@@ -1,41 +1,30 @@
-# AIRI — Portfolio Pitch
+# AIRI —— 作品集介绍
 
-Three versions. Use whichever fits the room. All three say the same thing at
-different resolution.
-
----
-
-## 30 seconds
-
-> **The problem:** LLMs can write SQL, but a generated query is hard to trust,
-> hard to review, and hard to govern — it has no spec to check against and it
-> changes silently when the prompt changes.
->
-> **What I built:** AIRI takes a natural-language risk requirement and compiles
-> it into a strict structured metric IR, then uses deterministic Python tools —
-> not the model — to generate the SQL. That SQL gets statically validated,
-> automatically tested, run through a statistical experiment, and then handed to
-> a human for approval at every gate.
->
-> The model does requirement understanding and evidence interpretation. It never
-> produces the artifact that ships. `LLMs reason. Python verifies. Humans govern.`
-
-**Say the last line out loud.** It is the whole project in seven words.
+三个版本。看场合挑一个用。三个说的都是同一件事，只是分辨率不同。
 
 ---
 
-## 3 minutes
+## 30 秒
 
-### 1. Business problem (20s)
+> **问题：** LLM 能写 SQL，但生成出来的查询很难让人信任、很难评审、也很难治理——它没有规格可以对照检查，而且提示词一改，它就悄悄跟着变。
+>
+> **我做的东西：** AIRI 把一条自然语言写的风险需求编译成严格的结构化指标 IR，然后用确定性的 Python 工具——而不是模型——来生成 SQL。这条 SQL 会经过静态校验、自动化测试、跑一轮统计实验，最后在每一道关卡上交给人工审批。
+>
+> 模型负责理解需求、解读证据。它从不生产最终发出去的那个产物。`LLMs reason. Python verifies. Humans govern.`（模型负责推理，Python 负责验证，人负责治理。）
 
-Risk teams need new indicators constantly. Today that is an analyst writing SQL
-by hand — slow, inconsistent, and impossible to audit later. The obvious move is
-"point an LLM at it." The problem is that raw generated SQL is not reviewable,
-not reproducible, and not something you can safely promote into production.
+**最后一句要念出声。** 七个词，整个项目都在里面了。
 
-### 2. Architecture (25s)
+---
 
-AIRI inserts a **reviewable boundary** between the model and the database:
+## 3 分钟
+
+### 1. 业务问题（20 秒）
+
+风险团队需要不断加新指标。今天这件事就是一个分析师手写 SQL——慢、不一致，而且事后根本没法审计。显而易见的做法是「把 LLM 接上去试试」。问题是：原始的生成 SQL 不可评审、不可复现，也没法安全地晋级到生产环境。
+
+### 2. 架构（25 秒）
+
+AIRI 在模型和数据库之间插进了一条**可评审的边界**：
 
 ```text
 Natural Language
@@ -50,128 +39,79 @@ Natural Language
   → Registry + Governance   immutable versions, human approval gates
 ```
 
-### 3. Core workflow, and why Metric IR (35s)
+### 3. 核心工作流，以及为什么要用指标 IR（35 秒）
 
-You describe an indicator. The requirement parser returns a `MetricIR` — source
-tables, time window, filters, aggregation, grouping, label definition,
-evaluation spec. That object must satisfy a strict schema. If the model's output
-does not parse, the run **fails loudly**; it does not silently repair, and it
-does not fall back to a canned answer.
+你描述一个指标。需求解析器返回一个 `MetricIR`——源表、时间窗口、过滤条件、聚合方式、分组、标签定义、评估规格。这个对象必须满足严格的 schema。如果模型的输出解析不了，这次运行就**大声失败**；它不会悄悄修一下，也不会退回到一个预先备好的答案。
 
-The IR is the thing a human can actually review. You cannot review SQL against
-business intent, but you can review a structured metric definition.
+IR 才是人真正能评审的东西。你没法拿 SQL 去对着业务意图做评审，但你可以评审一份结构化的指标定义。
 
-### 4. Why not direct text-to-SQL (30s)
+### 4. 为什么不直接做 text-to-SQL（30 秒）
 
-Three reasons, all practical:
+三个理由，都是实操层面的：
 
-1. **Reviewability.** No spec → no review. The IR is the reviewable object.
-2. **Determinism.** The SQL is emitted by a fixed template from validated
-   values. Same IR in, same SQL out — and the artifact is hashed, so the human
-   approves the exact bytes that run.
-3. **Testability.** Because the IR is structured, the platform knows what to
-   test: schema conformance, null handling, duplicates, window boundary, join
-   correctness, distinct semantics, self-exclusion, reconciliation.
+1. **可评审性。** 没有规格就没有评审。IR 才是那个可评审的对象。
+2. **确定性。** SQL 由固定模板从已校验的值里生成。同一个 IR 进，同一个 SQL 出——而且产物带哈希，所以人审批的就是真正跑起来的那几个字节。
+3. **可测试性。** 因为 IR 是结构化的，平台知道该测什么：schema 一致性、空值处理、重复、窗口边界、join 正确性、distinct 语义、自排除、对账。
 
-### 5. Experiment and Reflection (25s)
+### 5. 实验与反思（25 秒）
 
-Once a metric exists, Python computes the evidence: coverage, bad rate, decile
-bins, KS with direction, IV, lift, threshold candidates, PSI against a frozen
-reference. The LLM then gets those numbers and produces **hypotheses** — in a
-separate table, never overwriting the computed facts. A reflection does not
-change anything by itself. It becomes a bounded refinement proposal that a human
-accepts or rejects.
+指标一旦存在，Python 就把证据算出来：coverage、bad rate、decile bins、带方向的 KS、IV、lift、threshold candidates，以及对着冻结参照算出来的 PSI。然后把这些数字交给 LLM，由它产出**假设**——存在单独的表里，绝不覆盖算出来的事实。反思本身不会改变任何东西。它会变成一个受约束的精炼提案，由人来接受或拒绝。
 
-### 6. Multi-scenario (15s)
+### 6. 多场景（15 秒）
 
-The strongest evidence that this is not a single-demo hack: a second scenario,
-`enterprise_relation`, needed a two-hop join — enterprise → person → enterprise,
-with `COUNT DISTINCT` and self-loop exclusion. It reused the same workflow end to
-end. To support it I promoted join handling into a **general capability**
-(`metric_join@1.0.0`) rather than writing a scenario-specific tool.
-`New Scenario ≠ New Workflow.`
+「这不是只有单个 demo 的临时做法」的最强证据：第二个场景 `enterprise_relation` 需要一个两跳 join——enterprise → person → enterprise，还带着 `COUNT DISTINCT` 和自环排除。它从头到尾复用了同一套工作流。为了支持它，我把 join 处理晋级成了一个**通用能力**（`metric_join@1.0.0`），而不是写一个场景专用的工具。`New Scenario ≠ New Workflow.`
 
-### 7. Web demo (10s)
+### 7. Web 演示（10 秒）
 
-A Vue 3 UI drives the whole chain: dashboard, development, testing, experiment,
-reflection, registry. Every KS / IV / lift number and every version state comes
-from the backend API — the frontend does zero business computation.
+一个 Vue 3 的 UI 驱动整条链路：dashboard、development、testing、experiment、reflection、registry。每一个 KS / IV / lift 数字、每一个版本状态，都来自后端 API——前端不做任何业务计算。
 
 ---
 
-## 10 minutes
+## 10 分钟
 
-Same as the 3-minute version, but with **architecture evolution** instead of a
-straight feature list. Do **not** walk through phases one by one — tell it as
-five capability stages, each one earning the next.
+跟 3 分钟版一样，但用**架构演进**来串，而不是平铺功能清单。**不要**逐个阶段地念——把它讲成五个能力阶段，每个阶段都为下一个阶段铺路。
 
-### Stage 1 — Metric compiler
+### 阶段 1 —— 指标编译器
 
-*Established:* a requirement compiles into IR, IR compiles into SQL, SQL is
-validated and executed read-only.
+*确立了：* 需求编译成 IR，IR 编译成 SQL，SQL 经过校验并以只读方式执行。
 
-*Why it came first:* until the artifact is deterministic, nothing downstream can
-be trusted. Testing a non-deterministic artifact is meaningless.
+*为什么排第一：* 在产物具备确定性之前，下游的一切都不可信。测试一个不确定的产物是没有意义的。
 
-*What it bought:* a stable unit of review, and the ability to talk about "the
-metric" as an object rather than a pile of SQL.
+*换来了什么：* 一个稳定的评审单元，以及能把「这个指标」当作一个对象来谈，而不是一堆 SQL。
 
-### Stage 2 — Experiment platform
+### 阶段 2 —— 实验平台
 
-*Established:* datasets, labels, evaluation windows, and a statistics engine —
-coverage, decile bins, KS with direction, IV, lift, threshold candidates.
+*确立了：* 数据集、标签、评估窗口，以及一个统计引擎——coverage、decile bins、带方向的 KS、IV、lift、threshold candidates。
 
-*Why second:* a metric that runs is not a metric that is *good*. Once the SQL is
-deterministic, you can attach evidence to it.
+*为什么排第二：* 一个能跑的指标不等于一个*好*指标。SQL 一旦确定下来，你就可以往它身上挂证据了。
 
-*Design decision worth calling out:* comparability is enforced. Two runs are only
-compared when dataset, label definition, evaluation window and snapshot line up —
-otherwise the platform refuses the comparison instead of producing a misleading
-number.
+*值得单独点出来的设计决定：* 可比性是被强制执行的。只有数据集、标签定义、评估窗口和快照都对得上，两次运行才会被拿来比较——否则平台会拒绝这次比较，而不是产出一个误导性的数字。
 
-### Stage 3 — Reflection and refinement
+### 阶段 3 —— 反思与精炼
 
-*Established:* the LLM reads computed evidence and emits hypotheses; hypotheses
-become bounded proposals; a human decides.
+*确立了：* LLM 读取算好的证据并产出假设；假设变成受约束的提案；由人拍板。
 
-*Why here:* this is where most "agentic" systems go wrong — they let the model's
-interpretation silently become the new configuration. AIRI keeps the two in
-different storage with different types, so "the model thinks this is weak
-separation" can never be mistaken for "separation is weak."
+*为什么排这里：* 大多数「agentic」系统就是在这里走偏的——它们让模型的解读悄悄变成了新配置。AIRI 把这两者放进不同的存储、不同的类型，所以「模型觉得这个区分度弱」永远不会被误当成「区分度就是弱」。
 
-### Stage 4 — Governance and registry
+### 阶段 4 —— 治理与注册表
 
-*Established:* immutable metric versions, audit events, promotion/release/
-deployment review gates, rollback, temporal (PSI / OOT) validation, and
-production adapter boundaries that **fail closed** by default.
+*确立了：* 不可变的指标版本、审计事件、晋级/发布/部署的评审关卡、回滚、时序（PSI / OOT）校验，以及默认就**失败关闭（fail closed）**的生产适配器边界。
 
-*Why last among the backend stages:* governance is only meaningful once there is
-something worth governing, and once the evidence chain exists to justify a
-decision.
+*为什么排在 backend 各阶段的最后：* 只有先有了值得治理的东西、并且有了支撑决策的证据链，治理才有意义。
 
-### Stage 5 — Web UI and multi-scenario
+### 阶段 5 —— Web UI 与多场景
 
-*Established:* a Vue 3 product UI over the same API, and a second scenario that
-proves the pipeline generalizes.
+*确立了：* 架在同一套 API 之上的 Vue 3 产品界面，以及一个证明这条链路可以泛化的第二个场景。
 
-*Why it is the closer:* it is the demo, and it is the falsifiable claim. Two
-scenarios, one workflow, no forked orchestration — and a general `metric_join`
-capability instead of a special case.
+*为什么把它放在最后收尾：* 它是演示，也是那个可以被证伪的说法。两个场景、一套工作流、没有分叉的编排——有的只是一个通用的 `metric_join` 能力，而不是一个特例。
 
-### Then close with the honest part (60–90s)
+### 然后用诚实的那部分收尾（60–90 秒）
 
-*"Here is what I did not verify, and why that matters."*
+*「下面是我没有验证的东西，以及为什么这很重要。」*
 
-- All bundled data is synthetic. The statistics demonstrate the pipeline, not
-  predictive power.
-- The Spark/Hive and production adapters are written and boundary-tested, but
-  never run against a real cluster — there was none available. They are marked
-  unverified and they default to inert.
-- Docker configuration is provided and reviewed but **NOT VERIFIED** — Docker
-  was not available in the development environment.
-- The integration suites for Spark, MySQL, production identity and telemetry
-  are **skipped**, not mocked into green.
+- 仓库里自带的数据全部是合成的。这些统计量证明的是这条链路能跑，而不是预测能力。
+- Spark/Hive 和生产适配器已经写好了、也做过边界测试，但从没对着真实集群跑过——因为当时没有可用的集群。它们被标记为未验证（unverified），并且默认处于惰性状态。
+- Docker 配置提供了、也评审过了，但是**未验证（NOT VERIFIED）**——开发环境里没有 Docker。
+- Spark、MySQL、生产身份与遥测相关的集成测试套件是**跳过（skipped）**的，而不是被 mock 成绿色。
 
-> An interviewer has heard "it works" a hundred times. Being precise about the
-> boundary of what you verified — and having that precision wired into the CI
-> and the wording — is the thing that reads as senior.
+> 面试官听过一百遍「它能跑」。把「你验证过的边界在哪」讲准确——并且让这份准确同时长在 CI 和措辞里——这才是让人觉得你像个资深工程师的地方。

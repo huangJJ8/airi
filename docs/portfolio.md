@@ -1,168 +1,134 @@
-# Portfolio Notes
+# 作品集说明
 
-Interview preparation material for AIRI. Not part of the product README — this
-is the "why" behind the design, in the form it usually gets asked.
+AIRI 的面试准备材料。它不属于产品 README——这里讲的是设计背后的"为什么"，
+以它通常被问到的形式组织。
 
 ---
 
-## 30-second pitch
+## 30 秒自我介绍
 
-> AIRI is an AI-assisted risk metric research and development platform. Instead
-> of asking an LLM to generate SQL directly, it converts natural-language
-> requirements into a structured **Metric IR**, uses versioned **Skills** and
-> deterministic Python tools to generate SQL, then automatically tests and
-> evaluates the metric. The LLM is used for understanding intent and for
-> generating *hypotheses* — never for producing the artefact that gets deployed.
+> AIRI 是一个 AI 辅助的风控指标研发平台。它不让 LLM 直接生成 SQL，而是把自然语言需求
+> 转换为结构化的**指标 IR（Metric IR）**，用带版本的**技能（Skill）**和确定性 Python 工具
+> 生成 SQL，再对指标做自动化测试与评估。LLM 被用于理解意图、以及生成*假设*
+> ——但从不用于产出将要部署的产物。
 >
-> The architecture is one sentence: **LLMs reason, Python verifies, humans
-> govern.** The proof it generalises is that two structurally unrelated
-> scenarios — windowed invoice amounts and a two-hop enterprise relationship
-> count — run through the exact same pipeline.
+> 整个架构一句话：**模型负责推理，Python 负责验证，人负责治理。** 它可推广的证据是：
+> 两个结构上毫不相关的场景——按窗口统计的开票金额，和一个两跳的企业关联数量
+> ——走的是完全同一条流水线。
 
 ---
 
-## Architecture highlights
+## 架构要点
 
-1. **Metric IR as the central contract.** Every stage reads and writes a strict
-   Pydantic schema instead of parsing prose. `schema_version 1.0.0`; Phase 11
-   added optional `joins` / `column_filters` with no version bump and no
-   migration, because joins live inside the existing JSON document column.
+1. **指标 IR 是中心契约。** 每个阶段读写的都是严格的 Pydantic schema，而不是解析散文。
+   `schema_version 1.0.0`；Phase 11 增加了可选的 `joins` / `column_filters`，没有升版本、
+   没有迁移，因为 join 就存在已有的 JSON 文档列里。
 
-2. **Scenario Skill × Capability Skill.** Business semantics and execution
-   mechanics are separate registries. `metric_join` composes two structured
-   sources through constrained equality joins and knows nothing about
-   enterprises. The `enterprise → person → enterprise` path is scenario
-   knowledge. Adding scenario B required **zero new workflow**.
+2. **场景技能 × 能力技能。** 业务语义与执行机制是两个分开的注册表。`metric_join`
+   通过受限的等值 join 组合两个结构化数据源，对企业一无所知。
+   `enterprise → person → enterprise` 这条路径属于场景知识。新增场景 B 需要
+   **零条新工作流**。
 
-3. **Deterministic SQL generation.** The emitted query is a pure function of the
-   IR (controlled Jinja templates), validated by an allow-list grammar
-   (`INNER`/`LEFT` join only, no UNION, no arbitrary CTE, no UDF, no DDL/DML,
-   no comments) before an approval can even be requested.
+3. **确定性 SQL 生成。** 产出的查询是指标 IR 的纯函数（受控 Jinja 模板），并且要经过
+   白名单语法校验（只允许 `INNER`/`LEFT` join，禁止 UNION、禁止任意 CTE、禁止 UDF、
+   禁止 DDL/DML、禁止注释），之后才谈得上发起审批。
 
-4. **Content-addressed approval.** An approval names the content hashes it
-   approves. Approved artefacts are immutable; a change means a new version.
-   The canonical hash covers `joins`, so a different relationship path cannot
-   hash-collide with an existing metric.
+4. **内容寻址的审批。** 一次审批会指名它所批准的内容哈希。已批准的产物不可变；
+   要改就是新版本。规范化哈希覆盖 `joins`，所以换一条关联路径不可能与已有指标哈希碰撞。
 
-5. **Facts and hypotheses are different artefact types.** Statistics are
-   recomputable by Python. Reflection is stored separately, may cite numbers,
-   and cannot overwrite them.
+5. **事实与假设是两类不同的产物。** 统计可由 Python 重算。反思单独存储，它可以引用数字，
+   但不能覆写数字。
 
-6. **Honest failure over silent degradation.** `demo_mock` is an explicit
-   configured mode, not a fallback. If a real provider returns anything the
-   schema rejects, the run fails. The same discipline runs through the whole
-   project: `config ≠ verified`, `deploy success ≠ runtime verified`,
-   `detected drift ≠ fixed`.
+6. **宁可诚实失败，不要静默降级。** `demo_mock` 是一个显式配置的模式，不是回退。
+   如果真实提供方返回了 schema 拒绝的内容，运行就失败。同样的纪律贯穿整个项目：
+   `config ≠ verified`、`deploy success ≠ runtime verified`、`detected drift ≠ fixed`。
 
 ---
 
-## Hardest engineering decisions
+## 最难的工程决策
 
-### Why not direct text-to-SQL?
+### 为什么不直接做 text-to-SQL？
 
-Because the artefact can't be reviewed. A generated query is hard to diff
-against intent, and it changes silently when the model or prompt changes. By
-inserting a strict IR, the SQL becomes a reviewable function of a reviewable
-input — and prompt changes cannot alter emitted SQL unless the IR changes first.
-It also makes an entire class of failure impossible: the model can't inject
-`DROP TABLE` into a template that has no vocabulary for it.
+因为那样的产物没法评审。生成的查询很难与意图做 diff，而且模型或提示词一变它就悄悄改变。
+插入一个严格的 IR 之后，SQL 就变成了一个可评审输入的可评审函数——而且除非 IR 先变，
+提示词改动无法改变产出的 SQL。它还消掉了一整类失败：模型无法把 `DROP TABLE` 注入到一个
+根本没有相应词汇的模板里。
 
-### Why Metric IR rather than a JSON blob?
+### 为什么用指标 IR 而不是一个 JSON blob？
 
-Two reasons. **Strictness** — unknown fields are rejected, so a model cannot
-smuggle extra semantics through unnoticed. **Stability** — the IR is the
-canonical hashing unit. Approval, immutability, and versioning all key off it.
+两个原因。**严格性**——未知字段会被拒绝，所以模型没法夹带额外语义而不被发现。
+**稳定性**——IR 是规范化哈希的单位。审批、不可变性、版本化全都以它为键。
 
-### Why both Skill *and* Tool?
+### 为什么要技能（Skill）*和*工具（Tool）两样？
 
-They answer different questions and change at different rates. A skill is
-*knowledge and policy* (what does this business mean, which test categories does
-it need). A tool is *mechanism* (how do I render a join into SQL). Merging them
-means every new domain forks the mechanism — which is exactly the failure Phase
-11 was designed to disprove.
+它们回答不同的问题，而且变化速度不同。技能是*知识与策略*（这项业务是什么意思、它需要
+哪几类测试）。工具是*机制*（我怎么把一个 join 渲染成 SQL）。把两者合并，意味着每个新领域
+都要分叉机制——而这正是 Phase 11 要证伪的那种失败。
 
-### Why is Reflection constrained?
+### 为什么反思要受限？
 
-Because a fluent paragraph about why a metric is good is not evidence, and if it
-lives next to the numbers it eventually displaces them. Reflection produces a
-separate artefact with a narrow proposal vocabulary (`source_field_review`,
-`business_rule_review`) and no write access to IRs, thresholds, or labels.
+因为一段关于"这个指标为什么好"的流畅文字不是证据，而如果它和数字放在一起，
+它迟早会取代数字。反思产出的是一份独立产物，只有很窄的候选词汇
+（`source_field_review`、`business_rule_review`），并且对 IR、阈值、标签都没有写权限。
 
-### How do you stop hallucinated SQL?
+### 怎么防止幻觉出来的 SQL？
 
-Four layers: a structured prompt that constrains the model to a known grammar;
-Pydantic validation that rejects anything else; SQL generated by Python from the
-IR rather than by the model; and a static validator with an allow-list before
-execution. The model is never in the path that produces executable text.
+四层：一个把模型约束到已知语法的结构化提示词；拒绝其他一切的 Pydantic 校验；
+由 Python 依据 IR 而不是由模型生成的 SQL；以及执行前带白名单的静态校验器。
+模型永远不在产生可执行文本的那条路径上。
 
-### How do you evaluate a risk metric?
+### 怎么评估一个风控指标？
 
-Coverage, bad rate, decile bins, KS (with direction), IV (with availability
-status), lift, and threshold candidates at fixed percentiles — computed
-deterministically by Python from the labelled sample. The same engine serves
-both scenarios.
+覆盖率、坏样本率、十分位分箱、KS（带方向）、IV（带可用性状态）、提升度，以及固定分位点上的
+阈值候选——全部由 Python 从带标签样本确定性计算。同一个引擎服务两个场景。
 
-### Why two scenarios at all?
+### 为什么非要两个场景？
 
-One scenario can always be special-cased. Two structurally different ones force
-the abstraction to be real: different business semantics, different data shape,
-different entity path, different mechanics (`SUM` over a window vs `COUNT
-DISTINCT` over a join) — sharing parser, IR, planner, generator, validator,
-approval, testing, experiment, and UI.
+只有一个场景时，总能给它做特例。两个结构不同的场景才能逼出真实的抽象：不同的业务语义、
+不同的数据形态、不同的实体路径、不同的机制（窗口上的 `SUM`，对比 join 上的 `COUNT DISTINCT`）
+——而共用解析器、IR、规划器、生成器、校验器、审批、测试、实验和界面。
 
-### What surprised you?
+### 有什么让你意外？
 
-That the additive change was small but *positional* — the hard part wasn't
-writing a join generator, it was deciding where the join **path** belongs
-(scenario) versus where the join **mechanism** belongs (capability). Getting
-that boundary wrong would have looked fine in a demo and failed on the third
-domain.
+这个增量改动很小，但很*位置性*——难的不是写一个 join 生成器，而是判断 join 的**路径**
+该放在哪（场景），join 的**机制**该放在哪（能力）。这条边界划错，在演示里看着没问题，
+到第三个领域就会垮。
 
 ---
 
-## Honest boundaries
+## 诚实的边界
 
-Say these plainly. They are strengths, not caveats:
+要把这些说出来。它们是长处，不是需要遮掩的瑕疵：
 
-- **Synthetic data.** All bundled demo data is generated in-repo. It
-  demonstrates the pipeline; it is not risk evidence.
-- **Not production verified.** Enterprise Spark/Hive and production adapters
-  exist in code but are not verified against a real environment here. The demo
-  runs on SQLite with mock execution.
-- **Local demo mode.** The default configuration is offline: no API key, no
-  cluster, no internal network.
-- **One identifier is intentionally opaque.** An `invoice` fixture references a
-  table name in an internal-looking schema (`c_db.*`). It is a synthetic
-  placeholder with no real data behind it, kept to avoid breaking 175 historical
-  artefacts; the relation scenario uses neutral `demo.*` names.
-- **Reflection is optional** and, in the demo walkthrough, deliberately not
-  pushed into automated refinement.
+- **合成数据。** 所有随仓库提供的演示数据都在仓库内生成。它演示的是流水线，
+  不是风控证据。
+- **未经生产验证。** 企业级 Spark/Hive 与生产适配器在代码中存在，但在本仓库中未针对真实
+  环境验证。演示跑在 SQLite 上，采用 mock 执行。
+- **本地演示模式。** 默认配置是离线的：不需要 API key，不需要集群，不需要内网。
+- **有一个标识符是刻意不透明的。** 一个 `invoice` 夹具引用了一个看起来像内部 schema 的
+  表名（`c_db.*`）。它是合成占位，背后没有任何真实数据，保留它是为了不让 175 份历史产物
+  失效；关联场景使用的是中性的 `demo.*` 命名。
+- **反思是可选的**，而且在演示走查里，刻意没有把它推进自动精炼。
 
 ---
 
-## Likely follow-up questions
+## 可能被追问的问题
 
-**"Isn't this over-engineered versus just prompting for SQL?"**
-For a throwaway analysis, yes. For a governed metric that gets versioned,
-approved, and monitored, the IR *is* the deliverable — SQL is downstream of it.
-The cost is one schema; the benefit is auditability and reproducibility.
+**"相比直接提示词让模型出 SQL，这不是过度设计吗？"**
+如果只是做一次性分析，是的。但对于一个要被版本化、审批、监控的受治理指标，IR *就是*交付物
+——SQL 是它的下游。代价是一个 schema；收益是可审计性与可复现性。
 
-**"Why not let the LLM pick the join?"**
-It can propose the shape; it cannot emit the SQL. The join path is declared by
-the scenario skill, and the tool renders it deterministically.
+**"为什么不让 LLM 自己挑 join？"**
+它可以提出形状，但不可以产出 SQL。join 路径由场景技能声明，工具确定性地把它渲染出来。
 
-**"How would you integrate Spark in an enterprise?"**
-The generator already emits Spark SQL; the execution layer swaps
-`MockQueryExecutor` for a Thrift/Spark executor gated by an environment
-acceptance step. That path exists and is tested at the boundary layer, but it is
-explicitly *not verified* in the open-source build.
+**"在企业里你会怎么接入 Spark？"**
+生成器已经产出 Spark SQL；执行层把 `MockQueryExecutor` 换成受环境验收步骤管控的
+Thrift/Spark 执行器。这条路径存在，也在边界层被测试过，但在开源构建里它被明确标注为
+*未验证*。
 
-**"How do you keep the two scenarios from bleeding into each other?"**
-Scenario isolation is a test, not a convention: an invoice requirement cannot
-select `enterprise_relation` and vice versa, and ambiguous phrases are rejected
-rather than resolved by guesswork.
+**"你怎么防止两个场景互相串味？"**
+场景隔离是一个测试，不是一条约定：一个 invoice 需求无法选中 `enterprise_relation`，
+反之亦然；含糊的说法会被拒绝，而不是靠猜去解析。
 
-**"What's the first thing you'd do next?"**
-Not add features. The v1.0 boundary is deliberate — the roadmap is bounded
-autonomous research inside a sandbox, with production-impacting decisions still
-governed.
+**"接下来第一件要做的事是什么？"**
+不是加功能。v1.0 的边界是刻意划的——路线图是沙箱内的有界自主研究，影响生产的决定仍然受治理。
