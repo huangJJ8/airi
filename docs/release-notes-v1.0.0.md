@@ -131,6 +131,11 @@ message.
 | Migrations (`alembic check`) | head `0011_operational_convergence`, no drift |
 | Open-source safety scan | clean |
 
+All of the above was also run on a real GitHub Actions runner on the tagged
+commit: workflow `CI`, run #5 — **both jobs green** (frontend install /
+type-check / build / unit tests; backend lint / format / safety scan / tests /
+coverage / migrations / drift check).
+
 The 14 skipped tests are the integration suites that require real infrastructure
 (Spark/Hive, MySQL, production identity, telemetry). They are **skipped, not
 mocked** — a green suite never implies a verified integration.
