@@ -8,18 +8,15 @@ reflection, and governed metric versions.
 
 > **LLMs reason. Python verifies. Humans govern.**
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/huangJJ8/airi/actions/workflows/ci.yml/badge.svg)](https://github.com/huangJJ8/airi/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.12%2B-blue)
 ![Vue](https://img.shields.io/badge/vue-3.5-42b883)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![Status](https://img.shields.io/badge/status-portfolio%20%2F%20research-orange)
 
-<!-- The CI badge uses a placeholder URL. Replace OWNER/REPO after pushing, or
-     delete that line. See "Repository status" near the end of this file. -->
-
 ![AIRI dashboard](docs/screenshots/hero.png)
 
-> AIRI 是一个 AI 驱动的风控指标研发平台，将自然语言指标需求转换为可验证、可实验、可审计的指标工程流程。
+> AIRI 是一个 AI 辅助的风控指标研发平台，将自然语言指标需求转换为可验证、可实验、可审计的指标工程流程。
 
 ---
 
@@ -223,7 +220,7 @@ All screenshots are captured from the running demo and keep the `LOCAL DEMO` /
 ### Windows (verified)
 
 ```powershell
-git clone <your-repo-url>
+git clone https://github.com/huangJJ8/airi.git
 cd airi
 
 .\scripts\start-demo.ps1     # migrate → seed synthetic data → start both servers
@@ -451,13 +448,14 @@ Please read [SECURITY.md](SECURITY.md) before reporting a vulnerability.
 This is a **portfolio / research implementation**. Two things to note when
 cloning it:
 
-- The local git repository is initialized and the v1.0.0 history is committed,
-  but it has **not been pushed to GitHub from this machine**, so the CI badge
-  above still uses a placeholder URL. Replace `OWNER/REPO` after pushing, or
-  remove the badge block. GitHub Actions has therefore never run on a real
-  GitHub runner.
+- The CI badge above reads the **live** status of
+  [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It reports whatever the
+  most recent run actually did — it is not a static asset, and it is not a claim
+  about production readiness.
 - Local demo mode runs with synthetic data. Enterprise adapters are optional and
   unverified.
+
+What that badge does **not** mean: see [Limitations](#limitations).
 
 ---
 

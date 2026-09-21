@@ -74,9 +74,9 @@ Three layers own three different things, and the boundary is the design:
 | **Human** | Approval, promotion, release, deployment |
 
 Full detail:
-[Architecture Overview](https://github.com/OWNER/REPO/blob/main/docs/architecture/overview.md)
+[Architecture Overview](https://github.com/huangJJ8/airi/blob/main/docs/architecture/overview.md)
 ·
-[Design Principles](https://github.com/OWNER/REPO/blob/main/docs/architecture/design-principles.md)
+[Design Principles](https://github.com/huangJJ8/airi/blob/main/docs/architecture/design-principles.md)
 
 ---
 
@@ -144,7 +144,7 @@ Requirements: Python ≥ 3.12, [uv](https://docs.astral.sh/uv/), Node.js ≥ 20.
 **Windows (verified):**
 
 ```powershell
-git clone <YOUR_REPO_URL>
+git clone https://github.com/huangJJ8/airi.git
 cd airi
 .\scripts\start-demo.ps1     # migrate → seed synthetic data → start both servers
 ```
@@ -192,10 +192,10 @@ Stated plainly, because they matter:
   table name kept to avoid invalidating historical artifacts. It is a placeholder
   with no real data behind it.
 
-See [Limitations](https://github.com/OWNER/REPO/blob/main/README.md#limitations)
-and the [Real Environment Checklist](https://github.com/OWNER/REPO/blob/main/docs/guides/real-environment-checklist.md).
+See [Limitations](https://github.com/huangJJ8/airi/blob/main/README.md#limitations)
+and the [Real Environment Checklist](https://github.com/huangJJ8/airi/blob/main/docs/guides/real-environment-checklist.md).
 
 ---
 
-**Full Changelog**: [CHANGELOG.md](https://github.com/OWNER/REPO/blob/main/CHANGELOG.md)
+**Full Changelog**: [CHANGELOG.md](https://github.com/huangJJ8/airi/blob/main/CHANGELOG.md)
 **License**: Apache-2.0
